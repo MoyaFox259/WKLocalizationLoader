@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion> 
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <AssemblyName>WKLocalizationLoader</AssemblyName>
+    <RootNamespace>WKLocalizationLoader</RootNamespace>
+    <Product>WKLocalizationLoader</Product>
+    <Version>0.3.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RestoreAdditionalProjectSources>
+      https://api.nuget.org/v3/index.json;
+      https://nuget.bepinex.dev/v3/index.json;
+    </RestoreAdditionalProjectSources>
+    <WhiteKnuckleDir Condition="'$(WhiteKnuckleDir)' == ''">
+      !![[Please edit "GAME_FOLDER" variable in "./build.py"]]!!
+    </WhiteKnuckleDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+      <Publicize>true</Publicize>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\UnityEngine.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+      <Publicize>true</Publicize>
+    </Reference>
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.5.0-beta.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.*" PrivateAssets="all" />
+    <PackageReference Include="UnityEngine.Modules" Version="2022.3.62" IncludeAssets="compile" />
+  </ItemGroup>
+
+</Project>
+
