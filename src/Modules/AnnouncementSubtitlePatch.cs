@@ -5,7 +5,10 @@ using HarmonyLib;
 
 namespace WKLocalizationLoader.Modules
 {
-    [HarmonyPatch(typeof(CL_LocalizationManager), "Awake")]
+    [HarmonyPatch(
+        typeof(CL_LocalizationManager.Localization),
+        nameof(CL_LocalizationManager.Localization.GetLine)
+    )]
     public class AnnouncementSubtitlePatch
         : ModuleBase<AnnouncementSubtitlePatch>
     {
@@ -15,27 +18,22 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static AnnouncementSubtitlePatchSettings ModuleSettings;
 
-        public static void Postfix(CL_LocalizationManager __instance)
-        {
-            if (!IsEnabled || AnnouncementSubtitles is null) return;
-            MergeSubtitles(
-                CL_LocalizationManager.currentLocalization.announcements,
-                AnnouncementSubtitles
-            );
-        }
-
-        public static void MergeSubtitles(
-            Dictionary<string, string> subtitles,
-            Dictionary<string, string> subtitlesToOverride
+        public static string Postfix(
+            string __result,
+            string group,
+            string key
         )
         {
-            foreach (var subtitle in subtitlesToOverride)
+            if (
+                !IsEnabled
+                || group != "announcements"
+                || AnnouncementSubtitles is null
+                || !AnnouncementSubtitles.ContainsKey(key)
+            )
             {
-                if (subtitles.ContainsKey(subtitle.Key))
-                {
-                    subtitles[subtitle.Key] = subtitle.Value;
-                }
+                return __result;
             }
+            return AnnouncementSubtitles[key];
         }
     }
 }

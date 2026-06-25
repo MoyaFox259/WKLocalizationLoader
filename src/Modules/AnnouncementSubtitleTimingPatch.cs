@@ -8,7 +8,10 @@ using HarmonyLib;
 namespace WKLocalizationLoader.Modules
 {
     [HarmonyPriority(Priority.Last)]
-    [HarmonyPatch(typeof(CL_LocalizationManager), "Awake")]
+    [HarmonyPatch(
+        typeof(CL_LocalizationManager.Localization),
+        nameof(CL_LocalizationManager.Localization.GetLine)
+    )]
     public class AnnouncementSubtitleTimingPatch
         : ModuleBase<AnnouncementSubtitleTimingPatch>
     {
@@ -29,46 +32,25 @@ namespace WKLocalizationLoader.Modules
             RegexOptions.IgnoreCase
         );
 
-        public static void Postfix(CL_LocalizationManager __instance)
+        public static string Postfix(
+            string __result,
+            string group,
+            string key
+        )
         {
             if (
                 !IsEnabled
-                || Harmony.HasAnyPatches("mimimi-turret.wk-sync-subtitles")
+                || group != "announcements"
+                || AnnouncementSubtitleTimings is null
+                || !AnnouncementSubtitleTimings.ContainsKey(key)
             )
             {
-                return;
+                return __result;
             }
-            ApplyTimingOverrides(
-                CL_LocalizationManager.currentLocalization.announcements
+            return RebuildSubtitleTextWithTimings(
+                __result,
+                AnnouncementSubtitleTimings[key]
             );
-        }
-
-        public static void ApplyTimingOverrides(
-            Dictionary<string, string> subtitles
-        )
-        {
-            if (AnnouncementSubtitleTimings is null) return;
-            foreach (var subtitle in subtitles)
-            {
-                var audioID = subtitle.Key;
-                var subtitleText = subtitle.Value;
-                if (
-                    !(
-                        ModuleSettings.UseOriginalDelay
-                        && DelayRegex.Match(subtitleText).Success
-                    )
-                    && AnnouncementSubtitleTimings.TryGetValue(
-                        audioID,
-                        out List<float> subtitleTimings
-                    )
-                )
-                {
-                    subtitles[audioID] = RebuildSubtitleTextWithTimings(
-                        subtitleText,
-                        subtitleTimings
-                    );
-                }
-            }
         }
 
         public static string RebuildSubtitleTextWithTimings(
