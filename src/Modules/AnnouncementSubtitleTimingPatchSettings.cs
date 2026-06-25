@@ -4,10 +4,10 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
-        "Modules.AnnouncementSubtitleTimingsPatch",
+        "Modules.AnnouncementSubtitleTimingPatch",
         "This module adjusts display timings of announcer subtitles."
     )]
-    public class AnnouncementSubtitleTimingsPatchSettings : ModuleSettingsBase
+    public class AnnouncementSubtitleTimingPatchSettings : ModuleSettingsBase
     {
         [ConfigEntry(
             "BaseDuration",

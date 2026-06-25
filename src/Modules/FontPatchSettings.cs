@@ -5,8 +5,7 @@ namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
         "Modules.FontPatch",
-        "This module replaces font of Text class instances.\n"
-        + "Note: This module requires TextPatch module to be enabled."
+        "This module replaces font of Text class instances."
     )]
     public class FontPatchSettings : ModuleSettingsBase
     {

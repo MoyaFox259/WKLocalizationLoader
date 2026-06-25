@@ -18,8 +18,24 @@ namespace WKLocalizationLoader.Modules
         public static void Postfix(CL_LocalizationManager __instance)
         {
             if (!IsEnabled || AnnouncementSubtitles is null) return;
-            CL_LocalizationManager.currentLocalization.announcements =
-                AnnouncementSubtitles;
+            MergeSubtitles(
+                CL_LocalizationManager.currentLocalization.announcements,
+                AnnouncementSubtitles
+            );
+        }
+
+        public static void MergeSubtitles(
+            Dictionary<string, string> subtitles,
+            Dictionary<string, string> subtitlesToOverride
+        )
+        {
+            foreach (var subtitle in subtitlesToOverride)
+            {
+                if (subtitles.ContainsKey(subtitle.Key))
+                {
+                    subtitles[subtitle.Key] = subtitle.Value;
+                }
+            }
         }
     }
 }

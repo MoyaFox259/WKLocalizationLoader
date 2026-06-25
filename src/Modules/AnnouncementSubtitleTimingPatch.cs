@@ -9,11 +9,11 @@ namespace WKLocalizationLoader.Modules
 {
     [HarmonyPriority(Priority.Last)]
     [HarmonyPatch(typeof(CL_LocalizationManager), "Awake")]
-    public class AnnouncementSubtitleTimingsPatch
-        : ModuleBase<AnnouncementSubtitleTimingsPatch>
+    public class AnnouncementSubtitleTimingPatch
+        : ModuleBase<AnnouncementSubtitleTimingPatch>
     {
         [JsonProperty]
-        public static AnnouncementSubtitleTimingsPatchSettings ModuleSettings;
+        public static AnnouncementSubtitleTimingPatchSettings ModuleSettings;
         [JsonProperty]
         public static Dictionary<string, List<float>>
             AnnouncementSubtitleTimings;

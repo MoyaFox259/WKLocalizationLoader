@@ -31,7 +31,7 @@ namespace WKLocalizationLoader
                 DefaultValueHandling = DefaultValueHandling.Populate
             };
             _conflictedModsInfo.Add(
-                typeof(AnnouncementSubtitleTimingsPatch),
+                typeof(AnnouncementSubtitleTimingPatch),
                 "mimimi-turret.wk-sync-subtitles"
             );
             if (plugin is null) return;
@@ -47,7 +47,7 @@ namespace WKLocalizationLoader
             LoadModule<AnnouncementSubtitlePatch>(
                 "AnnouncementSubtitles.json"
             );
-            LoadModule<AnnouncementSubtitleTimingsPatch>(
+            LoadModule<AnnouncementSubtitleTimingPatch>(
                 "AnnouncementSubtitleTimings.json"
             );
             LoadModule<FontPatch>("Fonts.json");

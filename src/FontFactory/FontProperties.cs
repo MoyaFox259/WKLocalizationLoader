@@ -13,7 +13,6 @@ namespace WKLocalizationLoader.FontFactory
         [DefaultValue("")]
         public string FontName;
 
-        [DefaultValue(-1)]
         public int PointSize;
 
         [DefaultValue(0f)]
