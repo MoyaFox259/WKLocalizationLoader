@@ -52,6 +52,7 @@ namespace WKLocalizationLoader
             );
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
+            LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
             LoadModule<TextPatch>("Texts.json");
             LoadModule<TMPPatch>("TMPTexts.json");
             LoadModule<TMPUIPatch>("TMPUITexts.json");

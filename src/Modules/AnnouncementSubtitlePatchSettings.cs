@@ -5,7 +5,7 @@ namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
         "Modules.AnnouncementSubtitlePatch",
-        "This module replaces subtitle texts."
+        "This module replaces announcer subtitle texts."
     )]
     public class AnnouncementSubtitlePatchSettings : ModuleSettingsBase
     {

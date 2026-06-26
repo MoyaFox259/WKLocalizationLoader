@@ -17,6 +17,7 @@ The table below summarizes all available modules:
 | `AnnouncementSubtitleTimings.json` | AnnouncementSubtitleTimingPatch | Adjusts display timings of announcer subtitles. |
 | `Fonts.json` | FontPatch | Loads `.ttf` fonts from `Fonts\` folder and replaces font of `Text` class instances. |
 | `FontAssets.json` | FontAssetPatch | Loads `.ttf` fonts from `Fonts\` folder and adds them as fallback fonts to `TMPro.TMP_FontAsset` class instances. |
+| `MotherSubtitles.json` | MotherSubtitlePatch | Replaces Mother subtitle texts. |
 | `Texts.json` | TextPatch | Replaces text content of `UnityEngine.UI.Text` class instances. |
 | `TMPTexts.json` | TMPPatch | Replaces text content of `TMPro.TextMeshPro` class instances. |
 | `TMPUITexts.json` | TMPUIPatch | Replaces text content of `TMPro.TextMeshProUGUI` class instances. |
@@ -62,13 +63,12 @@ A basic Language Folder layout should be as follows:
 ```
 YourLanguageFolder\
 ├── .wklocalization
-├── AnnouncementSubtitles.json
-├── AnnouncementSubtitleTimings.json
 ├── Fonts.json
 ├── FontAssets.json
 ├── Texts.json
 ├── TMPTexts.json
 ├── TMPUITexts.json
+├── ... (all other JSONs)
 ├── Fonts\
 │   ├── FontA.ttf
 │   └── FontB.ttf
@@ -102,13 +102,12 @@ YourModPackage\
 ├── README.md
 └── BepInEx\plugins\ (or plugins\)
     ├── .wklocalization
-    ├── AnnouncementSubtitles.json
-    ├── AnnouncementSubtitleTimings.json
     ├── Fonts.json
     ├── FontAssets.json
     ├── Texts.json
     ├── TMPTexts.json
     ├── TMPUITexts.json
+    ├── ... (all other JSONs)
     ├── Fonts\
     │   ├── FontA.ttf
     │   └── FontB.ttf
@@ -243,6 +242,19 @@ YourModPackage\
         ]
     },
     "CharactersToRender": "一二三四五六七八九十百千万亿你我他她它我们你们他们"
+}
+```
+
+### `MotherSubtitles.json`
+
+```json
+{
+    "RandomCharacters": "abcdefghijklmnopqrstuvwxyz"
+    "NonRandomCharacters": ",.!?' ",
+    "MotherSubtitles": {
+        "nest-hunter-intro-01": "LEAVING PROTECTION... SLIPPERY BEAST. BE ALERT",
+        "nest-hunter-intro-02": "CLIMB, LITTLE ONE.. ESCAPE.."
+    }
 }
 ```
 
