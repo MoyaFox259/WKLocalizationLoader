@@ -34,8 +34,8 @@ namespace WKLocalizationLoader
         public void AddFileMissingModule(Type moduleClass)
         {
             var message =
-                $"\"{moduleClass.Name}\" "
-                + "is missing its .json file and disabled by default.";
+                $"\"{moduleClass.Name}\" is missing its "
+                + "associated .json file and disabled by default.";
             AddModuleInfo(moduleClass, ModuleStatus.Disabled, message);
         }
 

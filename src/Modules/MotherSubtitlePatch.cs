@@ -49,19 +49,21 @@ namespace WKLocalizationLoader.Modules
             nameof(HUD_CustomElement_PsychicCommunication.PlaySubtitle)
         )]
         public static IEnumerable<CodeInstruction> Transpiler_PlaySubtitle(
-            IEnumerable<CodeInstruction> instructions
+            IEnumerable<CodeInstruction> codeInstructions
         )
         {
-            var codeMatcher = new CodeMatcher(instructions);
+            var codeMatcher = new CodeMatcher(codeInstructions);
             codeMatcher.MatchForward(
                 false,
                 new CodeMatch(
-                    i => i.opcode == OpCodes.Stfld
+                    i => (
+                        i.opcode == OpCodes.Stfld
                         && i.operand is FieldInfo f
                         && f.Name == "rand"
+                    )
                 )
             );
-            if (!codeMatcher.IsValid) return instructions;
+            if (!codeMatcher.IsValid) return codeInstructions;
             var randField = (FieldInfo)codeMatcher.Instruction.operand;
             var startStringField = randField.DeclaringType
                 .GetField("startString");
@@ -69,7 +71,7 @@ namespace WKLocalizationLoader.Modules
                 false,
                 new CodeMatch(OpCodes.Ldstr, "abcdefghijklmnopqrstuvwxyz")
             );
-            if (!codeMatcher.IsValid) return instructions;
+            if (!codeMatcher.IsValid) return codeInstructions;
             var getRandomCharacters =
                 typeof(MotherSubtitlePatch).GetMethod("GetRandomCharacters");
             codeMatcher.RemoveInstruction();

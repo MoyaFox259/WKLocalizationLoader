@@ -50,9 +50,16 @@ namespace WKLocalizationLoader
             LoadModule<AnnouncementSubtitleTimingPatch>(
                 "AnnouncementSubtitleTimings.json"
             );
+            LoadModule<DeathMessagePatch>("DeathMessages.json");
+            LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
+            LoadModule<RecordingSubtitlePatch>("RecordingSubtitles.json");
+            LoadModule<RecordingSubtitleTimingPatch>(
+                "RecordingSubtitleTimings.json"
+            );
+            LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
             LoadModule<TextPatch>("Texts.json");
             LoadModule<TMPPatch>("TMPTexts.json");
             LoadModule<TMPUIPatch>("TMPUITexts.json");
