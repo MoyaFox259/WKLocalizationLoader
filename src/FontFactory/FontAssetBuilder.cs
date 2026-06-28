@@ -25,6 +25,9 @@ namespace WKLocalizationLoader.FontFactory
                 fileName,
                 fontName,
                 fontVersion,
+                scale,
+                ascentLineOffset,
+                descentLineOffset,
                 pointSize,
                 atlasWidth,
                 atlasHeight,
@@ -42,6 +45,9 @@ namespace WKLocalizationLoader.FontFactory
                 fontName,
                 fontVersion,
                 characters,
+                scale,
+                ascentLineOffset,
+                descentLineOffset,
                 pointSize,
                 atlasWidth,
                 atlasHeight,
@@ -61,6 +67,9 @@ namespace WKLocalizationLoader.FontFactory
             string fontName,
             string fontVersion,
             string characters,
+            float scale,
+            float ascentLineOffset,
+            float descentLineOffset,
             int pointSize,
             int atlasWidth,
             int atlasHeight,
@@ -94,7 +103,10 @@ namespace WKLocalizationLoader.FontFactory
             }
             var fontAsset = ScriptableObject.CreateInstance<TMP_FontAsset>();
             var faceInfo = FontEngine.GetFaceInfo();
-            faceInfo.pointSize = pointSize;
+            faceInfo.scale = scale;
+            faceInfo.ascentLine += ascentLineOffset;
+            faceInfo.descentLine += descentLineOffset;
+            faceInfo.lineHeight = faceInfo.ascentLine - faceInfo.descentLine;
             fontAsset.faceInfo = faceInfo;
             fontAsset.atlasWidth = atlasWidth;
             fontAsset.atlasHeight = atlasHeight;

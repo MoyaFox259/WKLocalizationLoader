@@ -16,6 +16,15 @@ namespace WKLocalizationLoader.FontFactory
         [DefaultValue("1.1.0")]
         public string FontVersion;
 
+        [DefaultValue(1f)]
+        public float Scale;
+
+        [DefaultValue(0f)]
+        public float AscentLineOffset;
+
+        [DefaultValue(0f)]
+        public float DescentLineOffset;
+
         [DefaultValue(64)]
         public int PointSize;
 
@@ -53,6 +62,9 @@ namespace WKLocalizationLoader.FontFactory
             out string fileName,
             out string fontName,
             out string fontVersion,
+            out float scale,
+            out float ascentLineOffset,
+            out float descentLineOffset,
             out int pointSize,
             out int atlasWidth,
             out int atlasHeight,
@@ -68,6 +80,9 @@ namespace WKLocalizationLoader.FontFactory
             fileName = FileName;
             fontName = FontName;
             fontVersion = FontVersion;
+            scale = Scale;
+            ascentLineOffset = AscentLineOffset;
+            descentLineOffset = DescentLineOffset;
             pointSize = PointSize;
             atlasWidth = AtlasWidth;
             atlasHeight = AtlasHeight;
