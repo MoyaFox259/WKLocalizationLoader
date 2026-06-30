@@ -61,6 +61,7 @@ namespace WKLocalizationLoader
                 "RecordingSubtitleTimings.json"
             );
             LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
+            LoadModule<TextScrawlPatch>("TextScrawls.json");
             LoadModule<TextPatch>("Texts.json");
             LoadModule<TMPPatch>("TMPTexts.json");
             LoadModule<TMPUIPatch>("TMPUITexts.json");

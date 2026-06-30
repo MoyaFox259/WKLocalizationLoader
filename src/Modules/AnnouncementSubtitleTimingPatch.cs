@@ -32,6 +32,7 @@ namespace WKLocalizationLoader.Modules
             RegexOptions.IgnoreCase
         );
 
+        [HarmonyPostfix]
         public static string Postfix(
             string __result,
             string group,
@@ -77,7 +78,7 @@ namespace WKLocalizationLoader.Modules
                 var targetLineDuration = subtitleTimings[lineIndex];
                 if (lineIndex > 0)
                 {
-                    targetLineDuration -= subtitleTimings[lineIndex-1];
+                    targetLineDuration -= subtitleTimings[lineIndex - 1];
                 }
                 else if (lineIndex == count - 1)
                 {

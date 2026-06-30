@@ -18,6 +18,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static RecordingSubtitlePatchSettings ModuleSettings;
 
+        [HarmonyPostfix]
         public static string Postfix(
             string __result,
             string group,
@@ -33,7 +34,7 @@ namespace WKLocalizationLoader.Modules
             {
                 return __result;
             }
-            return RecordingSubtitles[key];
+            return RecordingSubtitles[key] ?? __result;
         }
     }
 }

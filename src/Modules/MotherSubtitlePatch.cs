@@ -21,6 +21,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static MotherSubtitlePatchSettings ModuleSettings;
 
+        [HarmonyPostfix]
         [HarmonyPatch(
             typeof(CL_LocalizationManager.Localization),
             nameof(CL_LocalizationManager.Localization.GetLine)
@@ -40,7 +41,7 @@ namespace WKLocalizationLoader.Modules
             {
                 return __result;
             }
-            return MotherSubtitles[key];
+            return MotherSubtitles[key] ?? __result;
         }
 
         [HarmonyTranspiler]

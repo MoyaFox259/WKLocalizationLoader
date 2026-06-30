@@ -22,7 +22,6 @@ namespace WKLocalizationLoader.FontFactory
         )
         {
             var (
-                fileName,
                 fontName,
                 fontVersion,
                 scale,

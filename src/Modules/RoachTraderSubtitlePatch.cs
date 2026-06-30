@@ -18,6 +18,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static RoachTraderSubtitlePatchSettings ModuleSettings;
 
+        [HarmonyPostfix]
         public static string Postfix(
             string __result,
             string group,

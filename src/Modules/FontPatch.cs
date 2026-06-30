@@ -44,6 +44,7 @@ namespace WKLocalizationLoader.Modules
             }
         }
 
+        [HarmonyPostfix]
         public static void Postfix(Text __instance)
         {
             if (!IsEnabled) return;

@@ -240,7 +240,8 @@ namespace WKLocalizationLoader.Modules
         public static string GetTextTranslation(string originalText)
         {
             if (
-                TextTranslations != null
+                IsEnabled
+                && TextTranslations != null
                 && TextTranslations.TryGetValue(
                     originalText,
                     out string translatedText

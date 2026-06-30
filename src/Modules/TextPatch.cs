@@ -16,6 +16,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static TextPatchSettings ModuleSettings;
 
+        [HarmonyPostfix]
         public static void Postfix(Text __instance)
         {
             if (!IsEnabled) return;

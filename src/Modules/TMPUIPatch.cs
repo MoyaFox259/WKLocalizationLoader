@@ -16,6 +16,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static TMPUIPatchSettings ModuleSettings;
 
+        [HarmonyPostfix]
         public static void Postfix(TextMeshProUGUI __instance)
         {
             if (!IsEnabled) return;

@@ -16,6 +16,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static TMPPatchSettings ModuleSettings;
 
+        [HarmonyPostfix]
         public static void Postfix(TextMeshPro __instance)
         {
             if (!IsEnabled) return;
