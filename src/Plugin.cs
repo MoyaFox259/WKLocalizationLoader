@@ -1,16 +1,11 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using Newtonsoft.Json;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
-using WKLocalizationLoader.Config;
-using WKLocalizationLoader.Modules;
 
 namespace WKLocalizationLoader
 {
@@ -72,7 +67,9 @@ namespace WKLocalizationLoader
             ModuleManager.Initialize(this);
             ResourceLoader.Initialize(this);
             CacheManager.Initialize(this);
-            LoadAllModules();
+            var moduleClasses = LoadAllModules();
+            ApplyResourcePatches(moduleClasses);
+            ApplyHarmonyPatches(moduleClasses);
         }
 
         private void Initialize()
@@ -99,17 +96,16 @@ namespace WKLocalizationLoader
             _languageFolder.Value = languageFolders.FirstOrDefault();
         }
 
-        private void LoadAllModules()
+        private List<Type> LoadAllModules()
         {
             ModuleManager.LoadAllModules();
-            var modules = ModuleManager.FilterModuleClassesByModuleStatus(
-                ModuleStatus.OK
-            );
+            var modulesClasses = ModuleManager
+                .FilterModuleClassesByModuleStatus(ModuleStatus.OK);
             ModuleManager.PrintModuleInfoMessageBySeverity(ModuleStatus.OK);
-            ApplyPatches(modules);
+            return modulesClasses;
         }
 
-        private void ApplyPatches(List<Type> moduleClasses)
+        private void ApplyHarmonyPatches(List<Type> moduleClasses)
         {
             var harmony = new Harmony(Info.Metadata.GUID);
             foreach (var moduleClass in moduleClasses)
@@ -120,9 +116,18 @@ namespace WKLocalizationLoader
                         moduleClass
                     );
                     patchClassProcessor.Patch();
-                    Logger.LogInfo($"\"{moduleClass.Name}\" is patched.");
                 }
             }
+        }
+
+        private void ApplyResourcePatches(List<Type> moduleClasses)
+        {
+            GameResourcePatcher.Initialize(moduleClasses);
+            var harmony = new Harmony(Info.Metadata.GUID);
+            var patchClassProcessor = harmony.CreateClassProcessor(
+                typeof(GameResourcePatcher)
+            );
+            patchClassProcessor.Patch();
         }
     }
 }

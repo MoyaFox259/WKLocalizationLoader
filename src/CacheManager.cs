@@ -2,12 +2,12 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using BepInEx;
-using BepInEx.Logging;
-using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using BepInEx;
+using BepInEx.Logging;
 using TMPro;
+using UnityEngine;
 using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader

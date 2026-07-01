@@ -89,7 +89,7 @@ namespace WKLocalizationLoader.Modules
 
         public static string GetRandomCharacters(string startString)
         {
-            if (string.IsNullOrWhiteSpace(startString))
+            if (!IsEnabled || string.IsNullOrWhiteSpace(startString))
             {
                 return "abcdefghijklmnopqrstuvwxyz";
             }

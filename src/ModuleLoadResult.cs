@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using BepInEx.Logging;
-using WKLocalizationLoader.Modules;
 
 namespace WKLocalizationLoader
 {
