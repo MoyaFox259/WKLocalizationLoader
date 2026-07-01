@@ -7,7 +7,7 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     public abstract class ModuleBase<TModule>
-        : IModule where TModule : ModuleBase<TModule>
+        : IHarmonyPatch where TModule : ModuleBase<TModule>
     {
         [JsonIgnore]
         public static bool IsEnabled = false;

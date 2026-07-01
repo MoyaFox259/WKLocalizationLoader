@@ -3,9 +3,8 @@ using System.IO;
 using System.Text;
 using BepInEx;
 using BepInEx.Logging;
-using UnityEngine;
 using TMPro;
-using WKLocalizationLoader.Modules;
+using UnityEngine;
 using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader

@@ -2,8 +2,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using Newtonsoft.Json;
 using BepInEx;
 using BepInEx.Logging;
@@ -55,6 +53,7 @@ namespace WKLocalizationLoader
             LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
+            LoadModule<LocationNamePatch>("LocationNames.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
             LoadModule<RecordingSubtitlePatch>("RecordingSubtitles.json");
             LoadModule<RecordingSubtitleTimingPatch>(

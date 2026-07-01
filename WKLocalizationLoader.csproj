@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <LangVersion>latest</LangVersion> 
+    <LangVersion>latest</LangVersion>
     <TargetFramework>net472</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateDependencyFile>false</GenerateDependencyFile>
@@ -37,6 +37,10 @@
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       <CopyLocal>false</CopyLocal>
       <Publicize>true</Publicize>
+    </Reference>
+    <Reference Include="ALINE">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\ALINE.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
     </Reference>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
