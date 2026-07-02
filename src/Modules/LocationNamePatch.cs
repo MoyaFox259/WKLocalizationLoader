@@ -39,7 +39,7 @@ namespace WKLocalizationLoader.Modules
             )
             {
                 var region = regions[regionIndex];
-                region.introText = GetTranslationText(
+                region.introText = GetTextTranslation(
                     RegionIntroTexts,
                     region.introText
                 );
@@ -57,7 +57,7 @@ namespace WKLocalizationLoader.Modules
             )
             {
                 var subregion = subregions[subregionIndex];
-                subregion.introText = GetTranslationText(
+                subregion.introText = GetTextTranslation(
                     SubregionIntroTexts,
                     subregion.introText
                 );
@@ -72,11 +72,11 @@ namespace WKLocalizationLoader.Modules
         public static void Postfix_ZoneTitler_Start(UT_ZoneTitler __instance)
         {
             if (!IsEnabled) return;
-            __instance.region = GetTranslationText(
+            __instance.region = GetTextTranslation(
                 RegionIntroTexts,
                 __instance.region
             );
-            __instance.subRegion = GetTranslationText(
+            __instance.subRegion = GetTextTranslation(
                 SubregionIntroTexts,
                 __instance.subRegion
             );
@@ -90,17 +90,17 @@ namespace WKLocalizationLoader.Modules
         public static void Postfix_Level_Awake(M_Level __instance)
         {
             if (!IsEnabled) return;
-            __instance.introText = GetTranslationText(
+            __instance.introText = GetTextTranslation(
                 LevelIntroTexts,
                 __instance.introText
             );
-            __instance.saveName = GetTranslationText(
+            __instance.saveName = GetTextTranslation(
                 LevelSaveNames,
                 __instance.saveName
             );
         }
 
-        public static string GetTranslationText(
+        public static string GetTextTranslation(
             Dictionary<string, string> textTranslations,
             string originalText
         )
