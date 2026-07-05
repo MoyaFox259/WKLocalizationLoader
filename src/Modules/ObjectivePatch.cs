@@ -7,7 +7,7 @@ using HarmonyLib;
 namespace WKLocalizationLoader.Modules
 {
     [HarmonyPatch]
-    public class ObjectivePatch : ModuleBase<ObjectivePatch>
+    public class ObjectivePatch : TemplateTranslator<ObjectivePatch>
     {
         [JsonProperty]
         public static Dictionary<string, string> ObjectiveViewerTitles;
@@ -51,7 +51,7 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            __instance.objectiveViewerTitle.text = GetTextTranslation(
+            __instance.objectiveViewerTitle.text = GetTemplateTranslation(
                 ObjectiveViewerTitleTemplates,
                 __instance.objectiveViewerTitle.text
             );
@@ -65,7 +65,7 @@ namespace WKLocalizationLoader.Modules
         public static void Prefix_ObjectiveViewer_SetTitle(ref string s)
         {
             if (!IsEnabled) return;
-            s = GetTextTranslation(ObjectiveViewerTitleTemplates, s);
+            s = GetTemplateTranslation(ObjectiveViewerTitleTemplates, s);
         }
 
         [HarmonyPrefix]
@@ -80,8 +80,8 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            title = GetTextTranslation(ObjectiveTitleTemplates, title);
-            desc = GetTextTranslation(ObjectiveDescriptionTemplates, desc);
+            title = GetTemplateTranslation(ObjectiveTitleTemplates, title);
+            desc = GetTemplateTranslation(ObjectiveDescriptionTemplates, desc);
         }
 
         [HarmonyPrefix]
@@ -96,11 +96,11 @@ namespace WKLocalizationLoader.Modules
             if (!IsEnabled) return;
             foreach (var objectiveCounter in __instance.objectives)
             {
-                objectiveCounter.objectiveTitle = GetTextTranslation(
+                objectiveCounter.objectiveTitle = GetTemplateTranslation(
                     ObjectiveTitleTemplates,
                     objectiveCounter.objectiveTitle
                 );
-                objectiveCounter.objectiveDesc = GetTextTranslation(
+                objectiveCounter.objectiveDesc = GetTemplateTranslation(
                     ObjectiveDescriptionTemplates,
                     objectiveCounter.objectiveDesc
                 );
@@ -129,38 +129,6 @@ namespace WKLocalizationLoader.Modules
                 ObjectiveSuccessHeaders,
                 __instance.successText
             );
-        }
-
-        public static string GetTextTranslation(
-            Dictionary<string, string> textTranslations,
-            string originalText
-        )
-        {
-            if (
-                string.IsNullOrWhiteSpace(originalText)
-                || textTranslations is null
-                || !textTranslations.ContainsKey(originalText)
-            )
-            {
-                return originalText;
-            }
-            return textTranslations[originalText] ?? originalText;
-        }
-
-        public static string GetTextTranslation(
-            TemplateTranslations textTranslations,
-            string originalText
-        )
-        {
-            if (
-                string.IsNullOrWhiteSpace(originalText)
-                || textTranslations is null
-            )
-            {
-                return originalText;
-            }
-            return textTranslations.GetTextTranslation(originalText)
-                ?? originalText;
         }
     }
 }

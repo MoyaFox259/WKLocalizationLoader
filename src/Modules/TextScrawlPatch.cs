@@ -7,7 +7,7 @@ using HarmonyLib;
 namespace WKLocalizationLoader.Modules
 {
     [HarmonyPatch]
-    public class TextScrawlPatch : ModuleBase<TextScrawlPatch>
+    public class TextScrawlPatch : TemplateTranslator<TextScrawlPatch>
     {
         [JsonProperty]
         public static Dictionary<string, string> TextTranslations;
@@ -32,11 +32,8 @@ namespace WKLocalizationLoader.Modules
         public static void Prefix_TextScrawl_ShowText(ref string s)
         {
             if (!IsEnabled) return;
-            s = GetTextTranslation(s);
+            s = GetTemplateTranslation(ScrawlTemplates, s);
         }
-
-        public static string GetTextTranslation(string originalText)
-        => ScrawlTemplates?.GetTextTranslation(originalText) ?? originalText;
     }
 }
 

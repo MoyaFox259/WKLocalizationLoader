@@ -56,15 +56,14 @@ namespace WKLocalizationLoader
             LoadModule<LocationNamePatch>("LocationNames.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
             LoadModule<ObjectivePatch>("Objectives.json");
+            LoadModule<QuietOSPatch>("QuietOS.json");
             LoadModule<RecordingSubtitlePatch>("RecordingSubtitles.json");
             LoadModule<RecordingSubtitleTimingPatch>(
                 "RecordingSubtitleTimings.json"
             );
             LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
+            LoadModule<StaticTextPatch>("StaticTexts.json");
             LoadModule<TextScrawlPatch>("TextScrawls.json");
-            LoadModule<TextPatch>("Texts.json");
-            LoadModule<TMPPatch>("TMPTexts.json");
-            LoadModule<TMPUIPatch>("TMPUITexts.json");
             //LoadModule<>();
             //LoadModule<>();
             //LoadModule<>();

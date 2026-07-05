@@ -113,42 +113,6 @@ namespace WKLocalizationLoader.Modules
                 typeof(ENV_Vendor_Event),
                 nameof(ENV_Vendor_Disk.Purchase)
             );
-            CollectTargetMethod(
-                typeof(App_Unlocker),
-                nameof(App_Unlocker.CheckAuthorize)
-            );
-            CollectTargetMethod(
-                typeof(App_DocumentReader),
-                nameof(App_DocumentReader.UpdateButtons)
-            );
-            CollectTargetMethod(
-                typeof(OS_Folder),
-                nameof(OS_Folder.UpdateInfoText)
-            );
-            CollectTargetMethod(
-                typeof(App_SavePage),
-                nameof(App_SavePage.UpdateSaveText)
-            );
-            CollectTargetMethod(
-                typeof(App_SolarKnight),
-                nameof(App_SolarKnight.Update)
-            );
-            CollectTargetMethod(
-                typeof(App_SolarKnight),
-                nameof(App_SolarKnight.AddScore)
-            );
-            CollectTargetMethod(
-                typeof(App_SolarKnight),
-                nameof(App_SolarKnight.AddLife)
-            );
-            CollectTargetNestedClassMethod(
-                typeof(App_SolarKnight),
-                "MoveNext"
-            );
-            CollectTargetMethod(
-                typeof(App_SolarKnight),
-                nameof(App_SolarKnight.Reset)
-            );
         }
 
         public static void CollectTargetMethod(

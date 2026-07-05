@@ -19,9 +19,14 @@ namespace WKLocalizationLoader
         )
         {
             _textTranslations = textTranslations;
-            _templateGroupRegex = new Regex(_templateGroupPattern);
-            _escapedTemplateGroupRegex =
-                new Regex(_escapedTemplateGroupPattern);
+            _templateGroupRegex = new Regex(
+                _templateGroupPattern,
+                RegexOptions.Compiled
+            );
+            _escapedTemplateGroupRegex = new Regex(
+                _escapedTemplateGroupPattern,
+                RegexOptions.Compiled
+            );
             RegisterTemplateMappings(_textTranslations);
         }
 
@@ -41,7 +46,7 @@ namespace WKLocalizationLoader
             }
         }
 
-        public string GetTextTranslation(string originalText)
+        public string GetTemplateTranslation(string originalText)
         {
             if (string.IsNullOrWhiteSpace(originalText))
             {

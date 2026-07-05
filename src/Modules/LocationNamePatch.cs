@@ -8,7 +8,7 @@ namespace WKLocalizationLoader.Modules
 {
     [HarmonyPatch]
     public class LocationNamePatch
-        : ModuleBase<LocationNamePatch>, IResourcePatch
+        : TextTranslator<LocationNamePatch>, IResourcePatch
     {
         [JsonProperty]
         public static Dictionary<string, string> RegionIntroTexts;
@@ -98,22 +98,6 @@ namespace WKLocalizationLoader.Modules
                 LevelSaveNames,
                 __instance.saveName
             );
-        }
-
-        public static string GetTextTranslation(
-            Dictionary<string, string> textTranslations,
-            string originalText
-        )
-        {
-            if (
-                string.IsNullOrWhiteSpace(originalText)
-                || textTranslations is null
-                || !textTranslations.ContainsKey(originalText)
-            )
-            {
-                return originalText;
-            }
-            return textTranslations[originalText] ?? originalText;
         }
     }
 }
