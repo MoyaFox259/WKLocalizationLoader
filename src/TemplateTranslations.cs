@@ -122,7 +122,8 @@ namespace WKLocalizationLoader
                 escapedTemplateString,
                 @"(.*)"
             );
-            return new Regex("^" + templatePattern + "$");
+            templatePattern = "^" + templatePattern + "$";
+            return new Regex(templatePattern, RegexOptions.Singleline);
         }
     }
 }

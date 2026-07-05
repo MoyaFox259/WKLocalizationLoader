@@ -311,7 +311,7 @@ namespace WKLocalizationLoader.Modules
             typeof(App_SolarKnight),
             nameof(App_SolarKnight.LoseLife)
         )]
-        public static void Postfix_SolarKnightWorld_RespawnPlayer(
+        public static void Postfix_SolarKnight_LoseLife(
             App_SolarKnight __instance
         )
         {
