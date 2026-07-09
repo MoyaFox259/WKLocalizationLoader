@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <LangVersion>latest</LangVersion> 
+    <LangVersion>latest</LangVersion>
     <TargetFramework>net472</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <AssemblyName>WKLocalizationLoader</AssemblyName>
     <RootNamespace>WKLocalizationLoader</RootNamespace>
     <Product>WKLocalizationLoader</Product>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RestoreAdditionalProjectSources>
       https://api.nuget.org/v3/index.json;
@@ -32,11 +32,16 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\UnityEngine.UI.dll</HintPath>
       <CopyLocal>false</CopyLocal>
+      <Publicize>true</Publicize>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       <CopyLocal>false</CopyLocal>
       <Publicize>true</Publicize>
+    </Reference>
+    <Reference Include="ALINE">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\ALINE.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
     </Reference>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />

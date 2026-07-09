@@ -47,9 +47,15 @@ namespace WKLocalizationLoader.Modules
             }
         }
 
+        [HarmonyPostfix]
         public static void Postfix(TMP_FontAsset __instance)
         {
             if (!IsEnabled) return;
+            AddFallbackFontAssets(__instance);
+        }
+
+        public static void AddFallbackFontAssets(TMP_FontAsset __instance)
+        {
             if (
                 FallbackFontAssets != null
                 && FallbackFontAssets.TryGetValues(
@@ -58,19 +64,11 @@ namespace WKLocalizationLoader.Modules
                 )
             )
             {
-                AddFallbackFontAssets(__instance, fallbackFontAssets);
+                __instance.fallbackFontAssetTable = __instance
+                    .fallbackFontAssetTable
+                    .Union(fallbackFontAssets)
+                    .ToList();
             }
-        }
-
-        public static void AddFallbackFontAssets(
-            TMP_FontAsset __instance,
-            List<TMP_FontAsset> fallbackFontAssets
-        )
-        {
-            __instance.fallbackFontAssetTable = __instance
-                .fallbackFontAssetTable
-                .Union(fallbackFontAssets)
-                .ToList();
         }
     }
 }

@@ -2,8 +2,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using Newtonsoft.Json;
 using BepInEx;
 using BepInEx.Logging;
@@ -50,12 +48,22 @@ namespace WKLocalizationLoader
             LoadModule<AnnouncementSubtitleTimingPatch>(
                 "AnnouncementSubtitleTimings.json"
             );
+            LoadModule<DeathMessagePatch>("DeathMessages.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
+            LoadModule<HardcodedStringPatch>("HardcodedStrings.json");
+            LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
+            LoadModule<LocationNamePatch>("LocationNames.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
-            LoadModule<TextPatch>("Texts.json");
-            LoadModule<TMPPatch>("TMPTexts.json");
-            LoadModule<TMPUIPatch>("TMPUITexts.json");
+            LoadModule<ObjectivePatch>("Objectives.json");
+            LoadModule<QuietOSPatch>("QuietOS.json");
+            LoadModule<RecordingSubtitlePatch>("RecordingSubtitles.json");
+            LoadModule<RecordingSubtitleTimingPatch>(
+                "RecordingSubtitleTimings.json"
+            );
+            LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
+            LoadModule<StaticTextPatch>("StaticTexts.json");
+            LoadModule<TextScrawlPatch>("TextScrawls.json");
             //LoadModule<>();
             //LoadModule<>();
             //LoadModule<>();

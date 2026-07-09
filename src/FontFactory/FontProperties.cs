@@ -46,7 +46,6 @@ namespace WKLocalizationLoader.FontFactory
         public GlyphRenderMode AtlasRenderMode;
 
         public void Deconstruct(
-            out string fileName,
             out string fontName,
             out int pointSize,
             out float verticalOffset,
@@ -60,7 +59,6 @@ namespace WKLocalizationLoader.FontFactory
             out GlyphRenderMode atlasRenderMode
         )
         {
-            fileName = FileName;
             fontName = FontName;
             pointSize = PointSize;
             verticalOffset = VerticalOffset;

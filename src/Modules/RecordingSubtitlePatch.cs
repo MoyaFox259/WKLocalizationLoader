@@ -9,14 +9,14 @@ namespace WKLocalizationLoader.Modules
         typeof(CL_LocalizationManager.Localization),
         nameof(CL_LocalizationManager.Localization.GetLine)
     )]
-    public class AnnouncementSubtitlePatch
-        : ModuleBase<AnnouncementSubtitlePatch>
+    public class RecordingSubtitlePatch
+        : ModuleBase<RecordingSubtitlePatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> AnnouncementSubtitles;
+        public static Dictionary<string, string> RecordingSubtitles;
 
         [JsonIgnore]
-        public static AnnouncementSubtitlePatchSettings ModuleSettings;
+        public static RecordingSubtitlePatchSettings ModuleSettings;
 
         [HarmonyPostfix]
         public static string Postfix(
@@ -27,14 +27,14 @@ namespace WKLocalizationLoader.Modules
         {
             if (
                 !IsEnabled
-                || group != "announcements"
-                || AnnouncementSubtitles is null
-                || !AnnouncementSubtitles.ContainsKey(key)
+                || group != "recordings"
+                || RecordingSubtitles is null
+                || !RecordingSubtitles.ContainsKey(key)
             )
             {
                 return __result;
             }
-            return AnnouncementSubtitles[key] ?? __result;
+            return RecordingSubtitles[key] ?? __result;
         }
     }
 }

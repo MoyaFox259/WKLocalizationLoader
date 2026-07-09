@@ -9,14 +9,14 @@ namespace WKLocalizationLoader.Modules
         typeof(CL_LocalizationManager.Localization),
         nameof(CL_LocalizationManager.Localization.GetLine)
     )]
-    public class AnnouncementSubtitlePatch
-        : ModuleBase<AnnouncementSubtitlePatch>
+    public class DeathMessagePatch
+        : ModuleBase<DeathMessagePatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> AnnouncementSubtitles;
+        public static Dictionary<string, string> DeathMessages;
 
         [JsonIgnore]
-        public static AnnouncementSubtitlePatchSettings ModuleSettings;
+        public static DeathMessagePatchSettings ModuleSettings;
 
         [HarmonyPostfix]
         public static string Postfix(
@@ -27,14 +27,14 @@ namespace WKLocalizationLoader.Modules
         {
             if (
                 !IsEnabled
-                || group != "announcements"
-                || AnnouncementSubtitles is null
-                || !AnnouncementSubtitles.ContainsKey(key)
+                || group != "deathmessages"
+                || DeathMessages is null
+                || !DeathMessages.ContainsKey(key)
             )
             {
                 return __result;
             }
-            return AnnouncementSubtitles[key] ?? __result;
+            return DeathMessages[key] ?? __result;
         }
     }
 }

@@ -9,14 +9,14 @@ namespace WKLocalizationLoader.Modules
         typeof(CL_LocalizationManager.Localization),
         nameof(CL_LocalizationManager.Localization.GetLine)
     )]
-    public class AnnouncementSubtitlePatch
-        : ModuleBase<AnnouncementSubtitlePatch>
+    public class ItemDescriptionPatch
+        : ModuleBase<ItemDescriptionPatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> AnnouncementSubtitles;
+        public static Dictionary<string, string> ItemDescriptions;
 
         [JsonIgnore]
-        public static AnnouncementSubtitlePatchSettings ModuleSettings;
+        public static ItemDescriptionPatchSettings ModuleSettings;
 
         [HarmonyPostfix]
         public static string Postfix(
@@ -27,14 +27,14 @@ namespace WKLocalizationLoader.Modules
         {
             if (
                 !IsEnabled
-                || group != "announcements"
-                || AnnouncementSubtitles is null
-                || !AnnouncementSubtitles.ContainsKey(key)
+                || group != "items"
+                || ItemDescriptions is null
+                || !ItemDescriptions.ContainsKey(key)
             )
             {
                 return __result;
             }
-            return AnnouncementSubtitles[key] ?? __result;
+            return ItemDescriptions[key] ?? __result;
         }
     }
 }

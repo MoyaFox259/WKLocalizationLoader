@@ -12,14 +12,14 @@ namespace WKLocalizationLoader.Modules
         typeof(CL_LocalizationManager.Localization),
         nameof(CL_LocalizationManager.Localization.GetLine)
     )]
-    public class AnnouncementSubtitleTimingPatch
-        : ModuleBase<AnnouncementSubtitleTimingPatch>
+    public class RecordingSubtitleTimingPatch
+        : ModuleBase<RecordingSubtitleTimingPatch>
     {
         [JsonProperty]
-        public static AnnouncementSubtitleTimingPatchSettings ModuleSettings;
+        public static RecordingSubtitleTimingPatchSettings ModuleSettings;
         [JsonProperty]
         public static Dictionary<string, List<float>>
-            AnnouncementSubtitleTimings;
+            RecordingSubtitleTimings;
 
         [JsonIgnore]
         public static string[] LinebreakPattern = new string[] { @"<br>" };
@@ -41,16 +41,16 @@ namespace WKLocalizationLoader.Modules
         {
             if (
                 !IsEnabled
-                || group != "announcements"
-                || AnnouncementSubtitleTimings is null
-                || !AnnouncementSubtitleTimings.ContainsKey(key)
+                || group != "recordings"
+                || RecordingSubtitleTimings is null
+                || !RecordingSubtitleTimings.ContainsKey(key)
             )
             {
                 return __result;
             }
             return RebuildSubtitleTextWithTimings(
                 __result,
-                AnnouncementSubtitleTimings[key]
+                RecordingSubtitleTimings[key]
             );
         }
 
