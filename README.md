@@ -1,73 +1,73 @@
-## Overview
+> **Notice:**  
+> If you're looking for a ready-to-use White Knuckle translation mod, [WKTranslator](https://thunderstore.io/c/white-knuckle/p/galfarious/WKTranslator/) can be your best bet.
+> Go check it out! It's pretty easy to use and WK Modding Server's dedicated translation channel is a very good place to start your translation and collab with others.
 
-WKLocalizationLoader is a BepInEx plugin that loads language-specific 
-resource files and provides localization support for White Knuckle.  
+## About this project...
 
-The plugin's functionality is divided into several independent modules, 
-each driven by its corresponding JSON file. 
-If the plugin fails to load a specific json file in language folder 
-(whether due to absence or invaild format), 
-its associated module will be disabled by default.  
+> **Before continuing:**  
+> AI assistance was used to help me with background knowledge of Unity.
+> This project is still in a heavy WIP state as of writing this.
+> **Please proceed with caution.**
 
-The table below summarizes all available modules: 
+### Project progress
 
-| JSON file | Module Class | Description |
-|---|---|---|
-| `AnnouncementSubtitles.json` | AnnouncementSubtitlePatch | Replaces announcer subtitle texts. |
-| `AnnouncementSubtitleTimings.json` | AnnouncementSubtitleTimingPatch | Adjusts display timings of announcer subtitles. |
-| `Fonts.json` | FontPatch | Loads `.ttf` fonts from `Fonts\` folder and replaces font of `Text` class instances. |
-| `FontAssets.json` | FontAssetPatch | Loads `.ttf` fonts from `Fonts\` folder and adds them as fallback fonts to `TMPro.TMP_FontAsset` class instances. |
-| `MotherSubtitles.json` | MotherSubtitlePatch | Replaces Mother subtitle texts. |
-| `Texts.json` | TextPatch | Replaces text content of `UnityEngine.UI.Text` class instances. |
-| `TMPTexts.json` | TMPPatch | Replaces text content of `TMPro.TextMeshPro` class instances. |
-| `TMPUITexts.json` | TMPUIPatch | Replaces text content of `TMPro.TextMeshProUGUI` class instances. |
+**Font replacement/fallback**  
+✅ : Supported  
+❌ : Not supported as of writing this  
+| Functionality | Support |
+| :- | :- |
+| Load font from .ttf file | Static fonts only |
+| Load font from bundle | ❌ |
+| Font replacement | ✅ |
+| TMP\_FontAsset replacement | ❌ |
+| TMP\_FontAsset fallback | ✅ |
 
-## Language Folder Auto-Detection
+**Text translation**  
+✅ : Implemented translation support  
+➖ : WIP  
+| Texts | Support |
+| :- | :- |
+| Main Menu UI | ➖ |
+| Score Panel UI | ➖ |
+| Gameplay UI | ➖ |
+| QuietOS UI | ✅ |
+| Gamemodes | ➖ |
+| Location Names | ✅ |
+| Subtitles | ✅ |
+| Cosmetics | ➖ |
+| Trinkets | ➖ |
+| Bindings | ➖ |
+| Perks | ➖ |
+| Facility Upgrades | ➖ |
+| Unlocks | ➖ |
+| Achievements | ➖ |
+| Objectives | ✅ |
+| Item Descriptions | ✅ |
+| Death Texts | ✅ |
+| Death Tips | ➖ |
+| Paper Notes | ➖ |
+| OS Documents | ➖ |
+| Scrawl Headers | ✅ |
+| In-world Texts | ➖ |
 
-The plugin will automatically detect Language Folders only if the 
-`LanguageFolder` setting in plugin configuration is left empty.  
+**Audio replacement**  
+❌ No plans for audio replacement support as of writing this.
 
-Scanning will begin from BepInEx plugins folder 
-and traverse subdirectories recursively. 
-The Scan will terminate if the search depth 
-exceeds the `MaxScanDepth` setting \(default: 5\).  
-
-A Folder is immediately recognized as a Language Folder 
-if it contains a `.wklocalization` file.  
-
-* This file act as a marker file used by the plugin solely for detection purposes. 
-* It does not store any actual information or translation data.  
-
-The plugin will load the first valid Language Folder it detects 
-and stores its relative path to the `LanguageFolder` setting. 
-This ensures the same folder is loaded 
-on subsequent game launches without re-scanning.  
-
-> The auto-detection mechanism is intentionally designed to avoid two common pitfalls: 
-> * Reading and parsing file content, which is inefficient and prone to misuse. 
-> * Matching similar file or folder names, which can be inaccurate at times.  
-
-The plugin also recognizes `HawktuahLoadThis` as an 
-alternative marker file in addition to `.wklocalization` for fun.  
-
-> * `Hawktuah` is an acronym of the plugin's joke name `Here's Another White Knuckle Translation Utility And Helper`.  
+**Texture replacement**  
+❌ No plans for texture replacement support as of writing this.
 
 ---
 
 ## Language Folder Structure
 
-### Basic Language Folder structure
-
-A basic Language Folder layout should be as follows: 
+### Example Language Folder
 
 ```
 YourLanguageFolder\
 ├── .wklocalization
 ├── Fonts.json
 ├── FontAssets.json
-├── Texts.json
-├── TMPTexts.json
-├── TMPUITexts.json
+├── StaticTexts.json
 ├── ... (all other JSONs)
 ├── Fonts\
 │   ├── FontA.ttf
@@ -79,21 +79,7 @@ YourLanguageFolder\
         └── OFL.txt
 ```
 
-The `Fonts\` subdirectory is used 
-**only when** you need to load external `.ttf` fonts.  
-
-* If you include custom fonts, remember to place their license files in the `Licenses\` subdirectory as required. This is especially important if you plan to distribute your language pack.  
-
-### Distribution via Thunderstore
-
-**Important**: 
-If you plan to distribute your language pack as a mod on Thunderstore, 
-you will need to place all language pack contents inside a subdirectory named 
-`BepInEx\plugins\` or `plugins\` at the root of your mod package.  
-
-* This is to ensure that the intened folder hierarchy is preserved during installation via mod managers such as r2modman.  
-
-Your mod package should resemble the following structure: 
+### Packaging for Thunderstore
 
 ```
 YourModPackage\
@@ -104,9 +90,7 @@ YourModPackage\
     ├── .wklocalization
     ├── Fonts.json
     ├── FontAssets.json
-    ├── Texts.json
-    ├── TMPTexts.json
-    ├── TMPUITexts.json
+    ├── StaticTexts.json
     ├── ... (all other JSONs)
     ├── Fonts\
     │   ├── FontA.ttf
@@ -121,6 +105,8 @@ YourModPackage\
 ---
 
 ## JSON File Formats
+
+- TODO: Update and put these in an example folder.
 
 ### `AnnouncementSubtitles.json`
 
@@ -258,9 +244,7 @@ YourModPackage\
 }
 ```
 
-### `Texts.json` / `TMPTexts.json` / `TMPUITexts.json`
-
-All three use the same JSON structure: 
+### `StaticTexts.json`
 
 ```json
 {
@@ -273,3 +257,4 @@ All three use the same JSON structure:
     }
 }
 ```
+

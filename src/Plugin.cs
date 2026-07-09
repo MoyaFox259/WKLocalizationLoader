@@ -12,7 +12,7 @@ namespace WKLocalizationLoader
     [BepInPlugin(
         "mimimi-turret.wk-localization-loader",
         "WKLocalizationLoader",
-        "0.3.0")
+        "0.4.0")
     ]
     [BepInProcess("White Knuckle.exe")]
     public class Plugin : BaseUnityPlugin
@@ -41,11 +41,10 @@ namespace WKLocalizationLoader
             + "when auto-detecting Language Folders.\n"
             + "\n"
             + "A Language Folder is detected "
-            + "when it contains any of the following files:\n"
+            + "when it contains the following file:\n"
             + "* .wklocalization\n"
-            + "* HawktuahLoadThis\n"
-            + "Note: These files are for auto-detection purpose only.\n"
-            + "They do not store any actual information or data.\n"
+            + "Note: This file is for auto-detection purpose only.\n"
+            + "It does not store any actual information or data.\n"
             + "\n"
             + "Scanning will start from \"BepInEx\\plugins\\\" "
             + "where the directory depth is 0.";

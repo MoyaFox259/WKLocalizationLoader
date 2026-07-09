@@ -72,7 +72,7 @@ namespace WKLocalizationLoader
             var fileName = Path.GetFileName(filePath);
             return fileName switch
             {
-                ".wklocalization" or "HawktuahLoadThis" => true,
+                ".wklocalization" => true,
                 _ => false
             };
         }
