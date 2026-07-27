@@ -31,7 +31,7 @@
 | Score Panel UI | ➖ |
 | Gameplay UI | ➖ |
 | QuietOS UI | ✅ |
-| Gamemodes | ➖ |
+| Gamemodes | ✅ |
 | Location Names | ✅ |
 | Subtitles | ✅ |
 | Cosmetics | ➖ |

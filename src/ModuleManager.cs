@@ -28,10 +28,10 @@ namespace WKLocalizationLoader
                 ContractResolver = new ModuleContractResolver(),
                 DefaultValueHandling = DefaultValueHandling.Populate
             };
-            _conflictedModsInfo.Add(
-                typeof(AnnouncementSubtitleTimingPatch),
-                "mimimi-turret.wk-sync-subtitles"
-            );
+            // _conflictedModsInfo.Add(
+            //     typeof(AnnouncementSubtitleTimingPatch),
+            //     "mimimi-turret.wk-sync-subtitles"
+            // );
             if (plugin is null) return;
             _plugin = plugin;
             var loggerName = _plugin.Info.Metadata.Name + "/ModuleManager";
@@ -51,6 +51,7 @@ namespace WKLocalizationLoader
             LoadModule<DeathMessagePatch>("DeathMessages.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
+            LoadModule<GamemodePatch>("Gamemodes.json");
             LoadModule<HardcodedStringPatch>("HardcodedStrings.json");
             LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<LocationNamePatch>("LocationNames.json");
@@ -120,6 +121,7 @@ namespace WKLocalizationLoader
                     fileName,
                     e
                 );
+                return;
             }
             if (ModuleBase<TModule>.IsEnabled)
             {
