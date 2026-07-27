@@ -11,17 +11,15 @@ namespace WKLocalizationLoader
         {
             _dictionary ??= new Dictionary<TKey, List<TValue>>();
             if (key is null || value is null) return;
-            if (
-                TryGetValues(key, out List<TValue> values)
-                && !values.Contains(value)
-            )
+            if (TryGetValues(key, out List<TValue> values))
             {
-                values.Add(value);
+                if (!values.Contains(value))
+                {
+                    values.Add(value);
+                }
+                return;
             }
-            else
-            {
-                _dictionary[key] = new List<TValue>() { value };
-            }
+            _dictionary[key] = new List<TValue>() { value };
         }
 
         public bool TryGetValues(TKey key, out List<TValue> values)

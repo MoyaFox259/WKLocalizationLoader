@@ -183,8 +183,6 @@ namespace WKLocalizationLoader.Modules
             if (
                 CL_SaveManager.GetNumberOfDiskLives() == 0
                 || !saveText.StartsWith("SAVES | <mspace=5>")
-                || SaveTextTemplate is null
-                || SaveTemplate is null
             )
             {
                 __instance.floppyText.text = GetTemplateTranslation(
@@ -193,7 +191,10 @@ namespace WKLocalizationLoader.Modules
                 );
                 return;
             }
-            var saves = saveText.Trim().Substring(18).Split(' ');
+            var saveTextTemplate = SaveTextTemplate
+                ?? "SAVES | <mspace=5>{saves} ";
+            var saveTemplate = SaveTemplate ?? "{stationID}:{saveCount}";
+            var saves = saveText.TrimEnd().Substring(18).Split(' ');
             var translatedSaves = new List<string>();
             for (int saveIndex = 0; saveIndex < saves.Length; saveIndex++)
             {
@@ -201,13 +202,13 @@ namespace WKLocalizationLoader.Modules
                 var stationID = saveInfo[0];
                 stationID = GetTextTranslation(StationIDs, stationID);
                 var saveCount = saveInfo[1];
-                var translatedSave = SaveTemplate
+                var translatedSave = saveTemplate
                     .Replace("{stationID}", stationID)
                     .Replace("{saveCount}", saveCount);
                 translatedSaves.Add(translatedSave);
             }
             var translatedSavesText = string.Join(" ", translatedSaves);
-            __instance.floppyText.text = SaveTextTemplate
+            __instance.floppyText.text = saveTextTemplate
                 .Replace("{saves}", translatedSavesText);
         }
 

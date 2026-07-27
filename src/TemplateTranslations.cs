@@ -7,42 +7,60 @@ namespace WKLocalizationLoader
     public class TemplateTranslations
     {
         private Dictionary<string, string> _textTranslations;
-        private Dictionary<Regex, string> _templateMappings =
-            new Dictionary<Regex, string>();
-        private string _templateGroupPattern = @"\{(\d+)\}";
-        private Regex _templateGroupRegex;
-        private string _escapedTemplateGroupPattern = @"\\\{\d+\}";
-        private Regex _escapedTemplateGroupRegex;
+        private Dictionary<Regex, string> _templateMappings;
+        private readonly Regex _templateGroupRegex;
+        private readonly Regex _escapedTemplateGroupRegex;
 
         public TemplateTranslations(
             Dictionary<string, string> textTranslations
         )
         {
-            _textTranslations = textTranslations;
-            _templateGroupRegex = new Regex(
-                _templateGroupPattern,
+            _templateGroupRegex = CacheManager.GetOrCreateRegex(
+                @"\{(\d+)\}",
                 RegexOptions.Compiled
             );
-            _escapedTemplateGroupRegex = new Regex(
-                _escapedTemplateGroupPattern,
+            _escapedTemplateGroupRegex = CacheManager.GetOrCreateRegex(
+                @"\\\{\d+\}",
                 RegexOptions.Compiled
             );
-            RegisterTemplateMappings(_textTranslations);
+            AddTemplateTranslations(textTranslations);
         }
 
-        public void RegisterTemplateMappings(
+        public void AddTemplateTranslations(
             Dictionary<string, string> textTranslations
         )
         {
             foreach (var textTranslation in textTranslations)
             {
-                var originalText = textTranslation.Key;
-                var groupMatch = _templateGroupRegex.Match(originalText);
-                if (groupMatch.Success)
-                {
-                    var translatedText = textTranslation.Value;
-                    RegisterTemplateMapping(originalText, translatedText);
-                }
+                AddTemplateTranslation(
+                    textTranslation.Key,
+                    textTranslation.Value
+                );
+            }
+        }
+
+        public void AddTemplateTranslation(
+            string originalTemplateString,
+            string translatedTemplateString
+        )
+        {
+            _textTranslations ??= new Dictionary<string, string>();
+            _templateMappings ??= new Dictionary<Regex, string>();
+            if (
+                originalTemplateString is null
+                || translatedTemplateString is null
+            )
+            {
+                return;
+            }
+            _textTranslations[originalTemplateString] =
+                translatedTemplateString;
+            if (_templateGroupRegex.IsMatch(originalTemplateString))
+            {
+                var originalTemplateRegex =
+                    CreateTemplateRegex(originalTemplateString);
+                _templateMappings[originalTemplateRegex] =
+                    translatedTemplateString;
             }
         }
 
@@ -63,18 +81,24 @@ namespace WKLocalizationLoader
             {
                 return translatedText;
             }
-            foreach (var templateMapping in _templateMappings)
+            if (_templateMappings != null)
             {
-                var originalTemplateRegex = templateMapping.Key;
-                var originalTemplateMatch =
-                    originalTemplateRegex.Match(originalText);
-                if (originalTemplateMatch.Success)
+                foreach (var templateMapping in _templateMappings)
                 {
-                    var translatedTemplateString = templateMapping.Value;
-                    return BuildStringFromTemplate(
-                        translatedTemplateString,
-                        originalTemplateMatch
-                    );
+                    var originalTemplateRegex = templateMapping.Key;
+                    if (originalTemplateRegex is null) continue;
+                    var originalTemplateMatch =
+                        originalTemplateRegex.Match(originalText);
+                    if (originalTemplateMatch.Success)
+                    {
+                        var translatedTemplateString = templateMapping.Value;
+                        return translatedTemplateString is null
+                            ? originalText
+                            : BuildStringFromTemplate(
+                                translatedTemplateString,
+                                originalTemplateMatch
+                            );
+                    }
                 }
             }
             return originalText;
@@ -84,36 +108,15 @@ namespace WKLocalizationLoader
             string templateString,
             Match templateMatch
         )
-        {
-            var resultString = templateString;
-            var groupMatch = _templateGroupRegex.Match(resultString);
-            while (groupMatch.Success)
-            {
-                var groupIndex =
-                    Convert.ToInt32(groupMatch.Groups[1].Value) + 1;
-                var insertString =
-                    groupIndex > templateMatch.Groups.Count
+        => _templateGroupRegex.Replace(
+            templateString,
+            m => {
+                var groupIndex = Convert.ToInt32(m.Groups[1].Value) + 1;
+                return groupIndex > templateMatch.Groups.Count
                     ? ""
                     : templateMatch.Groups[groupIndex].Value;
-                resultString = resultString
-                    .Remove(groupMatch.Index, groupMatch.Length)
-                    .Insert(groupMatch.Index, insertString);
-                groupMatch = _templateGroupRegex.Match(resultString);
             }
-            return resultString;
-        }
-
-        public void RegisterTemplateMapping(
-            string originalTemplateString,
-            string translatedTemplateString
-        )
-        {
-            _templateMappings ??= new Dictionary<Regex, string>();
-            var originalTemplateRegex =
-                CreateTemplateRegex(originalTemplateString);
-            _templateMappings[originalTemplateRegex] =
-                translatedTemplateString;
-        }
+        );
 
         public Regex CreateTemplateRegex(string templateString)
         {
@@ -123,7 +126,10 @@ namespace WKLocalizationLoader
                 @"(.*)"
             );
             templatePattern = "^" + templatePattern + "$";
-            return new Regex(templatePattern, RegexOptions.Singleline);
+            return CacheManager.GetOrCreateRegex(
+                templatePattern,
+                RegexOptions.Singleline
+            );
         }
     }
 }

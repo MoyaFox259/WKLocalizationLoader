@@ -12,8 +12,8 @@ namespace WKLocalizationLoader
     [BepInPlugin(
         "mimimi-turret.wk-localization-loader",
         "WKLocalizationLoader",
-        "0.4.0")
-    ]
+        "0.4.0"
+    )]
     [BepInProcess("White Knuckle.exe")]
     public class Plugin : BaseUnityPlugin
     {
@@ -67,8 +67,8 @@ namespace WKLocalizationLoader
             ResourceLoader.Initialize(this);
             CacheManager.Initialize(this);
             var moduleClasses = LoadAllModules();
-            ApplyResourcePatches(moduleClasses);
             ApplyHarmonyPatches(moduleClasses);
+            ApplyScriptableObjectPatches(moduleClasses);
         }
 
         private void Initialize()
@@ -119,9 +119,9 @@ namespace WKLocalizationLoader
             }
         }
 
-        private void ApplyResourcePatches(List<Type> moduleClasses)
+        private void ApplyScriptableObjectPatches(List<Type> moduleClasses)
         {
-            GameResourcePatcher.Initialize(moduleClasses);
+            ScriptableObjectPatcher.Initialize(moduleClasses);
         }
     }
 }

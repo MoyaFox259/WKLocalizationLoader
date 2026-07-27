@@ -10,7 +10,7 @@ using WKLocalizationLoader.FontFactory;
 namespace WKLocalizationLoader.Modules
 {
     [HarmonyPriority(Priority.Last)]
-    [HarmonyPatch(typeof(Text), "OnEnable")]
+    [HarmonyPatch]
     public class FontPatch : ModuleBase<FontPatch>
     {
         [JsonProperty]
@@ -39,13 +39,17 @@ namespace WKLocalizationLoader.Modules
                     )
                 )
                 {
-                    RegisterSubstituteFont(fontInfo.Key, font);
+                    AddSubstituteFont(fontInfo.Key, font);
                 }
             }
         }
 
         [HarmonyPostfix]
-        public static void Postfix(Text __instance)
+        [HarmonyPatch(
+            typeof(Text),
+            nameof(Text.OnEnable)
+        )]
+        public static void Postfix_Text_OnEnable(Text __instance)
         {
             if (!IsEnabled) return;
             ReplaceFont(__instance);
@@ -61,10 +65,10 @@ namespace WKLocalizationLoader.Modules
                 )
             )
             {
-                Canvas.ForceUpdateCanvases();
+                // Canvas.ForceUpdateCanvases();
                 __instance.font = substituteFont;
                 //__instance.material = null;
-                __instance.SetAllDirty();
+                // __instance.SetAllDirty();
             }
         }
 
@@ -89,7 +93,7 @@ namespace WKLocalizationLoader.Modules
             return true;
         }
 
-        public static void RegisterSubstituteFont(
+        public static void AddSubstituteFont(
             string originalFontName,
             Font substituteFont
         )

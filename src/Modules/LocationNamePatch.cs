@@ -8,7 +8,7 @@ namespace WKLocalizationLoader.Modules
 {
     [HarmonyPatch]
     public class LocationNamePatch
-        : TextTranslator<LocationNamePatch>, IResourcePatch
+        : TextTranslator<LocationNamePatch>, IScriptableObjectPatch
     {
         [JsonProperty]
         public static Dictionary<string, string> RegionIntroTexts;
@@ -22,23 +22,18 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static LocationNamePatchSettings ModuleSettings;
 
-        public static void PatchResources()
+        public static void PatchScriptableObjects()
         {
-            PatchRegionIntroText();
-            PatchSubegionIntroText();
+            PatchRegions();
+            PatchSubregions();
         }
 
-        public static void PatchRegionIntroText()
+        public static void PatchRegions()
         {
             if (!IsEnabled) return;
-            var regions = Resources.FindObjectsOfTypeAll<M_Region>();
-            for (
-                int regionIndex = 0;
-                regionIndex < regions.Length;
-                regionIndex++
-            )
+            var regions = CacheManager.EnumerateScriptableObjects<M_Region>();
+            foreach (var region in regions)
             {
-                var region = regions[regionIndex];
                 region.introText = GetTextTranslation(
                     RegionIntroTexts,
                     region.introText
@@ -46,17 +41,13 @@ namespace WKLocalizationLoader.Modules
             }
         }
 
-        public static void PatchSubegionIntroText()
+        public static void PatchSubregions()
         {
             if (!IsEnabled) return;
-            var subregions = Resources.FindObjectsOfTypeAll<M_Subregion>();
-            for (
-                int subregionIndex = 0;
-                subregionIndex < subregions.Length;
-                subregionIndex++
-            )
+            var subregions = CacheManager
+                .EnumerateScriptableObjects<M_Subregion>();
+            foreach (var subregion in subregions)
             {
-                var subregion = subregions[subregionIndex];
                 subregion.introText = GetTextTranslation(
                     SubregionIntroTexts,
                     subregion.introText

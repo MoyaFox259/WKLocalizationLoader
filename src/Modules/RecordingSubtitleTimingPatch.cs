@@ -22,15 +22,17 @@ namespace WKLocalizationLoader.Modules
             RecordingSubtitleTimings;
 
         [JsonIgnore]
-        public static string[] LinebreakPattern = new string[] { @"<br>" };
+        public readonly static string[] LinebreakPattern =
+            new string[] { @"<br>" };
         [JsonIgnore]
-        public static string DelayTagPattern =
-            @"<delay\s*=\s*([+-]?\d*(?:\.\d+)?|\d+)>";
-        [JsonIgnore]
-        public static Regex DelayRegex = new Regex(
-            DelayTagPattern,
-            RegexOptions.IgnoreCase
-        );
+        public readonly static Regex DelayRegex = CacheManager
+            .GetOrCreateRegex(
+                @"<delay\s*=\s*([+-]?\d*(?:\.\d+)?|\d+)>",
+                (
+                    RegexOptions.IgnoreCase
+                    | RegexOptions.Compiled
+                )
+            );
 
         [HarmonyPostfix]
         public static string Postfix(
@@ -44,6 +46,10 @@ namespace WKLocalizationLoader.Modules
                 || group != "recordings"
                 || RecordingSubtitleTimings is null
                 || !RecordingSubtitleTimings.ContainsKey(key)
+                || (
+                    ModuleSettings.UseOriginalDelay
+                    && DelayRegex.IsMatch(__result)
+                )
             )
             {
                 return __result;
@@ -80,7 +86,7 @@ namespace WKLocalizationLoader.Modules
                 {
                     targetLineDuration -= subtitleTimings[lineIndex - 1];
                 }
-                else if (lineIndex == count - 1)
+                if (lineIndex == count - 1)
                 {
                     targetLineDuration += ModuleSettings.EndDelay;
                 }

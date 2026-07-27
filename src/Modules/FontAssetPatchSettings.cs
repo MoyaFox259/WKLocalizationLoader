@@ -4,7 +4,7 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
-        "Translation.FontAssetPatch",
+        "Modules.FontAssetPatch",
         "This module adds fallback font assets."
     )]
     public class FontAssetPatchSettings : ModuleSettingsBase
