@@ -33,9 +33,15 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> ModifierAppends;
         [JsonProperty]
+        public static bool KeepWhiteSpaceInGamemodeName;
+        [JsonProperty]
         public static string GamemodeTextTemplate;
         [JsonProperty]
-        public static bool KeepWhiteSpaceInGamemodeName;
+        public static string ModifierConflictedDescription;
+        [JsonProperty]
+        public static string ModifierLockedDescriptionTemplate;
+        [JsonProperty]
+        public static string ModifierUnlockProgressTemplate;
 
         [JsonIgnore]
         public static Regex WhiteSpaceRegex = CacheManager.GetOrCreateRegex(
@@ -106,10 +112,12 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled || __instance.gamemode is null) return;
             if (
-                TryGetTranslatedCapsuleName(
+                CapsuleNames != null
+                && CapsuleNames.TryGetValue(
                     __instance.gamemode.gamemodeName,
                     out string capsuleName
                 )
+                && capsuleName != null
             )
             {
                 __instance.title.text = capsuleName;
@@ -134,7 +142,7 @@ namespace WKLocalizationLoader.Modules
                 2,
                 StringSplitOptions.None
             );
-            if (gamemodeTextSegments.Length < 2) return;
+            if (gamemodeTextSegments.Length != 2) return;
             var prefix = gamemodeTextSegments[0];
             var modifiers = gamemodeTextSegments[1];
             if (GamemodeTextPrefixes != null)
@@ -142,10 +150,12 @@ namespace WKLocalizationLoader.Modules
                 prefix = GetTextTranslation(GamemodeTextPrefixes, prefix);
             }
             if (
-                TryGetTranslatedCapsuleName(
+                CapsuleNames != null
+                && CapsuleNames.TryGetValue(
                     gamemodeName,
                     out string capsuleName
                 )
+                && capsuleName != null
             )
             {
                 gamemodeName = WhiteSpaceRegex.Replace(
@@ -177,24 +187,55 @@ namespace WKLocalizationLoader.Modules
                 .Replace("{modifierAppends}", modifiers);
         }
 
-        public static bool TryGetTranslatedCapsuleName(
-            string gamemodeName,
-            out string capsuleName
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(UI_GamemodeSetting),
+            nameof(UI_GamemodeSetting.UpdateColor)
+        )]
+        public static void Postfix_GamemodeSettingUI_UpdateColor(
+            UI_GamemodeSetting __instance
         )
         {
-            if (
-                CapsuleNames != null
-                && CapsuleNames.TryGetValue(
-                    gamemodeName,
-                    out capsuleName
-                )
-                && capsuleName != null
-            )
+            if (!IsEnabled) return;
+            var descriptionText = __instance.descriptionText.text;
+            if (descriptionText == "LOCKED")
             {
-                return true;
+                __instance.descriptionText.text =
+                    ModifierConflictedDescription ?? "LOCKED";
+                return;
             }
-            capsuleName = gamemodeName;
-            return false;
+            var unlock = __instance.gamemodeSetting.unlock;
+            if (unlock.CheckUnlock()) return;
+            var progress = unlock.showProgression
+                ? GetTranslatedProgress(unlock)
+                : "";
+            var descriptionTemplate = ModifierLockedDescriptionTemplate
+                ?? "{unlockHint}{progress}";
+            __instance.descriptionText.text = descriptionTemplate
+                .Replace("{unlockHint}", unlock.unlockHint)
+                .Replace("{progress}", progress);
+        }
+
+        public static string GetTranslatedProgress(
+            ProgressionUnlock unlock
+        )
+        {
+            var progress = unlock.GetProgressString();
+            if (progress != "N/A")
+            {
+                var progressSegments = progress.Split(new char[] { '/' }, 2);
+                if (progressSegments.Length == 2)
+                {
+                    var current = progressSegments[0];
+                    var required = progressSegments[1];
+                    var progressTemplate = ModifierUnlockProgressTemplate
+                        ?? ": {current}/{required}";
+                    progress = progressTemplate
+                        .Replace("{current}", current)
+                        .Replace("{required}", required);
+                }
+            }
+            return progress;
         }
     }
 }

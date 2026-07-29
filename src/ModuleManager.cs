@@ -57,6 +57,7 @@ namespace WKLocalizationLoader
             LoadModule<LocationNamePatch>("LocationNames.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
             LoadModule<ObjectivePatch>("Objectives.json");
+            LoadModule<ProgressionUnlockPatch>("ProgressionUnlocks.json");
             LoadModule<QuietOSPatch>("QuietOS.json");
             LoadModule<RecordingSubtitlePatch>("RecordingSubtitles.json");
             LoadModule<RecordingSubtitleTimingPatch>(

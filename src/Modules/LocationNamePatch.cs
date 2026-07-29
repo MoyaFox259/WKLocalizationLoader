@@ -18,6 +18,8 @@ namespace WKLocalizationLoader.Modules
         public static Dictionary<string, string> LevelIntroTexts;
         [JsonProperty]
         public static Dictionary<string, string> LevelSaveNames;
+        [JsonProperty]
+        public static string ContinueTextTemplate;
 
         [JsonIgnore]
         public static LocationNamePatchSettings ModuleSettings;
@@ -85,10 +87,38 @@ namespace WKLocalizationLoader.Modules
                 LevelIntroTexts,
                 __instance.introText
             );
-            __instance.saveName = GetTextTranslation(
-                LevelSaveNames,
-                __instance.saveName
-            );
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(UI_GamemodeScreen),
+            nameof(UI_GamemodeScreen.RefreshCurrentGamemode)
+        )]
+        public static void Postfix_GamemodeScreen_RefreshCurrentGamemode(
+            UI_GamemodeScreen __instance
+        )
+        {
+            if (!IsEnabled) return;
+            var continueButtonText =
+                __instance.currentPanel.continueButtonText.text;
+            if (
+                !CL_SaveManager.SessionFileExists(
+                    __instance.baseGamemode.gamemodeName,
+                    CL_GameManager.IsHardmode()
+                )
+                || CL_GameManager.gamemode.IsCompetitive()
+                || CL_GameManager.GetBaseGamemode().IsCompetitive()
+                || !continueButtonText.StartsWith("Continue: ")
+            )
+            {
+                return;
+            }
+            var saveName = continueButtonText.Substring(10);
+            saveName = GetTextTranslation(LevelSaveNames, saveName);
+            var continueTextTemplate = ContinueTextTemplate
+                ?? "Continue: {saveName}";
+            __instance.currentPanel.continueButtonText.text =
+                continueTextTemplate.Replace("{saveName}", saveName);
         }
     }
 }

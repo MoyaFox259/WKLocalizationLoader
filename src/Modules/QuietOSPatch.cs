@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -198,7 +197,13 @@ namespace WKLocalizationLoader.Modules
             var translatedSaves = new List<string>();
             for (int saveIndex = 0; saveIndex < saves.Length; saveIndex++)
             {
-                var saveInfo = saves[saveIndex].Split(':');
+                var save = saves[saveIndex];
+                var saveInfo = save.Split(new char[] { ':' }, 2);
+                if (saveInfo.Length != 2)
+                {
+                    translatedSaves.Add(save);
+                    continue;
+                }
                 var stationID = saveInfo[0];
                 stationID = GetTextTranslation(StationIDs, stationID);
                 var saveCount = saveInfo[1];
@@ -386,16 +391,13 @@ namespace WKLocalizationLoader.Modules
 
         [HarmonyPrefix]
         [HarmonyPatch(
-            typeof(OS_Tooltip),
-            nameof(OS_Tooltip.ShowTooltip)
+            typeof(OS_Tooltip_Manager),
+            nameof(OS_Tooltip_Manager.ShowTip)
         )]
-        public static void Prefix_Tooltip_ShowTooltip(OS_Tooltip __instance)
+        public static void Prefix_TooltipManager_ShowTip(ref string tip)
         {
             if (!IsEnabled) return;
-            __instance.tip = GetTemplateTranslation(
-                HoverTextTemplates,
-                __instance.tip
-            );
+            tip = GetTemplateTranslation(HoverTextTemplates, tip);
         }
 
         [HarmonyPrefix]

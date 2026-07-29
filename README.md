@@ -39,7 +39,7 @@
 | Bindings | ➖ |
 | Perks | ➖ |
 | Facility Upgrades | ➖ |
-| Unlocks | ➖ |
+| Progression Unlocks | ✅ |
 | Achievements | ➖ |
 | Objectives | ✅ |
 | Item Descriptions | ✅ |
