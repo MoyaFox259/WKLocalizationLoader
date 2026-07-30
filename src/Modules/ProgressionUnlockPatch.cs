@@ -20,13 +20,11 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> UnlockHints;
         [JsonProperty]
-        public static Dictionary<string, string> UnlockProgressTemplates;
+        public static Dictionary<string, string> UnlockProgressTextTemplates;
         [JsonProperty]
         public static string LogbookUnlockedDescription;
         [JsonProperty]
         public static string LogbookRedactedTitle;
-        [JsonProperty]
-        public static string ProgressTextTemplate;
 
         [JsonIgnore]
         public static ProgressionUnlockPatchSettings ModuleSettings;
@@ -51,7 +49,7 @@ namespace WKLocalizationLoader.Modules
             );
             __instance.unlockDescription = GetTextTranslation(
                 UnlockDescriptions,
-                __instance.unlockLogDescription
+                __instance.unlockDescription
             );
             __instance.unlockHint = GetTextTranslation(
                 UnlockHints,
@@ -97,7 +95,6 @@ namespace WKLocalizationLoader.Modules
                 LogbookRedactedTitle ?? "REDACTED",
                 lockedDescription
             );
-            return;
         }
 
         [HarmonyTranspiler]
@@ -158,38 +155,28 @@ namespace WKLocalizationLoader.Modules
             ProgressionUnlock unlock
         )
         {
-            var progressTextTemplate = ProgressTextTemplate
-                ?? "Progress: {progress}";
-            var progress = GetTranslatedProgress(unlock);
-            return progressTextTemplate.Replace("{progress}", progress);
-        }
-
-        public static string GetTranslatedProgress(
-            ProgressionUnlock unlock
-        )
-        {
             var progress = unlock.GetProgressString();
             if (progress != "N/A")
             {
                 var progressSegments = progress.Split(new char[] { '/' }, 2);
                 if (
                     progressSegments.Length == 2
-                    && UnlockProgressTemplates != null
-                    && UnlockProgressTemplates.TryGetValue(
+                    && UnlockProgressTextTemplates != null
+                    && UnlockProgressTextTemplates.TryGetValue(
                         unlock.id,
-                        out string progressTemplate
+                        out string progressTextTemplate
                     )
-                    && progressTemplate != null
+                    && progressTextTemplate != null
                 )
                 {
                     var current = progressSegments[0];
                     var required = progressSegments[1];
-                    return progressTemplate
+                    return progressTextTemplate
                         .Replace("{current}", current)
                         .Replace("{required}", required);
                 }
             }
-            return progress + " " + unlock.progressionString;
+            return "Progress: " + progress + " " + unlock.progressionString;
         }
     }
 }

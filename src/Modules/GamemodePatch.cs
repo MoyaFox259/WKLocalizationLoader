@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace WKLocalizationLoader.Modules
     public class GamemodePatch
         : TextTranslator<GamemodePatch>, IScriptableObjectPatch
     {
-        [JsonProperty("GamemodeNames")]
+        [JsonProperty]
         public static Dictionary<string, string> CapsuleNames;
         [JsonProperty]
         public static Dictionary<string, string> GamemodeUnlockHints;
@@ -24,8 +23,8 @@ namespace WKLocalizationLoader.Modules
         public static Dictionary<string, string> GamemodeIntroTexts;
         [JsonProperty]
         public static Dictionary<string, string> GamemodeTextPrefixes;
-        [JsonProperty]
-        public static Dictionary<string, string> Medals;
+        // [JsonProperty]
+        // public static Dictionary<string, string> Medals;
         [JsonProperty]
         public static Dictionary<string, string> ModifierTitles;
         [JsonProperty]
@@ -216,9 +215,7 @@ namespace WKLocalizationLoader.Modules
                 .Replace("{progress}", progress);
         }
 
-        public static string GetTranslatedProgress(
-            ProgressionUnlock unlock
-        )
+        public static string GetTranslatedProgress(ProgressionUnlock unlock)
         {
             var progress = unlock.GetProgressString();
             if (progress != "N/A")

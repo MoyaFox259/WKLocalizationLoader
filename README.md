@@ -35,8 +35,7 @@
 | Location Names | ✅ |
 | Subtitles | ✅ |
 | Cosmetics | ➖ |
-| Trinkets | ➖ |
-| Bindings | ➖ |
+| Trinkets/Bindings | ✅ |
 | Perks | ➖ |
 | Facility Upgrades | ➖ |
 | Progression Unlocks | ✅ |

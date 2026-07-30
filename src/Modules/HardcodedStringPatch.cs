@@ -50,14 +50,6 @@ namespace WKLocalizationLoader.Modules
                 nameof(UT_Intro.EndIntro)
             );
             CollectTargetMethod(
-                typeof(UI_TrinketPicker),
-                nameof(UI_TrinketPicker.ReloadTrinkets)
-            );
-            CollectTargetMethod(
-                typeof(UI_TrinketPicker),
-                nameof(UI_TrinketPicker.UpdateTrinketActivation)
-            );
-            CollectTargetMethod(
                 typeof(Leaderboard_Panel),
                 nameof(Leaderboard_Panel.Refresh)
             );

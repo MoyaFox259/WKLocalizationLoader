@@ -66,6 +66,7 @@ namespace WKLocalizationLoader
             LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
             LoadModule<StaticTextPatch>("StaticTexts.json");
             LoadModule<TextScrawlPatch>("TextScrawls.json");
+            LoadModule<TrinketPatch>("Trinkets.json");
             //LoadModule<>();
             //LoadModule<>();
             //LoadModule<>();
