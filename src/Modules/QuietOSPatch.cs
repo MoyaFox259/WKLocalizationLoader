@@ -18,8 +18,6 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> FileNames;
         [JsonProperty]
-        public static Dictionary<string, string> UITexts;
-        [JsonProperty]
         public static Dictionary<string, string> MessageTexts;
         [JsonProperty]
         public static Dictionary<string, string> MessageOptions;
@@ -30,20 +28,30 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> StationIDs;
         [JsonProperty]
+        public static Dictionary<string, string> UnlockerAccessTitles;
+        [JsonProperty]
+        public static string FileCounterTemplate;
+        [JsonProperty]
+        public static string PageCounterTemplate;
+        [JsonProperty]
         public static string DiskCardTemplate;
+        [JsonProperty]
+        public static string NoSaveText;
         [JsonProperty]
         public static string SaveTextTemplate;
         [JsonProperty]
         public static string SaveTemplate;
         [JsonProperty]
+        public static string UnlockerCostTemplate;
+        [JsonProperty]
+        public static string SolarKnightScoreTemplate;
+        [JsonProperty]
+        public static string SolarKnightLivesTemplate;
+        [JsonProperty]
         public static string SolarKnightTimeTemplate;
 
         [JsonIgnore]
-        public static TemplateTranslations UITextTemplates;
-        [JsonIgnore]
         public static TemplateTranslations MessageTemplates;
-        [JsonIgnore]
-        public static TemplateTranslations HoverTextTemplates;
         [JsonIgnore]
         public static QuietOSPatchSettings ModuleSettings;
 
@@ -51,33 +59,7 @@ namespace WKLocalizationLoader.Modules
         private void OnDeserializedMethod(StreamingContext context)
         {
             if (!IsEnabled) return;
-            UITextTemplates = new TemplateTranslations(UITexts);
             MessageTemplates = new TemplateTranslations(MessageTexts);
-            HoverTextTemplates = new TemplateTranslations(HoverTexts);
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(
-            typeof(OS_Manager),
-            nameof(OS_Manager.Awake)
-        )]
-        public static void Postfix_OS_Awake(OS_Manager __instance)
-        {
-            if (!IsEnabled) return;
-            TranslateTextComponents(UITextTemplates, __instance);
-            TranslateTMPTextComponents(UITextTemplates, __instance);
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(
-            typeof(OS_Window),
-            nameof(OS_Window.Start)
-        )]
-        public static void Postfix_Window_Start(OS_Window __instance)
-        {
-            if (!IsEnabled) return;
-            TranslateTextComponents(UITextTemplates, __instance);
-            TranslateTMPTextComponents(UITextTemplates, __instance);
         }
 
         [HarmonyPrefix]
@@ -91,14 +73,12 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            if (info.type == OS_Filesystem.FileInfo.fileType.folder)
+            var textTranslations = info.type switch
             {
-                info.name = GetTextTranslation(FolderNames, info.name);
-            }
-            else
-            {
-                info.name = GetTextTranslation(FileNames, info.name);
-            }
+                OS_Filesystem.FileInfo.fileType.folder => FolderNames,
+                _ => FileNames
+            };
+            info.name = GetTextTranslation(textTranslations, info.name);
             var fileNameText = __instance.nameText;
             fileNameText.characterLimit = Math.Max(
                 info.name.Length,
@@ -138,8 +118,68 @@ namespace WKLocalizationLoader.Modules
         )]
         public static void Postfix_Folder_UpdateInfoText(OS_Folder __instance)
         {
+            if (
+                !IsEnabled
+                || __instance.infoText is null
+                || FileCounterTemplate is null
+            )
+            {
+                return;
+            }
+            var count = __instance.subFiles.Count;
+            __instance.infoText.text = FileCounterTemplate
+                .Replace("{count}", count.ToString());
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(
+            typeof(OS_Tooltip_Manager),
+            nameof(OS_Tooltip_Manager.ShowTip)
+        )]
+        public static void Prefix_TooltipManager_ShowTip(ref string tip)
+        {
             if (!IsEnabled) return;
-            TranslateTMPText(UITextTemplates, __instance.infoText);
+            tip = GetTextTranslation(HoverTexts, tip);
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(
+            typeof(Message_Manager),
+            nameof(Message_Manager.CreateMessage)
+        )]
+        public static void Prefix_MessageManager_CreateMessage(
+            ref Message_Manager.Message_Packet packet
+        )
+        {
+            if (!IsEnabled) return;
+            packet.message = GetTemplateTranslation(
+                MessageTemplates,
+                packet.message
+            );
+            packet.closeText = GetTextTranslation(
+                MessageOptions,
+                packet.closeText
+            );
+            packet.aText = GetTextTranslation(MessageOptions, packet.aText);
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(
+            typeof(ContextMenu),
+            nameof(ContextMenu.ShowMessage)
+        )]
+        public static void Prefix_ContextMenu_ShowMessage(
+            ContextMenu __instance
+        )
+        {
+            if (!IsEnabled) return;
+            foreach (var option in __instance.options)
+            {
+                option.text = GetTextTranslation(
+                    ContextMenuOptions,
+                    option.text
+                );
+            }
         }
 
         [HarmonyPostfix]
@@ -151,22 +191,31 @@ namespace WKLocalizationLoader.Modules
             App_DocumentReader __instance
         )
         {
-            if (!IsEnabled) return;
-            TranslateTMPText(UITextTemplates, __instance.pageCounter);
+            if (!IsEnabled || PageCounterTemplate is null) return;
+            var current = __instance.curPage + 1;
+            var total = __instance.pages.Count;
+            if (total > 1)
+            {
+                __instance.pageCounter.text = PageCounterTemplate
+                    .Replace("{current}", current.ToString())
+                    .Replace("{total}", total.ToString());
+            }
         }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(
-            typeof(App_PerkPage),
-            nameof(App_PerkPage.PurchaseRefresh)
-        )]
-        public static void Postfix_PerkPage_PurchaseRefresh(
-            App_PerkPage __instance
-        )
-        {
-            if (!IsEnabled) return;
-            TranslateTMPTextComponents(UITextTemplates, __instance);
-        }
+        //
+        // [HarmonyPostfix]
+        // [HarmonyPatch(
+        //     typeof(App_PerkPage),
+        //     nameof(App_PerkPage.PurchaseRefresh)
+        // )]
+        // public static void Postfix_PerkPage_PurchaseRefresh(
+        //     App_PerkPage __instance
+        // )
+        // {
+        //     if (!IsEnabled) return;
+        //     var path = "";
+        //     var refreshButton = __instance.GetComponent<TMP_Text>(path);
+        //     refreshButton.text = PurchasedText ?? "Purchased";
+        // }
 
         [HarmonyPostfix]
         [HarmonyPatch(
@@ -178,18 +227,14 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            var saveText = __instance.floppyText.text;
-            if (
-                CL_SaveManager.GetNumberOfDiskLives() == 0
-                || !saveText.StartsWith("SAVES | <mspace=5>")
-            )
+            if (CL_SaveManager.GetNumberOfDiskLives() == 0)
             {
-                __instance.floppyText.text = GetTemplateTranslation(
-                    UITextTemplates,
-                    saveText
-                );
+                __instance.floppyText.text = NoSaveText
+                    ?? "SAVES | <mspace=5>NO BACKUP DATA FOUND";
                 return;
             }
+            var saveText = __instance.floppyText.text;
+            if (!saveText.StartsWith("SAVES | <mspace=5>")) return;
             var saveTextTemplate = SaveTextTemplate
                 ?? "SAVES | <mspace=5>{saves} ";
             var saveTemplate = SaveTemplate ?? "{stationID}:{saveCount}";
@@ -228,42 +273,13 @@ namespace WKLocalizationLoader.Modules
             ref int capacity
         )
         {
-            if (!IsEnabled || DiskCardTemplate is null) return;
+            if (!IsEnabled) return;
             diskName = GetTextTranslation(FolderNames, diskName);
-            __instance.text.text = DiskCardTemplate
+            var cardTemplate = DiskCardTemplate
+                ?? "{diskName}\nCapacity: {capacity}x";
+            __instance.text.text = cardTemplate
                 .Replace("{diskName}", diskName)
                 .Replace("{capacity}", capacity.ToString());
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(
-            typeof(App_FacilitySlotHolder),
-            nameof(App_FacilitySlotHolder.Awake)
-        )]
-        public static void Postfix_FacilitySlotHolder_Awake(
-            App_FacilitySlotHolder __instance
-        )
-        {
-            if (!IsEnabled) return;
-            TranslateTMPTextComponents(
-                UITextTemplates,
-                __instance.facilityCardAsset
-            );
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(
-            typeof(App_FacilitySlotHolder),
-            nameof(App_FacilitySlotHolder.SetPage)
-        )]
-        public static void Postfix_FacilitySlotHolder_SetPage(
-            List<App_FacilitySlotHolder.UpgradePage> pageList,
-            ref int pageNumber,
-            TMP_Text titleObject
-        )
-        {
-            if (!IsEnabled) return;
-            TranslateTMPText(UITextTemplates, titleObject);
         }
 
         [HarmonyPostfix]
@@ -275,15 +291,25 @@ namespace WKLocalizationLoader.Modules
             App_Unlocker __instance
         )
         {
-            if (!IsEnabled) return;
-            __instance.authorizationTitle = GetTemplateTranslation(
-                UITextTemplates,
-                __instance.authorizationTitle
+            if (
+                !IsEnabled
+                || !__instance.showAuthorizationMenu
+                || UnlockerCostTemplate is null
+            )
+            {
+                return;
+            }
+            __instance.authorizationTitleObject.text = GetTextTranslation(
+                UnlockerAccessTitles,
+                __instance.authorizationTitleObject.text
             );
-            TranslateTMPText(
-                UITextTemplates,
-                __instance.authorizationCostTextObject
-            );
+            var cost = __instance.authorizationCost;
+            if (cost <= 0) return;
+            var costTemplate = CL_GameManager.GetRoaches() < cost
+                ? "<color=red>" + UnlockerCostTemplate + "</color>"
+                : UnlockerCostTemplate;
+            __instance.authorizationCostTextObject.text = costTemplate
+                .Replace("{cost}", cost.ToString());
         }
 
         [HarmonyPostfix]
@@ -296,7 +322,7 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            TranslateTMPText(UITextTemplates, __instance.scoreText);
+            TranslateSolarKnightScoreText(__instance);
         }
 
         [HarmonyPostfix]
@@ -309,7 +335,7 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            TranslateTMPText(UITextTemplates, __instance.livesText);
+            TranslateSolarKnightLivesText(__instance);
         }
 
         [HarmonyPostfix]
@@ -322,11 +348,11 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            __instance.StartCoroutine(TranslateLiveText());
-            IEnumerator TranslateLiveText()
+            __instance.StartCoroutine(TranslateLivesText());
+            IEnumerator TranslateLivesText()
             {
                 yield return new WaitForSeconds(1.001f);
-                TranslateTMPText(UITextTemplates, __instance.livesText);
+                TranslateSolarKnightLivesText(__instance);
             }
         }
 
@@ -340,8 +366,8 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            TranslateTMPText(UITextTemplates, __instance.scoreText);
-            TranslateTMPText(UITextTemplates, __instance.livesText);
+            TranslateSolarKnightScoreText(__instance);
+            TranslateSolarKnightLivesText(__instance);
         }
 
         [HarmonyPostfix]
@@ -367,110 +393,38 @@ namespace WKLocalizationLoader.Modules
                 .Replace("{time}", time);
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(
-            typeof(Message_Manager),
-            nameof(Message_Manager.CreateMessage)
-        )]
-        public static void Prefix_MessageManager_CreateMessage(
-            ref Message_Manager.Message_Packet packet
+        public static void TranslateSolarKnightLivesText(
+            App_SolarKnight solarKnight
         )
         {
-            if (!IsEnabled) return;
-            packet.message = GetTemplateTranslation(
-                MessageTemplates,
-                packet.message
-            );
-            packet.closeText = GetTextTranslation(
-                MessageOptions,
-                packet.closeText
-            );
-            packet.aText = GetTextTranslation(MessageOptions, packet.aText);
-        }
-
-
-        [HarmonyPrefix]
-        [HarmonyPatch(
-            typeof(OS_Tooltip_Manager),
-            nameof(OS_Tooltip_Manager.ShowTip)
-        )]
-        public static void Prefix_TooltipManager_ShowTip(ref string tip)
-        {
-            if (!IsEnabled) return;
-            tip = GetTemplateTranslation(HoverTextTemplates, tip);
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPatch(
-            typeof(ContextMenu),
-            nameof(ContextMenu.ShowMessage)
-        )]
-        public static void Prefix_ContextMenu_ShowMessage(
-            ContextMenu __instance
-        )
-        {
-            if (!IsEnabled) return;
-            foreach (var option in __instance.options)
+            var livesText = solarKnight.livesText.text;
+            if (
+                !livesText.StartsWith("Lives: ")
+                || SolarKnightLivesTemplate is null
+            )
             {
-                option.text = GetTextTranslation(
-                    ContextMenuOptions,
-                    option.text
-                );
+                return;
             }
+            var lives = livesText.Substring(6);
+            solarKnight.livesText.text = SolarKnightLivesTemplate
+                .Replace("{lives}", lives);
         }
 
-        public static void TranslateTextComponents(
-            TemplateTranslations templateTranslations,
-            Component component,
-            bool includeDisabledComponents = true
+        public static void TranslateSolarKnightScoreText(
+            App_SolarKnight solarKnight
         )
         {
-            if (component is null) return;
-            var texts = component.transform
-                .GetComponentsInChildren<Text>(includeDisabledComponents);
-            for (int textIndex = 0; textIndex < texts.Length; textIndex++)
+            var scoreText = solarKnight.scoreText.text;
+            if (
+                !scoreText.StartsWith("Score: ")
+                || SolarKnightScoreTemplate is null
+            )
             {
-                TranslateText(UITextTemplates, texts[textIndex]);
+                return;
             }
-        }
-
-        public static void TranslateTMPTextComponents(
-            TemplateTranslations templateTranslations,
-            Component component,
-            bool includeDisabledComponents = true
-        )
-        {
-            if (component is null) return;
-            var tmpTexts = component.transform
-                .GetComponentsInChildren<TMP_Text>(includeDisabledComponents);
-            for (int tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
-            {
-                TranslateTMPText(UITextTemplates, tmpTexts[tmpIndex]);
-            }
-        }
-
-        public static void TranslateText(
-            TemplateTranslations templateTranslations,
-            Text text
-        )
-        {
-            if (text is null) return;
-            text.text = GetTemplateTranslation(
-                templateTranslations,
-                text.text
-            );
-        }
-
-        public static void TranslateTMPText(
-            TemplateTranslations templateTranslations,
-            TMP_Text textComponent
-        )
-        {
-            if (textComponent is null) return;
-            textComponent.text = GetTemplateTranslation(
-                templateTranslations,
-                textComponent.text
-            );
+            var score = scoreText.Substring(7);
+            solarKnight.scoreText.text = SolarKnightScoreTemplate
+                .Replace("{score}", score);
         }
     }
 }

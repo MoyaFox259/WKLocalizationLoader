@@ -49,6 +49,7 @@ namespace WKLocalizationLoader
                 "AnnouncementSubtitleTimings.json"
             );
             LoadModule<DeathMessagePatch>("DeathMessages.json");
+            LoadModule<FacilityUpgradePatch>("FacilityUpgrades.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
             LoadModule<GamemodePatch>("Gamemodes.json");

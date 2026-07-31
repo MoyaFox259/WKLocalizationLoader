@@ -218,16 +218,14 @@ namespace WKLocalizationLoader.Modules
         public static string GetTranslatedProgress(ProgressionUnlock unlock)
         {
             var progress = unlock.GetProgressString();
-            if (progress != "N/A")
+            if (progress != "N/A" && ModifierUnlockProgressTemplate != null)
             {
                 var progressSegments = progress.Split(new char[] { '/' }, 2);
                 if (progressSegments.Length == 2)
                 {
                     var current = progressSegments[0];
                     var required = progressSegments[1];
-                    var progressTemplate = ModifierUnlockProgressTemplate
-                        ?? ": {current}/{required}";
-                    progress = progressTemplate
+                    progress = ModifierUnlockProgressTemplate
                         .Replace("{current}", current)
                         .Replace("{required}", required);
                 }

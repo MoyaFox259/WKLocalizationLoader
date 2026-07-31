@@ -37,7 +37,7 @@
 | Cosmetics | ➖ |
 | Trinkets/Bindings | ✅ |
 | Perks | ➖ |
-| Facility Upgrades | ➖ |
+| Facility Upgrades | ✅ |
 | Progression Unlocks | ✅ |
 | Achievements | ➖ |
 | Objectives | ✅ |
