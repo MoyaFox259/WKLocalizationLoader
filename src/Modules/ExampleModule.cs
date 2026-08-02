@@ -8,7 +8,7 @@ namespace WKLocalizationLoader.Modules
     public class ExampleModule : ModuleBase<ExampleModule>
     {
         [JsonProperty]
-        public ExampleModuleSettings ModuleSettings;
+        public static ExampleModuleSettings ModuleSettings;
     }
 }
 

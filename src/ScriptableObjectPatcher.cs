@@ -38,10 +38,7 @@ namespace WKLocalizationLoader
             {
                 var patchMethod = moduleClass.GetMethod(
                     "PatchScriptableObjects",
-                    (
-                        BindingFlags.Public
-                        | BindingFlags.Static
-                    )
+                    BindingFlags.Public | BindingFlags.Static
                 );
                 patchMethod?.Invoke(null, null);
             }
@@ -56,10 +53,7 @@ namespace WKLocalizationLoader
                         typeof(IScriptableObjectPatch).IsAssignableFrom(m)
                         && m.GetMethod(
                             "PatchScriptableObjects",
-                            (
-                                BindingFlags.Public
-                                | BindingFlags.Static
-                            )
+                            BindingFlags.Public | BindingFlags.Static
                         ) != null
                     )
                 )

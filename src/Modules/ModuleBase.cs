@@ -11,19 +11,31 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public static bool IsEnabled = false;
 
-        [OnDeserialized]
-        private void OnDeserializedMethod(StreamingContext context)
+        public ModuleBase()
         {
-            var moduleSettings = this.GetType().GetField("ModuleSettings");
-            if (moduleSettings is null) return;
-            var configSectionAttribute = moduleSettings.FieldType
+            var moduleSettingsField = this
+                .GetType()
+                .GetField(
+                    "ModuleSettings",
+                    BindingFlags.Public | BindingFlags.Static
+                );
+            if (moduleSettingsField is null) return;
+            var configSectionAttribute = moduleSettingsField.FieldType
                 .GetCustomAttribute<ConfigSectionAttribute>();
-            if (configSectionAttribute is null) return;
-            var (section, moduleDescription) = configSectionAttribute;
-            IsEnabled = ConfigManager.IsModuleEnabled(
-                section,
-                moduleDescription
-            );
+            if (configSectionAttribute != null)
+            {
+                var (section, moduleDescription) = configSectionAttribute;
+                IsEnabled = ConfigManager.IsModuleEnabled(
+                    section,
+                    moduleDescription
+                );
+            }
+            if (IsEnabled && moduleSettingsField.GetValue(this) is null)
+            {
+                var moduleSettings =
+                    Activator.CreateInstance(moduleSettingsField.FieldType);
+                moduleSettingsField.SetValue(this, moduleSettings);
+            }
         }
     }
 }

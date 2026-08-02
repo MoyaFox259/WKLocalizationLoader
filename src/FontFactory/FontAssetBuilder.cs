@@ -343,7 +343,7 @@ namespace WKLocalizationLoader.FontFactory
             {
                 return glyphInfos;
             }
-            var charCodes = characters.Distinct().Cast<uint>();
+            var charCodes = characters.Distinct().Select(c => (uint)c);
             foreach (var charCode in charCodes)
             {
                 if (

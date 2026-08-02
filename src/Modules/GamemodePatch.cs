@@ -48,7 +48,7 @@ namespace WKLocalizationLoader.Modules
             RegexOptions.IgnoreCase
         );
         [JsonIgnore]
-        public GamemodePatchSettings ModuleSettings;
+        public static GamemodePatchSettings ModuleSettings;
 
         public static void PatchScriptableObjects()
         {
