@@ -2,12 +2,13 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using BepInEx;
 using BepInEx.Logging;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader
@@ -17,6 +18,9 @@ namespace WKLocalizationLoader
         private static JsonSerializerSettings _jsonSerializerSettings;
         private static Dictionary<string, Font> _fontCache;
         private static Dictionary<string, TMP_FontAsset> _fontAssetCache;
+        private static Dictionary<(string, RegexOptions), Regex> _regexCache;
+        private static ValueCollection<Type, UnityEngine.Object>
+            _scriptableObjectCache;
         private static Plugin _plugin;
         private static ManualLogSource _logger;
 
@@ -241,6 +245,66 @@ namespace WKLocalizationLoader
                 );
                 _logger?.LogWarning(e.Message);
             }
+        }
+
+        public static Regex GetOrCreateRegex(
+            string pattern,
+            RegexOptions regexOptions = RegexOptions.None
+        )
+        {
+            _regexCache ??= new Dictionary<(string, RegexOptions), Regex>();
+            var key = (pattern, regexOptions);
+            Regex regex = null;
+            if (_regexCache.TryGetValue(key, out regex) && regex != null)
+            {
+                return regex;
+            }
+            regex = new Regex(pattern, regexOptions);
+            _regexCache[key] = regex;
+            return regex;
+        }
+
+        public static void ScanScriptableObjects()
+        {
+            _scriptableObjectCache ??=
+                new ValueCollection<Type, UnityEngine.Object>();
+            var scriptableObjects =
+                Resources.FindObjectsOfTypeAll(typeof(ScriptableObject));
+            for (
+                int objectIndex = 0;
+                objectIndex < scriptableObjects.Length;
+                objectIndex++
+            )
+            {
+                var scriptableObject = scriptableObjects[objectIndex];
+                _scriptableObjectCache.Add(
+                    scriptableObject.GetType(),
+                    scriptableObject
+                );
+            }
+        }
+
+        public static IEnumerable<TScriptableObject>
+            EnumerateScriptableObjects<TScriptableObject>()
+            where TScriptableObject : ScriptableObject
+        {
+            if (
+                _scriptableObjectCache != null
+                && _scriptableObjectCache.TryGetValues(
+                    typeof(TScriptableObject),
+                    out List<UnityEngine.Object> scriptableObjects
+                )
+            )
+            {
+                foreach (var scriptableObject in scriptableObjects)
+                {
+                    if (scriptableObject is TScriptableObject so)
+                    {
+                        yield return so;
+                    }
+                }
+            }
+            yield break;
         }
     }
 }

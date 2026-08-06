@@ -73,7 +73,7 @@ namespace WKLocalizationLoader
             string entryDescription
         )
         {
-            if (_config is null) return null;
+            if (_config is null) return defaultValue;
             var isModuleEnabled = IsModuleEnabled(section, moduleDescription);
             var isModuleUserOverridesEnabled =
                 IsModuleUserOverridesEnabled(section);
@@ -85,7 +85,7 @@ namespace WKLocalizationLoader
             );
             return (isModuleEnabled && isModuleUserOverridesEnabled)
                 ? configEntryValue
-                : null;
+                : defaultValue;
         }
 
         public static object BindConfigEntryValue(

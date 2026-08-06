@@ -229,7 +229,7 @@ namespace WKLocalizationLoader
         {
             try
             {
-                var regex = new Regex(fileNamePattern);
+                var regex = CacheManager.GetOrCreateRegex(fileNamePattern);
                 matchResults = Directory
                     .EnumerateFiles(folder)
                     .Select(

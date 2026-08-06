@@ -7,14 +7,15 @@ using WKLocalizationLoader.Modules;
 
 namespace WKLocalizationLoader
 {
-    public class GameResourcePatcher
+    public class ScriptableObjectPatcher
     {
         public static List<Type> ModuleClasses;
 
         public static void Initialize(List<Type> moduleClasses)
         {
             ModuleClasses = moduleClasses;
-            FilterResourcePatchClasses();
+            FilterScriptableObjectPatchClasses();
+            if (ModuleClasses is null || ModuleClasses.Count == 0) return;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
@@ -25,40 +26,34 @@ namespace WKLocalizationLoader
         {
             if (scene.name == "Main-Menu")
             {
-                ApplyResourcePatches();
+                CacheManager.ScanScriptableObjects();
+                ApplyScriptableObjectPatches();
                 SceneManager.sceneLoaded -= OnSceneLoaded;
             }
         }
 
-        public static void ApplyResourcePatches()
+        public static void ApplyScriptableObjectPatches()
         {
-            FilterResourcePatchClasses();
             foreach (var moduleClass in ModuleClasses)
             {
                 var patchMethod = moduleClass.GetMethod(
-                    "PatchResources",
-                    (
-                        BindingFlags.Public
-                        | BindingFlags.Static
-                    )
+                    "PatchScriptableObjects",
+                    BindingFlags.Public | BindingFlags.Static
                 );
                 patchMethod?.Invoke(null, null);
             }
         }
 
-        public static void FilterResourcePatchClasses()
+        public static void FilterScriptableObjectPatchClasses()
         {
             if (ModuleClasses is null || ModuleClasses.Count == 0) return;
             ModuleClasses = ModuleClasses
                 .Where(
                     m => (
-                        typeof(IResourcePatch).IsAssignableFrom(m)
+                        typeof(IScriptableObjectPatch).IsAssignableFrom(m)
                         && m.GetMethod(
-                            "PatchResources",
-                            (
-                                BindingFlags.Public
-                                | BindingFlags.Static
-                            )
+                            "PatchScriptableObjects",
+                            BindingFlags.Public | BindingFlags.Static
                         ) != null
                     )
                 )

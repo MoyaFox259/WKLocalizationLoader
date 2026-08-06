@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -22,15 +21,14 @@ namespace WKLocalizationLoader.Modules
             RecordingSubtitleTimings;
 
         [JsonIgnore]
-        public static string[] LinebreakPattern = new string[] { @"<br>" };
+        public readonly static string[] LinebreakPattern =
+            new string[] { @"<br>" };
         [JsonIgnore]
-        public static string DelayTagPattern =
-            @"<delay\s*=\s*([+-]?\d*(?:\.\d+)?|\d+)>";
-        [JsonIgnore]
-        public static Regex DelayRegex = new Regex(
-            DelayTagPattern,
-            RegexOptions.IgnoreCase
-        );
+        public readonly static Regex DelayRegex = CacheManager
+            .GetOrCreateRegex(
+                @"<delay\s*=\s*([+-]?\d*(?:\.\d+)?|\d+)>",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
 
         [HarmonyPostfix]
         public static string Postfix(
@@ -44,6 +42,10 @@ namespace WKLocalizationLoader.Modules
                 || group != "recordings"
                 || RecordingSubtitleTimings is null
                 || !RecordingSubtitleTimings.ContainsKey(key)
+                || (
+                    ModuleSettings.UseOriginalDelay
+                    && DelayRegex.IsMatch(__result)
+                )
             )
             {
                 return __result;
@@ -70,60 +72,48 @@ namespace WKLocalizationLoader.Modules
             var count = Math.Min(subtitleLines.Length, subtitleTimings.Count);
             for (int lineIndex = 0; lineIndex < count; lineIndex++)
             {
-                var line = subtitleLines[lineIndex].TrimStart();
-                line = RemoveDelayTag(line);
+                var subtitleLine = subtitleLines[lineIndex];
+                subtitleLine = RemoveDelayTag(subtitleLine);
                 var currentLineDuration =
-                    line.Length * ModuleSettings.CharacterInterval
+                    subtitleLine.Length * ModuleSettings.CharacterInterval
                     + ModuleSettings.BaseDuration;
                 var targetLineDuration = subtitleTimings[lineIndex];
                 if (lineIndex > 0)
                 {
                     targetLineDuration -= subtitleTimings[lineIndex - 1];
                 }
-                else if (lineIndex == count - 1)
+                if (lineIndex == count - 1)
                 {
                     targetLineDuration += ModuleSettings.EndDelay;
                 }
                 var lineDelay = targetLineDuration - currentLineDuration;
-                line = InsertDelayTag(line, lineDelay);
-                subtitleLines[lineIndex] = line;
+                var delayTag = lineDelay < 0
+                    ? $"<delay={lineDelay:F3}>"
+                    : $"<delay={lineDelay:F4}>";
+                subtitleLine = InsertDelayTag(subtitleLine, delayTag);
+                subtitleLines[lineIndex] = subtitleLine;
             }
             return string.Join(LinebreakPattern[0], subtitleLines);
         }
 
         public static string RemoveDelayTag(string subtitleLine)
         {
-            var line = subtitleLine;
-            var match = DelayRegex.Match(line);
-            if (match.Success)
-            {
-                line = line.Remove(match.Index, match.Length);
-            }
-            return line;
+            var delayMatch = DelayRegex.Match(subtitleLine);
+            return delayMatch.Success
+                ? subtitleLine.Remove(delayMatch.Index, delayMatch.Length)
+                : subtitleLine;
         }
 
         public static string InsertDelayTag(
             string subtitleLine,
-            float lineDelay
+            string delayTag
         )
         {
-            if (lineDelay == 0f) return subtitleLine;
-            var line = subtitleLine;
-            var delay = lineDelay;
-            var delayTag =
-                "<delay="
-                + delay.ToString("G", CultureInfo.InvariantCulture)
-                + ">";
-            var match = DelayRegex.Match(line);
-            if (match.Success)
-            {
-                line = line.Insert(match.Index, delayTag);
-            }
-            else
-            {
-                line += delayTag;
-            }
-            return line;
+            if (string.IsNullOrEmpty(delayTag)) return subtitleLine;
+            var delayMatch = DelayRegex.Match(subtitleLine);
+            return delayMatch.Success
+                ? subtitleLine.Insert(delayMatch.Index, delayTag)
+                : subtitleLine + delayTag;
         }
     }
 }

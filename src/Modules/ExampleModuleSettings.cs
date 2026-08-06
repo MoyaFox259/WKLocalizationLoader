@@ -6,7 +6,7 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
-        "Module.Example",
+        "Module.ExampleModule",
         "This is an example configuration for demonstration purposes."
     )]
     public class ExampleModuleSettings : ModuleSettingsBase

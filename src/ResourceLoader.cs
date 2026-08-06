@@ -1,10 +1,9 @@
 using System;
 using System.IO;
-using System.Text;
 using BepInEx;
 using BepInEx.Logging;
-using TMPro;
 using UnityEngine;
+using TMPro;
 using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader

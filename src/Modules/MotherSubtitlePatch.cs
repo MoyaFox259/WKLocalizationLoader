@@ -93,8 +93,7 @@ namespace WKLocalizationLoader.Modules
             {
                 return "abcdefghijklmnopqrstuvwxyz";
             }
-            var randomCharacters =
-                string.IsNullOrEmpty(RandomCharacters)
+            var randomCharacters = string.IsNullOrEmpty(RandomCharacters)
                 ? new string(startString.Distinct().ToArray())
                 : RandomCharacters;
             randomCharacters = randomCharacters.ToLower();

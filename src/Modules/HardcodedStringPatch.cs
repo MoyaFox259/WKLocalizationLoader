@@ -50,22 +50,6 @@ namespace WKLocalizationLoader.Modules
                 nameof(UT_Intro.EndIntro)
             );
             CollectTargetMethod(
-                typeof(UI_GamemodeScreen),
-                nameof(UI_GamemodeScreen.RefreshCurrentGamemode)
-            );
-            CollectTargetMethod(
-                typeof(UI_GamemodeSetting),
-                nameof(UI_GamemodeSetting.UpdateColor)
-            );
-            CollectTargetMethod(
-                typeof(UI_TrinketPicker),
-                nameof(UI_TrinketPicker.ReloadTrinkets)
-            );
-            CollectTargetMethod(
-                typeof(UI_TrinketPicker),
-                nameof(UI_TrinketPicker.UpdateTrinketActivation)
-            );
-            CollectTargetMethod(
                 typeof(Leaderboard_Panel),
                 nameof(Leaderboard_Panel.Refresh)
             );

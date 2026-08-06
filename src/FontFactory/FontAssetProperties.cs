@@ -8,53 +8,69 @@ namespace WKLocalizationLoader.FontFactory
 {
     public class FontAssetProperties
     {
+        [JsonProperty]
         public string FileName;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue("")]
         public string FontName;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue("1.1.0")]
         public string FontVersion;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(1f)]
         public float Scale;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(0f)]
         public float AscentLineOffset;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(0f)]
         public float DescentLineOffset;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(64)]
         public int PointSize;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(4096)]
         public int AtlasWidth;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(4096)]
         public int AtlasHeight;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(5)]
         public int AtlasPadding;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(false)]
         public bool SingleAtlas;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue("")]
         public string ShaderName;
 
         // [DefaultValue("")]
         // public string DefaultOSFont;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(GlyphLoadFlags.LOAD_DEFAULT)]
         public GlyphLoadFlags FontGlyphLoadFlags;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(FilterMode.Point)]
         public FilterMode AtlasTextureFilterMode;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(GlyphPackingMode.BestShortSideFit)]
         public GlyphPackingMode AtlasGlyphPackingMode;
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(GlyphRenderMode.SDFAA)]
         public GlyphRenderMode AtlasRenderMode;
 

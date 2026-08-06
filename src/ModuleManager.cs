@@ -1,11 +1,12 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using BepInEx;
-using BepInEx.Logging;
 using BepInEx.Bootstrap;
+using BepInEx.Logging;
 using HarmonyLib;
 using WKLocalizationLoader.Config;
 using WKLocalizationLoader.Modules;
@@ -25,13 +26,12 @@ namespace WKLocalizationLoader
         {
             _jsonSerializerSettings = new JsonSerializerSettings()
             {
-                ContractResolver = new ModuleContractResolver(),
-                DefaultValueHandling = DefaultValueHandling.Populate
+                NullValueHandling = NullValueHandling.Ignore
             };
-            _conflictedModsInfo.Add(
-                typeof(AnnouncementSubtitleTimingPatch),
-                "mimimi-turret.wk-sync-subtitles"
-            );
+            // _conflictedModsInfo.Add(
+            //     typeof(AnnouncementSubtitleTimingPatch),
+            //     "mimimi-turret.wk-sync-subtitles"
+            // );
             if (plugin is null) return;
             _plugin = plugin;
             var loggerName = _plugin.Info.Metadata.Name + "/ModuleManager";
@@ -49,13 +49,17 @@ namespace WKLocalizationLoader
                 "AnnouncementSubtitleTimings.json"
             );
             LoadModule<DeathMessagePatch>("DeathMessages.json");
+            LoadModule<FacilityUpgradePatch>("FacilityUpgrades.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
+            LoadModule<GamemodePatch>("Gamemodes.json");
             LoadModule<HardcodedStringPatch>("HardcodedStrings.json");
             LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<LocationNamePatch>("LocationNames.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
             LoadModule<ObjectivePatch>("Objectives.json");
+            LoadModule<PerkPatch>("Perks.json");
+            LoadModule<ProgressionUnlockPatch>("ProgressionUnlocks.json");
             LoadModule<QuietOSPatch>("QuietOS.json");
             LoadModule<RecordingSubtitlePatch>("RecordingSubtitles.json");
             LoadModule<RecordingSubtitleTimingPatch>(
@@ -64,6 +68,7 @@ namespace WKLocalizationLoader
             LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
             LoadModule<StaticTextPatch>("StaticTexts.json");
             LoadModule<TextScrawlPatch>("TextScrawls.json");
+            LoadModule<TrinketPatch>("Trinkets.json");
             //LoadModule<>();
             //LoadModule<>();
             //LoadModule<>();
@@ -120,6 +125,7 @@ namespace WKLocalizationLoader
                     fileName,
                     e
                 );
+                return;
             }
             if (ModuleBase<TModule>.IsEnabled)
             {

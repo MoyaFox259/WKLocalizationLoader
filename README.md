@@ -31,15 +31,14 @@
 | Score Panel UI | ➖ |
 | Gameplay UI | ➖ |
 | QuietOS UI | ✅ |
-| Gamemodes | ➖ |
+| Gamemodes | ✅ |
 | Location Names | ✅ |
 | Subtitles | ✅ |
 | Cosmetics | ➖ |
-| Trinkets | ➖ |
-| Bindings | ➖ |
-| Perks | ➖ |
-| Facility Upgrades | ➖ |
-| Unlocks | ➖ |
+| Trinkets/Bindings | ✅ |
+| Perks | ✅ |
+| Facility Upgrades | ✅ |
+| Progression Unlocks | ✅ |
 | Achievements | ➖ |
 | Objectives | ✅ |
 | Item Descriptions | ✅ |
