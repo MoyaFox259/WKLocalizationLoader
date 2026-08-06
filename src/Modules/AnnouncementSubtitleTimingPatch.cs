@@ -12,10 +12,10 @@ namespace WKLocalizationLoader.Modules
         : ModuleBase<AnnouncementSubtitleTimingPatch>
     {
         [JsonProperty]
+        public static AnnouncementSubtitleTimingPatchSettings ModuleSettings;
+        [JsonProperty]
         public static Dictionary<string, List<float>>
             AnnouncementSubtitleTimings;
-        [JsonProperty]
-        public static AnnouncementSubtitleTimingPatchSettings ModuleSettings;
 
         [JsonIgnore]
         public readonly static string[] LinebreakPattern =

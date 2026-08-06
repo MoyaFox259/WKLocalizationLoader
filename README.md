@@ -36,7 +36,7 @@
 | Subtitles | ✅ |
 | Cosmetics | ➖ |
 | Trinkets/Bindings | ✅ |
-| Perks | ➖ |
+| Perks | ✅ |
 | Facility Upgrades | ✅ |
 | Progression Unlocks | ✅ |
 | Achievements | ➖ |
