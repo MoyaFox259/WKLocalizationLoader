@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -25,10 +24,7 @@ namespace WKLocalizationLoader.Modules
         public readonly static Regex DelayRegex = CacheManager
             .GetOrCreateRegex(
                 @"<delay\s*=\s*([+-]?\d*(?:\.\d+)?|\d+)>",
-                (
-                    RegexOptions.IgnoreCase
-                    | RegexOptions.Compiled
-                )
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
             );
 
         [HarmonyPostfix]

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
-using HarmonyLib;
 using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader.Modules

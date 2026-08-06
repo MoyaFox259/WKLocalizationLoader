@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using UnityEngine;
 using HarmonyLib;
 
 namespace WKLocalizationLoader.Modules
@@ -26,13 +25,13 @@ namespace WKLocalizationLoader.Modules
 
         public static void PatchScriptableObjects()
         {
+            if (!IsEnabled) return;
             PatchRegions();
             PatchSubregions();
         }
 
         public static void PatchRegions()
         {
-            if (!IsEnabled) return;
             var regions = CacheManager.EnumerateScriptableObjects<M_Region>();
             foreach (var region in regions)
             {
@@ -45,7 +44,6 @@ namespace WKLocalizationLoader.Modules
 
         public static void PatchSubregions()
         {
-            if (!IsEnabled) return;
             var subregions = CacheManager
                 .EnumerateScriptableObjects<M_Subregion>();
             foreach (var subregion in subregions)

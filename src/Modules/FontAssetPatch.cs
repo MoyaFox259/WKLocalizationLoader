@@ -3,8 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using TMPro;
 using HarmonyLib;
+using TMPro;
 using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader.Modules

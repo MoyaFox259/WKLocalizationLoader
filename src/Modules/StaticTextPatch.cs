@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using TMPro;
-using UnityEngine.UI;
 using HarmonyLib;
+using UnityEngine.UI;
+using TMPro;
 
 namespace WKLocalizationLoader.Modules
 {

@@ -1,12 +1,12 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using BepInEx;
-using BepInEx.Logging;
 using BepInEx.Bootstrap;
+using BepInEx.Logging;
 using HarmonyLib;
 using WKLocalizationLoader.Config;
 using WKLocalizationLoader.Modules;
@@ -58,6 +58,7 @@ namespace WKLocalizationLoader
             LoadModule<LocationNamePatch>("LocationNames.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
             LoadModule<ObjectivePatch>("Objectives.json");
+            LoadModule<PerkPatch>("Perks.json");
             LoadModule<ProgressionUnlockPatch>("ProgressionUnlocks.json");
             LoadModule<QuietOSPatch>("QuietOS.json");
             LoadModule<RecordingSubtitlePatch>("RecordingSubtitles.json");

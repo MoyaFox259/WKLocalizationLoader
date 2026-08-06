@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using UnityEngine;
 using Newtonsoft.Json;
 using HarmonyLib;
 
@@ -52,13 +51,13 @@ namespace WKLocalizationLoader.Modules
 
         public static void PatchScriptableObjects()
         {
+            if (!IsEnabled) return;
             PatchGamemodes();
             PatchGamemodeSettings();
         }
 
         public static void PatchGamemodes()
         {
-            if (!IsEnabled) return;
             var gamemodes = CacheManager
                 .EnumerateScriptableObjects<M_Gamemode>();
             foreach (var gamemode in gamemodes)
@@ -84,7 +83,6 @@ namespace WKLocalizationLoader.Modules
 
         public static void PatchGamemodeSettings()
         {
-            if (!IsEnabled) return;
             var gamemodeSettings = CacheManager
                 .EnumerateScriptableObjects<GamemodeSetting>();
             foreach (var gamemodeSetting in gamemodeSettings)

@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 using HarmonyLib;
+using UnityEngine;
 
 namespace WKLocalizationLoader.Modules
 {
