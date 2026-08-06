@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using HarmonyLib;
+using UnityEngine.UI;
+using TMPro;
 
 namespace WKLocalizationLoader.Modules
 {
@@ -27,6 +30,12 @@ namespace WKLocalizationLoader.Modules
         public static string DurationAWhileText;
         [JsonProperty]
         public static string DurationALongTimeText;
+        [JsonProperty]
+        public static string AppPerkHoverTextTemplate;
+        [JsonProperty]
+        public static string AppPerkAmountTemplate;
+        [JsonProperty]
+        public static string AppRefreshPurchasedText;
 
         [JsonIgnore]
         public readonly static Regex SecondsFormatRegex = CacheManager
@@ -92,8 +101,7 @@ namespace WKLocalizationLoader.Modules
             var trinketType = GetTranslatedTrinketType(__instance);
             var title = GetTrinketPerkTitle(__instance);
             return trinketType
-                + "\n"
-                + "<shimmer s=0.1>"
+                + "\n<shimmer s=0.1>"
                 + title
                 + "</shimmer></color>";
         }
@@ -154,15 +162,105 @@ namespace WKLocalizationLoader.Modules
                 _ => "A Long Time"
             };
             if (!__result.EndsWith(targetString)) return __result;
-            var substituteString = removeTime switch
+            var durationText = removeTime switch
             {
                 < 10f => DurationSoonText,
                 < 30f => DurationABitText,
                 < 60f => DurationAWhileText,
                 _ => DurationALongTimeText
             };
-            if (substituteString is null) return __result;
-            return __result.Replace(targetString, substituteString);
+            if (durationText is null) return __result;
+            return __instance.removalTimerPrefix + durationText;
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(App_PerkPage),
+            nameof(App_PerkPage.GenerateIcons)
+        )]
+        public static void Postfix_PerkPage_GenerateIcons(
+            App_PerkPage __instance
+        )
+        {
+            if (!IsEnabled) return;
+            var icons = __instance.iconParent.GetComponentsInChildren<Image>();
+            if (icons is null) return;
+            var perks = CL_GameManager.gMan.localPlayer.perks;
+            if (perks is null || perks.Count == 0) return;
+            var iconMapping = perks.ToDictionary(p => p.icon, p => p);
+            for (int iconIndex = 0; iconIndex < icons.Length; iconIndex++)
+            {
+                var icon = icons[iconIndex];
+                var tooltip = icon.GetComponent<OS_Tooltip>();
+                if (
+                    tooltip != null
+                    && iconMapping.TryGetValue(icon.sprite, out Perk perk)
+                )
+                {
+                    var title = perk.GetTitle(includeColor: true);
+                    var amount = "<color=#C7C7C7>"
+                        + GetTranslatedAppPerkAmount(perk, isPreview: false);
+                    var description = "<color=\"grey\">"
+                        + perk.GetDescription(adjusted: true, total: true)
+                        + "<color>";
+                    var descriptionTemplate = AppPerkHoverTextTemplate
+                        ?? "{title}{amount}\n{description}";
+                    tooltip.tip = descriptionTemplate
+                        .Replace("{title}", title)
+                        .Replace("{amount}", amount)
+                        .Replace("{description}", description);
+                }
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(App_PerkPage_Card),
+            nameof(App_PerkPage_Card.Initialize)
+        )]
+        public static void Postfix_PerkPageCard_Initialize(
+            App_PerkPage_Card __instance,
+            App_PerkPage page,
+            Perk p
+        )
+        {
+            if (!IsEnabled) return;
+            var title = p.GetTitle(includeColor: true);
+            var amount = "<color=\"grey\">"
+                + GetTranslatedAppPerkAmount(p, isPreview: true);
+            var description = "<color=#C7C7C7>"
+                + p.GetDescription(adjusted: true)
+                + "</color>";
+            var descriptionTemplate = AppPerkHoverTextTemplate
+                ?? "{title}{amount}\n{description}";
+            __instance.tooltip.tip = descriptionTemplate
+                .Replace("{title}", title)
+                .Replace("{amount}", amount)
+                .Replace("{description}", description);
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(App_PerkPage),
+            nameof(App_PerkPage.PurchaseRefresh)
+        )]
+        public static void Postfix_PerkPage_PurchaseRefresh(
+            App_PerkPage __instance
+        )
+        {
+            if (!IsEnabled || AppRefreshPurchasedText is null) return;
+            var refreshUI = __instance.reloadSettingsRoot;
+            var tmpTexts = refreshUI.GetComponentsInChildren<TMP_Text>();
+            if (tmpTexts is null) return;
+            for (int tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
+            {
+                var tmpText = tmpTexts[tmpIndex];
+                if (tmpText.text == "<color=\"red>PURCHASED</color>")
+                {
+                    tmpText.text = AppRefreshPurchasedText;
+                    return;
+                }
+            }
         }
 
         public static string GetTranslatedTrinketType(Perk perk)
@@ -181,6 +279,22 @@ namespace WKLocalizationLoader.Modules
         => perk.perkType == Perk.PerkType.binding
             ? "<shake a=0.01>" + perk.title + "</shake>"
             : perk.title;
+
+        public static string GetTranslatedAppPerkAmount(
+            Perk perk,
+            bool isPreview
+        )
+        {
+            var amount = "";
+            if (perk != null)
+            {
+                amount = isPreview
+                    ? $"{perk.stackAmount + 1}"
+                    : $"{perk.stackAmount}";
+            }
+            var amountTemplate = AppPerkAmountTemplate ?? " ({amount}x)";
+            return amountTemplate.Replace("{amount}", amount);
+        }
     }
 }
 

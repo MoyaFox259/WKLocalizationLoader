@@ -20,9 +20,9 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static string UpgradePageCounterTemplate;
         [JsonProperty]
-        public static string UpgradeLockedDescriptionTemplate;
+        public static string UpgradeLockedHoverTextTemplate;
         [JsonProperty]
-        public static string UpgradeCantAffordDescriptionTemplate;
+        public static string UpgradeCantAffordHoverTextTemplate;
 
         [JsonIgnore]
         public static FacilityUpgradePatchSettings ModuleSettings;
@@ -55,9 +55,9 @@ namespace WKLocalizationLoader.Modules
             if (upgrade is null || facility is null) return;
             if (upgrade.IsLocked(facility.id))
             {
-                if (UpgradeLockedDescriptionTemplate != null)
+                if (UpgradeLockedHoverTextTemplate != null)
                 {
-                    __instance.tooltip.tip = UpgradeLockedDescriptionTemplate
+                    __instance.tooltip.tip = UpgradeLockedHoverTextTemplate
                         .Replace("{unlockDescription}", upgrade.unlockDesc)
                         .Replace("{description}", upgrade.description);
                 }
@@ -68,12 +68,12 @@ namespace WKLocalizationLoader.Modules
             if (
                 upgrade.IsOwned(facility.id)
                 || upgrade.cost < roachInBank
-                || UpgradeCantAffordDescriptionTemplate is null
+                || UpgradeCantAffordHoverTextTemplate is null
             )
             {
                 return;
             }
-            __instance.tooltip.tip = UpgradeCantAffordDescriptionTemplate
+            __instance.tooltip.tip = UpgradeCantAffordHoverTextTemplate
                 .Replace("{description}", upgrade.description);
         }
 
@@ -108,12 +108,12 @@ namespace WKLocalizationLoader.Modules
                 || __instance.facility.HasUpgrade(
                     upgrade.prerequisiteUpgrade.id
                 )
-                || UpgradeLockedDescriptionTemplate is null
+                || UpgradeLockedHoverTextTemplate is null
             )
             {
                 return;
             }
-            __instance.tooltip.tip = UpgradeLockedDescriptionTemplate
+            __instance.tooltip.tip = UpgradeLockedHoverTextTemplate
                 .Replace("{unlockDescription}", upgrade.unlockDesc)
                 .Replace("{description}", upgrade.description);
         }

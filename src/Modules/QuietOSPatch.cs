@@ -199,21 +199,6 @@ namespace WKLocalizationLoader.Modules
                     .Replace("{total}", total.ToString());
             }
         }
-        //
-        // [HarmonyPostfix]
-        // [HarmonyPatch(
-        //     typeof(App_PerkPage),
-        //     nameof(App_PerkPage.PurchaseRefresh)
-        // )]
-        // public static void Postfix_PerkPage_PurchaseRefresh(
-        //     App_PerkPage __instance
-        // )
-        // {
-        //     if (!IsEnabled) return;
-        //     var path = "";
-        //     var refreshButton = __instance.GetComponent<TMP_Text>(path);
-        //     refreshButton.text = PurchasedText ?? "Purchased";
-        // }
 
         [HarmonyPostfix]
         [HarmonyPatch(
