@@ -46,7 +46,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public readonly static Regex SecondsRegex = CacheManager
             .GetOrCreateRegex(
-                @"([+-]?\d*(?:\.\d+)?|\d+) Seconds?",
+                @"([+-]?\d+(?:\.\d+)?) Seconds?",
                 RegexOptions.Compiled
             );
         [JsonIgnore]
@@ -184,7 +184,7 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             var icons = __instance.iconParent.GetComponentsInChildren<Image>();
-            if (icons is null) return;
+            if (icons is null || icons.Length == 0) return;
             var perks = CL_GameManager.gMan.localPlayer.perks;
             if (perks is null || perks.Count == 0) return;
             var iconMapping = perks.ToDictionary(p => p.icon, p => p);
@@ -251,7 +251,7 @@ namespace WKLocalizationLoader.Modules
             if (!IsEnabled || AppRefreshPurchasedText is null) return;
             var refreshUI = __instance.reloadSettingsRoot;
             var tmpTexts = refreshUI.GetComponentsInChildren<TMP_Text>();
-            if (tmpTexts is null) return;
+            if (tmpTexts is null || tmpTexts.Length == 0) return;
             for (int tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
             {
                 var tmpText = tmpTexts[tmpIndex];
@@ -285,13 +285,10 @@ namespace WKLocalizationLoader.Modules
             bool isPreview
         )
         {
-            var amount = "";
-            if (perk != null)
-            {
-                amount = isPreview
-                    ? $"{perk.stackAmount + 1}"
-                    : $"{perk.stackAmount}";
-            }
+            if (perk is null) return "";
+            var amount = isPreview
+                ? $"{perk.stackAmount + 1}"
+                : $"{perk.stackAmount}";
             var amountTemplate = AppPerkAmountTemplate ?? " ({amount}x)";
             return amountTemplate.Replace("{amount}", amount);
         }

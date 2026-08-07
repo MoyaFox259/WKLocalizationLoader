@@ -26,7 +26,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public readonly static Regex DelayRegex = CacheManager
             .GetOrCreateRegex(
-                @"<delay\s*=\s*([+-]?\d*(?:\.\d+)?|\d+)>",
+                @"<delay\s*=\s*([+-]?\d*\.?\d+)>",
                 RegexOptions.IgnoreCase | RegexOptions.Compiled
             );
 

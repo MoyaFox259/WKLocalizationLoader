@@ -42,6 +42,7 @@ namespace WKLocalizationLoader
         public static void LoadAllModules()
         {
             //LoadModule<ExampleModule>("test.json");
+            LoadModule<AchievementPatch>("Achievements.json");
             LoadModule<AnnouncementSubtitlePatch>(
                 "AnnouncementSubtitles.json"
             );
@@ -69,12 +70,6 @@ namespace WKLocalizationLoader
             LoadModule<StaticTextPatch>("StaticTexts.json");
             LoadModule<TextScrawlPatch>("TextScrawls.json");
             LoadModule<TrinketPatch>("Trinkets.json");
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
         }
 
         public static void LoadModule<TModule>(string fileName)

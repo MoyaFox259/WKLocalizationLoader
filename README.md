@@ -39,7 +39,7 @@
 | Perks | ✅ |
 | Facility Upgrades | ✅ |
 | Progression Unlocks | ✅ |
-| Achievements | ➖ |
+| Achievements | ✅ |
 | Objectives | ✅ |
 | Item Descriptions | ✅ |
 | Death Texts | ✅ |
