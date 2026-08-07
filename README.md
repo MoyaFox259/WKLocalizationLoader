@@ -47,7 +47,7 @@
 | Paper Notes | ✅ |
 | OS Documents | ✅ |
 | Scrawl Headers | ✅ |
-| In-world Texts | ➖ |
+| In-world Texts | ✅ |
 
 **Audio replacement**  
 ❌ No plans for audio replacement support as of writing this.
