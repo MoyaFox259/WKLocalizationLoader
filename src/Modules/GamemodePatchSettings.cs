@@ -4,7 +4,7 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
-        "Module.GamemodePatch",
+        "Modules.GamemodePatch",
         "This module replaces texts for gamemodes and gamemode settings."
     )]
     public class GamemodePatchSettings : ModuleSettingsBase

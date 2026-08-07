@@ -44,7 +44,7 @@
 | Item Descriptions | ✅ |
 | Death Messages | ✅ |
 | Death Tips | ✅ |
-| Paper Notes | ➖ |
+| Paper Notes | ✅ |
 | OS Documents | ➖ |
 | Scrawl Headers | ✅ |
 | In-world Texts | ➖ |

@@ -4,7 +4,7 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
-        "Module.PerkPatch",
+        "Modules.AchievementPatch",
         "This module replaces texts for achievements."
     )]
     public class AchievementPatchSettings : ModuleSettingsBase
