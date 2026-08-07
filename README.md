@@ -34,7 +34,7 @@
 | Gamemodes | ✅ |
 | Location Names | ✅ |
 | Subtitles | ✅ |
-| Cosmetics | ➖ |
+| Cosmetics | ✅ |
 | Trinkets/Bindings | ✅ |
 | Perks | ✅ |
 | Facility Upgrades | ✅ |

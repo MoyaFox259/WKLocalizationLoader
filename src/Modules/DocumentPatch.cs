@@ -19,7 +19,7 @@ namespace WKLocalizationLoader.Modules
             typeof(App_DocumentReader),
             nameof(App_DocumentReader.Start)
         )]
-        public static void Postfix_DocumentReader_Start(
+        public static void Prefix_DocumentReader_Start(
             App_DocumentReader __instance
         )
         {
