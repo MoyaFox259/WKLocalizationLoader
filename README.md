@@ -45,7 +45,7 @@
 | Death Messages | ✅ |
 | Death Tips | ✅ |
 | Paper Notes | ✅ |
-| OS Documents | ➖ |
+| OS Documents | ✅ |
 | Scrawl Headers | ✅ |
 | In-world Texts | ➖ |
 
