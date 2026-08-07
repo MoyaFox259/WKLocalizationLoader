@@ -49,7 +49,7 @@ namespace WKLocalizationLoader
             LoadModule<AnnouncementSubtitleTimingPatch>(
                 "AnnouncementSubtitleTimings.json"
             );
-            LoadModule<DeathMessagePatch>("DeathMessages.json");
+            LoadModule<DeathTextPatch>("DeathTexts.json");
             LoadModule<FacilityUpgradePatch>("FacilityUpgrades.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");

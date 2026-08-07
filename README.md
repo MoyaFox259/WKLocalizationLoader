@@ -42,8 +42,8 @@
 | Achievements | ✅ |
 | Objectives | ✅ |
 | Item Descriptions | ✅ |
-| Death Texts | ✅ |
-| Death Tips | ➖ |
+| Death Messages | ✅ |
+| Death Tips | ✅ |
 | Paper Notes | ➖ |
 | OS Documents | ➖ |
 | Scrawl Headers | ✅ |
