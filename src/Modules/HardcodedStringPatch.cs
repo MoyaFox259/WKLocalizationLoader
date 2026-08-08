@@ -69,33 +69,9 @@ namespace WKLocalizationLoader.Modules
                 typeof(UI_LeaderboardEntryDetailWindow),
                 nameof(UI_LeaderboardEntryDetailWindow.ShowNoEntryDetails)
             );
-            CollectTargetMethod(
-                typeof(CL_GameManager),
-                nameof(CL_GameManager.Update)
-            );
             CollectTargetNestedClassMethod(
                 typeof(UI_EndScreenScoreWindow),
                 "MoveNext"
-            );
-            CollectTargetMethod(
-                typeof(ENV_Vendor_Disk),
-                nameof(ENV_Vendor_Disk.CheckBlock)
-            );
-            CollectTargetMethod(
-                typeof(ENV_Vendor_Disk),
-                nameof(ENV_Vendor_Disk.CheckRoaches)
-            );
-            CollectTargetMethod(
-                typeof(ENV_Vendor_Disk),
-                nameof(ENV_Vendor_Disk.Purchase)
-            );
-            CollectTargetMethod(
-                typeof(ENV_Vendor_Event),
-                nameof(ENV_Vendor_Disk.CheckRoaches)
-            );
-            CollectTargetMethod(
-                typeof(ENV_Vendor_Event),
-                nameof(ENV_Vendor_Disk.Purchase)
             );
         }
 

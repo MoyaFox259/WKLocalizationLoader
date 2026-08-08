@@ -56,6 +56,7 @@ namespace WKLocalizationLoader
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
             LoadModule<GamemodePatch>("Gamemodes.json");
+            LoadModule<GameplayUIPatch>("GameplayUI.json");
             LoadModule<HardcodedStringPatch>("HardcodedStrings.json");
             LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<LocationNamePatch>("LocationNames.json");

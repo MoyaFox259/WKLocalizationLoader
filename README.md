@@ -29,7 +29,7 @@
 | :- | :- |
 | Main Menu UI | ➖ |
 | Score Panel UI | ➖ |
-| Gameplay UI | ➖ |
+| Gameplay UI | ✅ |
 | QuietOS UI | ✅ |
 | Gamemodes | ✅ |
 | Location Names | ✅ |

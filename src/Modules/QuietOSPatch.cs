@@ -388,7 +388,7 @@ namespace WKLocalizationLoader.Modules
             {
                 return;
             }
-            var lives = livesText.Substring(6);
+            var lives = livesText.Substring(7);
             solarKnight.livesText.text = SolarKnightLivesTemplate
                 .Replace("{lives}", lives);
         }
