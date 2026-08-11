@@ -52,9 +52,12 @@ namespace WKLocalizationLoader.Modules
             if (pageTitle is null) return;
             var pages = __instance.pages;
             var total = pages.Count;
-            if (total < 2) return;
+            if (total == 0) return;
+            var title = GetTextTranslation(
+                PageTitles,
+                pages[__instance.currentPage].title
+            );
             var current = __instance.currentPage + 1;
-            var title = GetTextTranslation(PageTitles, pages[current].title);
             var counterTemplate = PageCounterTemplate
                 ?? "{title} ({current}/{total})";
             pageTitle.text = counterTemplate
