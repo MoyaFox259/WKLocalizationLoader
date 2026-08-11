@@ -41,7 +41,7 @@ namespace WKLocalizationLoader
 
         public static void LoadAllModules()
         {
-            //LoadModule<ExampleModule>("test.json");
+            //LoadModule<ExampleModule>("Example.json");
             LoadModule<AchievementPatch>("Achievements.json");
             LoadModule<AnnouncementSubtitlePatch>(
                 "AnnouncementSubtitles.json"
@@ -57,9 +57,9 @@ namespace WKLocalizationLoader
             LoadModule<FontAssetPatch>("FontAssets.json");
             LoadModule<GamemodePatch>("Gamemodes.json");
             LoadModule<GameplayTextPatch>("GameplayTexts.json");
-            LoadModule<HardcodedStringPatch>("HardcodedStrings.json");
             LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<LocationNamePatch>("LocationNames.json");
+            LoadModule<MainMenuPatch>("MainMenu.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
             LoadModule<NotePatch>("Notes.json");
             LoadModule<ObjectivePatch>("Objectives.json");

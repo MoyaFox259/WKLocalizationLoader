@@ -16,18 +16,18 @@
 ❌ : Not supported as of writing this  
 | Functionality | Support |
 | :- | :- |
-| Load font from .ttf file | Static fonts only |
-| Load font from bundle | ❌ |
+| Loading font from .ttf file | Static fonts only |
+| Loading font from bundle | ❌ |
 | Font replacement | ✅ |
 | TMP\_FontAsset replacement | ❌ |
 | TMP\_FontAsset fallback | ✅ |
 
 **Text translation**  
 ✅ : Implemented translation support  
-➖ : WIP  
+❌ : Not supported as of writing this
 | Texts | Support |
 | :- | :- |
-| Main Menu UI | ➖ |
+| Main Menu UI | ✅ |
 | Score Panel UI | ✅ |
 | Gameplay UI | ✅ |
 | QuietOS UI | ✅ |
@@ -48,6 +48,7 @@
 | OS Documents | ✅ |
 | Scrawl Headers | ✅ |
 | In-world Texts | ✅ |
+| Command Console | ❌ |
 
 **Audio replacement**  
 ❌ No plans for audio replacement support as of writing this.
