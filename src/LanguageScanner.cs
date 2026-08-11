@@ -42,6 +42,7 @@ namespace WKLocalizationLoader
                 if (!IsLanguageFolderMarkerFile(file)) continue;
                 var relativePath =
                     "." + directory.Substring(Paths.PluginPath.Length);
+                relativePath = relativePath.Replace("\\", "/");
                 if (results.Contains(relativePath)) continue;
                 logger?.LogInfo(
                     $"Auto-detected Language Folder \"{relativePath}\"."
