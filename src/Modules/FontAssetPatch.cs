@@ -64,6 +64,13 @@ namespace WKLocalizationLoader.Modules
                 )
             )
             {
+                if (ModuleSettings.HighFallbackPriority)
+                {
+                    __instance.fallbackFontAssetTable = fallbackFontAssets
+                        .Union(__instance.fallbackFontAssetTable)
+                        .ToList();
+                    return;
+                }
                 __instance.fallbackFontAssetTable = __instance
                     .fallbackFontAssetTable
                     .Union(fallbackFontAssets)

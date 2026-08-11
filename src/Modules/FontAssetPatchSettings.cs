@@ -10,6 +10,14 @@ namespace WKLocalizationLoader.Modules
     public class FontAssetPatchSettings : ModuleSettingsBase
     {
         [ConfigEntry(
+            "HighFallbackPriority",
+            true,
+            "Set this field to \"false\" to\n"
+            + "lower fallback priority of custom fallback font assets."
+        )]
+        public bool HighFallbackPriority;
+
+        [ConfigEntry(
             "SaveFontAssetCacheOnDisk",
             false,
             "Set this field to \"true\" to cache generated TMP_FontAsset\n"
