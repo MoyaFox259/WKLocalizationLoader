@@ -56,7 +56,7 @@ namespace WKLocalizationLoader
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
             LoadModule<GamemodePatch>("Gamemodes.json");
-            LoadModule<GameplayUIPatch>("GameplayUI.json");
+            LoadModule<GameplayTextPatch>("GameplayTexts.json");
             LoadModule<HardcodedStringPatch>("HardcodedStrings.json");
             LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<LocationNamePatch>("LocationNames.json");
@@ -71,7 +71,7 @@ namespace WKLocalizationLoader
                 "RecordingSubtitleTimings.json"
             );
             LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
-            LoadModule<ScorePanelPatch>("ScorePanel.json");
+            LoadModule<ScoreScreenPatch>("ScoreScreen.json");
             LoadModule<StaticTextPatch>("StaticTexts.json");
             LoadModule<TextScrawlPatch>("TextScrawls.json");
             LoadModule<TrinketPatch>("Trinkets.json");

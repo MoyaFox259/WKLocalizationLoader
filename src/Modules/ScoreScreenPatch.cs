@@ -15,7 +15,7 @@ using Steamworks.Data;
 namespace WKLocalizationLoader.Modules
 {
     [HarmonyPatch]
-    public class ScorePanelPatch : TextTranslator<ScorePanelPatch>
+    public class ScoreScreenPatch : TextTranslator<ScoreScreenPatch>
     {
         [JsonProperty]
         public static Dictionary<string, string> StatDefaultTexts;
@@ -89,7 +89,7 @@ namespace WKLocalizationLoader.Modules
         public static string PopupCreditWonDescriptionTemplate;
 
         [JsonIgnore]
-        public static ScorePanelPatchSettings ModuleSettings;
+        public static ScoreScreenPatchSettings ModuleSettings;
 
         [HarmonyPostfix]
         [HarmonyPatch(

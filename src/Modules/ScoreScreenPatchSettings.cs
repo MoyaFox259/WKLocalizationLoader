@@ -4,11 +4,11 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
-        "Modules.ScorePanelPatch",
+        "Modules.ScoreScreenPatch",
         "This module replaces texts of\n"
         + "stats, scores, medals, popups and leaderboards."
     )]
-    public class ScorePanelPatchSettings : ModuleSettingsBase
+    public class ScoreScreenPatchSettings : ModuleSettingsBase
     {
     }
 }

@@ -6,7 +6,7 @@ using HarmonyLib;
 namespace WKLocalizationLoader.Modules
 {
     [HarmonyPatch]
-    public class GameplayUIPatch : TextTranslator<GameplayUIPatch>
+    public class GameplayTextPatch : TextTranslator<GameplayTextPatch>
     {
         [JsonProperty]
         public static Dictionary<string, string> RoachCounterTemplates;
@@ -26,7 +26,7 @@ namespace WKLocalizationLoader.Modules
         public static string VendorPurchasedText;
 
         [JsonIgnore]
-        public static GameplayUIPatchSettings ModuleSettings;
+        public static GameplayTextPatchSettings ModuleSettings;
 
         [HarmonyPostfix]
         [HarmonyPatch(
@@ -37,13 +37,7 @@ namespace WKLocalizationLoader.Modules
             CL_GameManager __instance
         )
         {
-            if (
-                !IsEnabled
-                || CL_GameManager.runHasEnded
-            )
-            {
-                return;
-            }
+            if (!IsEnabled || CL_GameManager.runHasEnded) return;
             var uiManager = __instance.uiMan;
             if (uiManager is null || uiManager.scoreTracker is null) return;
             var scoreText = uiManager.scoreTracker.text;
