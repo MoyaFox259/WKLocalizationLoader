@@ -317,7 +317,7 @@ namespace WKLocalizationLoader.FontFactory
             File.WriteAllText(cacheDataPath, jsonText);
             logger?.LogInfo("[3/3] Writing Atlas(es) cache.");
             for (
-                int atlasIndex = 0;
+                var atlasIndex = 0;
                 atlasIndex < fontAsset.atlasTextures.Length;
                 atlasIndex++
             )
@@ -428,7 +428,7 @@ namespace WKLocalizationLoader.FontFactory
             };
             var usedGlyphRects = new List<GlyphRect>();
             for (
-                int glyphInfoIndex = startGlyphInfoIndex;
+                var glyphInfoIndex = startGlyphInfoIndex;
                 glyphInfoIndex < glyphInfos.Count;
                 glyphInfoIndex++
             )

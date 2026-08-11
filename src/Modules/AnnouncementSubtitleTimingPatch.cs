@@ -23,7 +23,7 @@ namespace WKLocalizationLoader.Modules
         [JsonIgnore]
         public readonly static Regex DelayRegex = CacheManager
             .GetOrCreateRegex(
-                @"<delay\s*=\s*([+-]?\d*(?:\.\d+)?|\d+)>",
+                @"<delay\s*=\s*([+-]?\d*\.?\d+)>",
                 RegexOptions.IgnoreCase | RegexOptions.Compiled
             );
 
@@ -71,7 +71,7 @@ namespace WKLocalizationLoader.Modules
                 StringSplitOptions.None
             );
             var count = Math.Min(subtitleLines.Length, subtitleTimings.Count);
-            for (int lineIndex = 0; lineIndex < count; lineIndex++)
+            for (var lineIndex = 0; lineIndex < count; lineIndex++)
             {
                 var subtitleLine = subtitleLines[lineIndex];
                 subtitleLine = RemoveDelayTag(subtitleLine);

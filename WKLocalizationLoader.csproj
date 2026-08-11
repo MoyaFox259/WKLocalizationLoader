@@ -8,7 +8,7 @@
     <AssemblyName>WKLocalizationLoader</AssemblyName>
     <RootNamespace>WKLocalizationLoader</RootNamespace>
     <Product>WKLocalizationLoader</Product>
-    <Version>0.5.0</Version>
+    <Version>0.6.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RestoreAdditionalProjectSources>
       https://api.nuget.org/v3/index.json;
@@ -24,6 +24,10 @@
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Assembly-CSharp.dll</HintPath>
       <CopyLocal>false</CopyLocal>
       <Publicize>true</Publicize>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\UnityEngine.dll</HintPath>
@@ -41,6 +45,22 @@
     </Reference>
     <Reference Include="ALINE">
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\ALINE.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\DOTween.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="Febucci.TextAnimator.Runtime">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Febucci.TextAnimator.Runtime.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="Febucci.TextAnimator.TMP.Runtime">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Febucci.TextAnimator.TMP.Runtime.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="Facepunch.Steamworks.Win64">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
       <CopyLocal>false</CopyLocal>
     </Reference>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />

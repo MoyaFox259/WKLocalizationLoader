@@ -4,7 +4,7 @@ using WKLocalizationLoader.Config;
 namespace WKLocalizationLoader.Modules
 {
     [ConfigSection(
-        "Module.ProgressionUnlockPatch",
+        "Modules.ProgressionUnlockPatch",
         "This module replaces texts of unlocks."
     )]
     public class ProgressionUnlockPatchSettings : ModuleSettingsBase

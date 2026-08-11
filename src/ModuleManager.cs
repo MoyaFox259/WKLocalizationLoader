@@ -41,22 +41,27 @@ namespace WKLocalizationLoader
 
         public static void LoadAllModules()
         {
-            //LoadModule<ExampleModule>("test.json");
+            //LoadModule<ExampleModule>("Example.json");
+            LoadModule<AchievementPatch>("Achievements.json");
             LoadModule<AnnouncementSubtitlePatch>(
                 "AnnouncementSubtitles.json"
             );
             LoadModule<AnnouncementSubtitleTimingPatch>(
                 "AnnouncementSubtitleTimings.json"
             );
-            LoadModule<DeathMessagePatch>("DeathMessages.json");
+            LoadModule<CosmeticPatch>("Cosmetics.json");
+            LoadModule<DeathTextPatch>("DeathTexts.json");
+            LoadModule<DocumentPatch>("Documents.json");
             LoadModule<FacilityUpgradePatch>("FacilityUpgrades.json");
             LoadModule<FontPatch>("Fonts.json");
             LoadModule<FontAssetPatch>("FontAssets.json");
             LoadModule<GamemodePatch>("Gamemodes.json");
-            LoadModule<HardcodedStringPatch>("HardcodedStrings.json");
+            LoadModule<GameplayTextPatch>("GameplayTexts.json");
             LoadModule<ItemDescriptionPatch>("ItemDescriptions.json");
             LoadModule<LocationNamePatch>("LocationNames.json");
+            LoadModule<MainMenuPatch>("MainMenu.json");
             LoadModule<MotherSubtitlePatch>("MotherSubtitles.json");
+            LoadModule<NotePatch>("Notes.json");
             LoadModule<ObjectivePatch>("Objectives.json");
             LoadModule<PerkPatch>("Perks.json");
             LoadModule<ProgressionUnlockPatch>("ProgressionUnlocks.json");
@@ -66,15 +71,10 @@ namespace WKLocalizationLoader
                 "RecordingSubtitleTimings.json"
             );
             LoadModule<RoachTraderSubtitlePatch>("RoachTraderSubtitles.json");
+            LoadModule<ScoreScreenPatch>("ScoreScreen.json");
             LoadModule<StaticTextPatch>("StaticTexts.json");
             LoadModule<TextScrawlPatch>("TextScrawls.json");
             LoadModule<TrinketPatch>("Trinkets.json");
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
-            //LoadModule<>();
         }
 
         public static void LoadModule<TModule>(string fileName)

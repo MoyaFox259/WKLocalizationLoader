@@ -21,6 +21,7 @@ namespace WKLocalizationLoader
         private static Dictionary<(string, RegexOptions), Regex> _regexCache;
         private static ValueCollection<Type, UnityEngine.Object>
             _scriptableObjectCache;
+        private static Dictionary<string, TextAsset> _textAssetCache;
         private static Plugin _plugin;
         private static ManualLogSource _logger;
 
@@ -271,7 +272,7 @@ namespace WKLocalizationLoader
             var scriptableObjects =
                 Resources.FindObjectsOfTypeAll(typeof(ScriptableObject));
             for (
-                int objectIndex = 0;
+                var objectIndex = 0;
                 objectIndex < scriptableObjects.Length;
                 objectIndex++
             )
@@ -305,6 +306,22 @@ namespace WKLocalizationLoader
                 }
             }
             yield break;
+        }
+
+        public static TextAsset GetOrCreateTextAsset(string text)
+        {
+            _textAssetCache ??= new Dictionary<string, TextAsset>();
+            TextAsset textAsset = null;
+            if (
+                _textAssetCache.TryGetValue(text, out textAsset)
+                && textAsset != null
+            )
+            {
+                return textAsset;
+            }
+            textAsset = new TextAsset(text);
+            _textAssetCache[text] = textAsset;
+            return textAsset;
         }
     }
 }

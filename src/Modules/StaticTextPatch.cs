@@ -19,7 +19,7 @@ namespace WKLocalizationLoader.Modules
         [HarmonyPostfix]
         [HarmonyPatch(
             typeof(Text),
-            nameof(Text.Awake)
+            nameof(Text.OnEnable)
         )]
         public static void Postfix_Text_OnEnable(Text __instance)
         {
@@ -32,10 +32,26 @@ namespace WKLocalizationLoader.Modules
 
         [HarmonyPostfix]
         [HarmonyPatch(
-            typeof(TMP_Text),
-            nameof(TMP_Text.Awake)
+            typeof(TextMeshPro),
+            nameof(TextMeshPro.Awake)
         )]
-        public static void Postfix_TMPText_Awake(TMP_Text __instance)
+        public static void Postfix_TextMeshPro_Awake(TextMeshPro __instance)
+        {
+            if (!IsEnabled) return;
+            __instance.text = GetTextTranslation(
+                TextTranslations,
+                __instance.text
+            );
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(TextMeshProUGUI),
+            nameof(TextMeshProUGUI.Awake)
+        )]
+        public static void Postfix_TextMeshProUGUI_Awake(
+            TextMeshProUGUI __instance
+        )
         {
             if (!IsEnabled) return;
             __instance.text = GetTextTranslation(

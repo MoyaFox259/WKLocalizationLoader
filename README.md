@@ -16,38 +16,39 @@
 ❌ : Not supported as of writing this  
 | Functionality | Support |
 | :- | :- |
-| Load font from .ttf file | Static fonts only |
-| Load font from bundle | ❌ |
+| Loading font from .ttf file | Static fonts only |
+| Loading font from bundle | ❌ |
 | Font replacement | ✅ |
 | TMP\_FontAsset replacement | ❌ |
 | TMP\_FontAsset fallback | ✅ |
 
 **Text translation**  
 ✅ : Implemented translation support  
-➖ : WIP  
+❌ : Not supported as of writing this
 | Texts | Support |
 | :- | :- |
-| Main Menu UI | ➖ |
-| Score Panel UI | ➖ |
-| Gameplay UI | ➖ |
+| Main Menu UI | ✅ |
+| Score Panel UI | ✅ |
+| Gameplay UI | ✅ |
 | QuietOS UI | ✅ |
 | Gamemodes | ✅ |
 | Location Names | ✅ |
 | Subtitles | ✅ |
-| Cosmetics | ➖ |
+| Cosmetics | ✅ |
 | Trinkets/Bindings | ✅ |
 | Perks | ✅ |
 | Facility Upgrades | ✅ |
 | Progression Unlocks | ✅ |
-| Achievements | ➖ |
+| Achievements | ✅ |
 | Objectives | ✅ |
 | Item Descriptions | ✅ |
-| Death Texts | ✅ |
-| Death Tips | ➖ |
-| Paper Notes | ➖ |
-| OS Documents | ➖ |
+| Death Messages | ✅ |
+| Death Tips | ✅ |
+| Paper Notes | ✅ |
+| OS Documents | ✅ |
 | Scrawl Headers | ✅ |
-| In-world Texts | ➖ |
+| In-world Texts | ✅ |
+| Command Console | ❌ |
 
 **Audio replacement**  
 ❌ No plans for audio replacement support as of writing this.

@@ -63,11 +63,11 @@ namespace WKLocalizationLoader.Modules
                 }
                 return;
             }
-            var roachInBank =
+            var balance =
                 StatManager.saveData.GetRoachBankByID("campaign").value;
             if (
                 upgrade.IsOwned(facility.id)
-                || upgrade.cost < roachInBank
+                || upgrade.cost < balance
                 || UpgradeCantAffordHoverTextTemplate is null
             )
             {
