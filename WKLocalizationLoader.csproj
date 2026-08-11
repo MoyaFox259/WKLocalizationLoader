@@ -25,6 +25,10 @@
       <CopyLocal>false</CopyLocal>
       <Publicize>true</Publicize>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\UnityEngine.dll</HintPath>
       <CopyLocal>false</CopyLocal>
@@ -41,6 +45,22 @@
     </Reference>
     <Reference Include="ALINE">
       <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\ALINE.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\DOTween.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="Febucci.TextAnimator.Runtime">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Febucci.TextAnimator.Runtime.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="Febucci.TextAnimator.TMP.Runtime">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Febucci.TextAnimator.TMP.Runtime.dll</HintPath>
+      <CopyLocal>false</CopyLocal>
+    </Reference>
+    <Reference Include="Facepunch.Steamworks.Win64">
+      <HintPath>$(WhiteKnuckleDir)\White Knuckle_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
       <CopyLocal>false</CopyLocal>
     </Reference>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />

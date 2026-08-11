@@ -19,17 +19,11 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> PerkFlavorTexts;
         [JsonProperty]
+        public static Dictionary<string, string> DurationRoughTexts;
+        [JsonProperty]
         public static string DurationSecondTemplate;
         [JsonProperty]
         public static string DurationSecondsTemplate;
-        [JsonProperty]
-        public static string DurationSoonText;
-        [JsonProperty]
-        public static string DurationABitText;
-        [JsonProperty]
-        public static string DurationAWhileText;
-        [JsonProperty]
-        public static string DurationALongTimeText;
         [JsonProperty]
         public static string AppPerkHoverTextTemplate;
         [JsonProperty]
@@ -153,24 +147,10 @@ namespace WKLocalizationLoader.Modules
             {
                 return __result;
             }
-            var removeTime = __instance.removeTime;
-            var targetString = removeTime switch
-            {
-                < 10f => "Soon",
-                < 30f => "A Bit",
-                < 60f => "A While",
-                _ => "A Long Time"
-            };
-            if (!__result.EndsWith(targetString)) return __result;
-            var durationText = removeTime switch
-            {
-                < 10f => DurationSoonText,
-                < 30f => DurationABitText,
-                < 60f => DurationAWhileText,
-                _ => DurationALongTimeText
-            };
-            if (durationText is null) return __result;
-            return __instance.removalTimerPrefix + durationText;
+            var stylePrefix = __instance.removalTimerPrefix;
+            var removeTime = __result.Substring(stylePrefix.Length);
+            removeTime = GetTextTranslation(DurationRoughTexts, removeTime);
+            return stylePrefix + removeTime;
         }
 
         [HarmonyPostfix]
@@ -188,7 +168,7 @@ namespace WKLocalizationLoader.Modules
             var perks = CL_GameManager.gMan.localPlayer.perks;
             if (perks is null || perks.Count == 0) return;
             var iconMapping = perks.ToDictionary(p => p.icon, p => p);
-            for (int iconIndex = 0; iconIndex < icons.Length; iconIndex++)
+            for (var iconIndex = 0; iconIndex < icons.Length; iconIndex++)
             {
                 var icon = icons[iconIndex];
                 var tooltip = icon.GetComponent<OS_Tooltip>();
@@ -252,7 +232,7 @@ namespace WKLocalizationLoader.Modules
             var refreshUI = __instance.reloadSettingsRoot;
             var tmpTexts = refreshUI.GetComponentsInChildren<TMP_Text>();
             if (tmpTexts is null || tmpTexts.Length == 0) return;
-            for (int tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
+            for (var tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
             {
                 var tmpText = tmpTexts[tmpIndex];
                 if (tmpText.text == "<color=\"red>PURCHASED</color>")

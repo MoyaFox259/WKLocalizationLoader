@@ -49,30 +49,6 @@ namespace WKLocalizationLoader.Modules
                 typeof(UT_Intro),
                 nameof(UT_Intro.EndIntro)
             );
-            CollectTargetMethod(
-                typeof(Leaderboard_Panel),
-                nameof(Leaderboard_Panel.Refresh)
-            );
-            CollectTargetMethod(
-                typeof(Leaderboard_Panel),
-                nameof(Leaderboard_Panel.SwitchScore)
-            );
-            CollectTargetMethod(
-                typeof(Leaderboard_Panel),
-                nameof(Leaderboard_Panel.SwitchType)
-            );
-            CollectTargetMethod(
-                typeof(UI_LeaderboardEntryDetailWindow),
-                nameof(UI_LeaderboardEntryDetailWindow.ShowDetails)
-            );
-            CollectTargetMethod(
-                typeof(UI_LeaderboardEntryDetailWindow),
-                nameof(UI_LeaderboardEntryDetailWindow.ShowNoEntryDetails)
-            );
-            CollectTargetNestedClassMethod(
-                typeof(UI_EndScreenScoreWindow),
-                "MoveNext"
-            );
         }
 
         public static void CollectTargetMethod(

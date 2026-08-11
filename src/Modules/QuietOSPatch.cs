@@ -223,7 +223,7 @@ namespace WKLocalizationLoader.Modules
             var saveTemplate = SaveTemplate ?? "{stationID}:{saveCount}";
             var saves = saveText.TrimEnd().Substring(18).Split(' ');
             var translatedSaves = new List<string>();
-            for (int saveIndex = 0; saveIndex < saves.Length; saveIndex++)
+            for (var saveIndex = 0; saveIndex < saves.Length; saveIndex++)
             {
                 var save = saves[saveIndex];
                 var saveInfo = save.Split(new char[] { ':' }, 2);
@@ -334,7 +334,8 @@ namespace WKLocalizationLoader.Modules
             __instance.StartCoroutine(TranslateLivesText());
             IEnumerator TranslateLivesText()
             {
-                yield return new WaitForSeconds(1.001f);
+                yield return null;
+                yield return new WaitForSeconds(1f);
                 TranslateSolarKnightLivesText(__instance);
             }
         }

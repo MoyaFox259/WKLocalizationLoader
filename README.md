@@ -28,7 +28,7 @@
 | Texts | Support |
 | :- | :- |
 | Main Menu UI | ➖ |
-| Score Panel UI | ➖ |
+| Score Panel UI | ✅ |
 | Gameplay UI | ✅ |
 | QuietOS UI | ✅ |
 | Gamemodes | ✅ |

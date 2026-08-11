@@ -37,7 +37,13 @@ namespace WKLocalizationLoader.Modules
             CL_GameManager __instance
         )
         {
-            if (!IsEnabled) return;
+            if (
+                !IsEnabled
+                || CL_GameManager.runHasEnded
+            )
+            {
+                return;
+            }
             var uiManager = __instance.uiMan;
             if (uiManager is null || uiManager.scoreTracker is null) return;
             var scoreText = uiManager.scoreTracker.text;

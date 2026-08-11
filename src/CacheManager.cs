@@ -272,7 +272,7 @@ namespace WKLocalizationLoader
             var scriptableObjects =
                 Resources.FindObjectsOfTypeAll(typeof(ScriptableObject));
             for (
-                int objectIndex = 0;
+                var objectIndex = 0;
                 objectIndex < scriptableObjects.Length;
                 objectIndex++
             )
