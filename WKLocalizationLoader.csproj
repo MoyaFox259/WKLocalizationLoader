@@ -8,7 +8,7 @@
     <AssemblyName>WKLocalizationLoader</AssemblyName>
     <RootNamespace>WKLocalizationLoader</RootNamespace>
     <Product>WKLocalizationLoader</Product>
-    <Version>0.6.0</Version>
+    <Version>0.6.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RestoreAdditionalProjectSources>
       https://api.nuget.org/v3/index.json;
