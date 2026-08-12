@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using HarmonyLib;
+using TMPro;
 
 namespace WKLocalizationLoader.Modules
 {
@@ -18,6 +19,8 @@ namespace WKLocalizationLoader.Modules
         public static string SpeedTrackerTemplate;
         [JsonProperty]
         public static string HighScoreTrackerTemplate;
+        [JsonProperty]
+        public static string ForlornGatewayDoorPoweredText;
         [JsonProperty]
         public static string VendorUnavailableText;
         [JsonProperty]
@@ -79,6 +82,40 @@ namespace WKLocalizationLoader.Modules
                 var highScore = highScoreText.Substring(12);
                 uiManager.highScoreTracker.text = HighScoreTrackerTemplate
                     .Replace("{highScore}", highScore);
+            }
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(UT_CheckFlag),
+            nameof(UT_CheckFlag.CheckFlag)
+        )]
+        public static void Postfix_CheckFlag_CheckFlag(
+            UT_CheckFlag __instance
+        )
+        {
+            if (!IsEnabled || ForlornGatewayDoorPoweredText is null) return;
+            var flagName = __instance.flagName;
+            if (
+                flagName != "habentrywaypowered"
+                && flagName != "habentryunlocked"
+            )
+            {
+                return;
+            }
+            var flag = CL_GameManager.GetGameFlag(flagName);
+            if (flag is null || !flag.state) return;
+            var tmpTexts = __instance.transform.parent
+                .GetComponentsInChildren<TMP_Text>();
+            if (tmpTexts is null || tmpTexts.Length == 0) return;
+            for (var tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
+            {
+                var tmpText = tmpTexts[tmpIndex];
+                if (tmpText.text == "POWERED")
+                {
+                    tmpText.text = ForlornGatewayDoorPoweredText;
+                    return;
+                }
             }
         }
 
