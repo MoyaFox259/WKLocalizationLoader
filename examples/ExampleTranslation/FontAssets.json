@@ -1,0 +1,240 @@
+{
+  "ModuleSettings": {
+    "HighFallbackPriority": true,
+    "SaveFontAssetCacheOnDisk": false
+  },
+  "FontAssetInfos": {
+    "ChicagoFLF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Dank-Depths SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "goth-byte_UI": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "LiberationSans SDF - Fallback": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "LiberationSans SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Lookout 7 SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "m3x6": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "m3x6wk Pagetext": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "m3x6wk SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "monoclefixed SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "NotoSansKR": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Oswald-VariableFont_wght SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "pixel-script": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Smart 9 SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "textmachine_handwriting_mother": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "textmachine_handwriting_simple": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "textmachine_handwriting": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Ticketing SDF GreyGlow Thin": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Ticketing SDF GreyGlow": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Ticketing SDF Shaky": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Ticketing SDF Smooth": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Ticketing SDF Subtitle": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ],
+    "Ticketing SDF": [
+      {
+        "FileName": "Rajdhani-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      },
+      {
+        "FileName": "ComicNeue-Regular.ttf",
+        "AtlasTextureFilterMode": "Bilinear"
+      }
+    ]
+  },
+  "CharactersToRender": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?! ,.'\"/\\()[]{}<>-+*%=_|@#$^&`~"
+}
+
