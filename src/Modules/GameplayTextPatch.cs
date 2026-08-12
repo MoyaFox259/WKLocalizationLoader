@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using HarmonyLib;
+using UnityEngine;
 using TMPro;
 
 namespace WKLocalizationLoader.Modules
@@ -11,6 +12,8 @@ namespace WKLocalizationLoader.Modules
     {
         [JsonProperty]
         public static Dictionary<string, string> RoachCounterTemplates;
+        [JsonProperty]
+        public static Dictionary<string, string> BadgeTitles;
         [JsonProperty]
         public static string ScoreTrackerTemplate;
         [JsonProperty]
@@ -133,6 +136,20 @@ namespace WKLocalizationLoader.Modules
                 RoachCounterTemplates,
                 __instance.textFormat
             );
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(
+            typeof(UI_Badge),
+            nameof(UI_Badge.ShowBadge)
+        )]
+        public static void Prefix_Badge_ShowBadge(
+            Sprite sprite,
+            ref string title
+        )
+        {
+            if (!IsEnabled) return;
+            title = GetTextTranslation(BadgeTitles, title);
         }
 
         [HarmonyPrefix]
