@@ -12,7 +12,7 @@ namespace WKLocalizationLoader
     [BepInPlugin(
         "mimimi-turret.wk-localization-loader",
         "WKLocalizationLoader",
-        "0.6.1"
+        "0.6.2"
     )]
     [BepInProcess("White Knuckle.exe")]
     public class Plugin : BaseUnityPlugin
