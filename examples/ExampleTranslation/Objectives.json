@@ -1,0 +1,45 @@
+{
+  "ObjectiveViewerTitles": {
+    "RACE: {0}": "RACE: {0}[OB]",
+    "<size=20>OBJECTIVES:</size>": "<size=20>OBJECTIVES:</size>[OB]"
+  },
+  "ObjectiveTitles": {
+    "Level Timer": "Level Timer[OB]",
+    "<color=yellow>Level Timer:</color>": "<color=yellow>Level Timer:</color>[OB]",
+    "<color=yellow>New Best Time!</color>": "<color=yellow>New Best Time!</color>[OB]",
+    "<sprite=\"challenge_icons\" name=\"challenge_icons_plat\"> Dev Time": "<sprite=\"challenge_icons\" name=\"challenge_icons_plat\"> Dev Time[OB]",
+    "<sprite=\"challenge_icons\" name=\"challenge_icons_gold\"> Gold Time": "<sprite=\"challenge_icons\" name=\"challenge_icons_gold\"> Gold Time[OB]",
+    "<sprite=\"challenge_icons\" name=\"challenge_icons_silver\"> Silver Time": "<sprite=\"challenge_icons\" name=\"challenge_icons_silver\"> Silver Time[OB]",
+    "<sprite=\"challenge_icons\" name=\"challenge_icons_plat\"> <color=green>Dev Time Beaten":"<sprite=\"challenge_icons\" name=\"challenge_icons_plat\"> <color=green>Dev Time Beaten[OB]",
+    "<sprite=\"challenge_icons\" name=\"challenge_icons_gold\"> <color=green>Gold Time Beaten": "<sprite=\"challenge_icons\" name=\"challenge_icons_gold\"> <color=green>Gold Time Beaten[OB]",
+    "<sprite=\"challenge_icons\" name=\"challenge_icons_silver\"> <color=green>Silver Time Beaten": "<sprite=\"challenge_icons\" name=\"challenge_icons_silver\"> <color=green>Silver Time Beaten[OB]",
+    "BANK {0} ROACHES": "BANK {0} ROACHES[OB]",
+    "<color=red>SCORE BONUS": "<color=red>SCORE BONUS[OB]",
+    "Radio Dishes Prepared": "Radio Dishes Prepared[OB]",
+    "Activate Array": "Activate Array[OB]",
+    "Retrieval Duty": "Retrieval Duty[OB]",
+    "Power the Door": "Power the Door[OB]",
+    "Recover Fuel Cells": "Recover Fuel Cells[OB]",
+    "Escape": "Escape[OB]"
+  },
+  "ObjectiveDescriptions": {
+      "<color=red>{0} | Best: {1}</color>": "<color=red>{0} | Best: {1}</color>[OB]",
+      "{count} / {goal} disks inserted.": "{count} / {goal} disks inserted.[OB]",
+      "Return to the Server Room": "Return to the Server Room[OB]",
+      "<color=yellow>0/1 Disks": "<color=yellow>0/1 Disks[OB]",
+      "<color=red>ESCAPE WITH THE DISK": "<color=red>ESCAPE WITH THE DISK[OB]",
+      "<color=grey>Find a Fuel Cell": "<color=grey>Find a Fuel Cell[OB]",
+      "{count} / {goal} Fuel Cells Found": "{count} / {goal} Fuel Cells Found[OB]",
+      "<color=grey>Find The Exit": "<color=grey>Find The Exit[OB]"
+  },
+  "ObjectiveProgressHeaders": {
+    "<color=yellow>{remain} Disks Remain": "<color=yellow>{remain} Disks Remain[OB]",
+    "<color=grey>{remain} Remain": "<color=grey>{remain} Remain[OB]"
+  },
+  "ObjectiveSuccessHeaders": {
+    "<color=yellow>The Exit Hatch has opened.": "<color=yellow>The Exit Hatch has opened.[OB]",
+    "<color=green>Array Primed.": "<color=green>Array Primed.[OB]",
+    "<color=yellow>Escape": "<color=yellow>Escape[OB]"
+  }
+}
+

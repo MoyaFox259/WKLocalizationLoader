@@ -1,0 +1,104 @@
+{
+  "CapsuleNames": {
+    "Tutorial": "Tutorial[GM]",
+    "Training Sector": "Training<br>Sector[GM]",
+    "Campaign": "Campaign[GM]",
+    "Endless Silos": "Endless Silos[GM]",
+    "Endless Pipeworks": "Endless Pipeworks[GM]",
+    "Endless Habitation": "Endless Habitation[GM]",
+    "Endless Abyss": "Endless Abyss[GM]",
+    "Endless Nest": "Endless Nest[GM]",
+    "Endless Underworks": "Endless<br>Underworks[GM]",
+    "Endless Substructure": "Endless<br>Substructure[GM]",
+    "Endless Superstructure": "Endless<br>Superstructure[GM]",
+    "Advanced Course": "Advanced<br>Course[GM]",
+    "Fractured Territory": "Fractured<br>Territory[GM]",
+    "Roach Run": "Roach<br>Run[GM]",
+    "Comms Array": "Comms<br>Array[GM]",
+    "Shuttered Rift": "Shuttered<br>Rift[GM]",
+    "Boost Course": "Boost<br>Course[GM]",
+    " Chimney": "Chimney[GM]",
+    "Parasite": "Parasite[GM]",
+    "Playground": "Playground[GM]",
+    "Ladder": "Ladder[GM]",
+    "Cheatrooms": "Cheatrooms[GM]"
+  },
+  "GamemodeUnlockHints": {
+    "Finish the Tutorial": "Finish the Tutorial[GM]",
+    "Reach Pipeworks": "Reach Pipeworks[GM]",
+    "Reach Habitation": "Reach Habitation[GM]",
+    "Reach the Abyss": "Reach the Abyss[GM]",
+    "Reach The Abyss": "Reach The Abyss[GM]",
+    "Reach The Nest": "Reach The Nest[GM]",
+    "Reach The Core": "Reach The Core[GM]",
+    "Beat the Tutorial": "Beat the Tutorial[GM]",
+    "Beat the Campaign": "Beat the Campaign[GM]",
+    "Loop in Endless Substructure": "Loop in Endless Substructure[GM]",
+    "Climb 250 Meters": "Climb 250 Meters[GM]"
+  },
+  "GamemodeDescriptions": {
+    "<color=#c0c0c0ff>Learn the basics of how to play White Knuckle.</color>\n- <color=yellow>Basic Climbing</color>\n- <color=yellow>Momentum and Stamina</color>\n- <color=yellow>Core Item Usage</color>": "<color=#c0c0c0ff>Learn the basics of how to play White Knuckle.</color>\n- <color=yellow>Basic Climbing</color>\n- <color=yellow>Momentum and Stamina</color>\n- <color=yellow>Core Item Usage</color>[GM]",
+    "Practice your technique in a safe environment.\n<color=yellow>- Race Mode\n<color=yellow>- Customizeable Difficulty\n<color=yellow>- Endless Climbing\n<color=red>Note: Some Achievements are blocked in this mode.</color>": "Practice your technique in a safe environment.\n<color=yellow>- Race Mode\n<color=yellow>- Customizeable Difficulty\n<color=yellow>- Endless Climbing\n<color=red>Note: Some Achievements are blocked in this mode.</color>[GM]",
+    "<b>Welcome to the Advanced Course, Climber.</b>\n<color=#c0c0c0ff>Think you're ready to explore the Substructure and beyond?</color>\n- <color=yellow>Race to the end</color> as fast as possible.": "<b>Welcome to the Advanced Course, Climber.</b>\n<color=#c0c0c0ff>Think you're ready to explore the Substructure and beyond?</color>\n- <color=yellow>Race to the end</color> as fast as possible.[GM]",
+    "<b>Deep In the Old Training Chambers</b>\n<color=#c0c0c0ff>The Event left this sector damaged, but the Local Authority still thinks there's use in it yet.</color>\n- <color=yellow>Race to the end</color> as fast as possible.": "<b>Deep In the Old Training Chambers</b>\n<color=#c0c0c0ff>The Event left this sector damaged, but the Local Authority still thinks there's use in it yet.</color>\n- <color=yellow>Race to the end</color> as fast as possible.[GM]",
+    "<b>Resource Harvesting</b>\n<color=#c0c0c0ff>Modified Lambda roaches are loose in the Drainage Sector.</color>\n- <color=yellow>Bank valuable roaches.</color>\n- <color=red>Avoid the Mass</color>, send it back down with every roach banked.\n- Bank roaches in the <color=yellow>Mass Damper</color> to lower the Mass even more.": "<b>Resource Harvesting</b>\n<color=#c0c0c0ff>Modified Lambda roaches are loose in the Drainage Sector.</color>\n- <color=yellow>Bank valuable roaches.</color>\n- <color=red>Avoid the Mass</color>, send it back down with every roach banked.\n- Bank roaches in the <color=yellow>Mass Damper</color> to lower the Mass even more.[GM]",
+    "<b>Communications are down</b>\n<color=#c0c0c0ff>The Comms Array pier has locked up, and each dish requires a firmware update.</color>\n- Grab the <color=yellow>four disks</color>, and deliver them to each <color=yellow>Dish.</color>\n- Then, <color=yellow>return to the server room.": "<b>Communications are down</b>\n<color=#c0c0c0ff>The Comms Array pier has locked up, and each dish requires a firmware update.</color>\n- Grab the <color=yellow>four disks</color>, and deliver them to each <color=yellow>Dish.</color>\n- Then, <color=yellow>return to the server room.[GM]",
+    "<b>Experimental Artifact: The Shutter</b>\n<color=#c0c0c0ff>Analysis and testing of a Δ-0004 projection has completed.</color>\n- <color=yellow>Use Items</color> to venture into the Extrapolated Dimension.\n- <color=yellow>Retrieve the Disk.</color>\n- Escape the Extrapolated Dimension, <color=red>DO NOT GET ERASED.": "<b>Experimental Artifact: The Shutter</b>\n<color=#c0c0c0ff>Analysis and testing of a Δ-0004 projection has completed.</color>\n- <color=yellow>Use Items</color> to venture into the Extrapolated Dimension.\n- <color=yellow>Retrieve the Disk.</color>\n- Escape the Extrapolated Dimension, <color=red>DO NOT GET ERASED.[GM]",
+    "<b>Welcome to the Boost Course, Climber.</b>\n<color=#c0c0c0ff>Every reaction has an equal and opposite reaction.</color>\n- <color=yellow>Race to the top of the tower</color> as fast as possible.": "<b>Welcome to the Boost Course, Climber.</b>\n<color=#c0c0c0ff>Every reaction has an equal and opposite reaction.</color>\n- <color=yellow>Race to the top of the tower</color> as fast as possible.[GM]",
+    "<i>You are awake. It has felt like decades.</i>\n<color=#c0c0c0ff>- Escape the SB10 Experimental Detention Facility</color>\n<color=#c0c0c0ff>- Hide from threats, stay quiet.</color>": "<i>You are awake. It has felt like decades.</i>\n<color=#c0c0c0ff>- Escape the SB10 Experimental Detention Facility</color>\n<color=#c0c0c0ff>- Hide from threats, stay quiet.</color>[GM]"
+  },
+  "NewGameTexts": {
+    "Play": "Play[GM]",
+    "Escape": "Escape[GM]",
+    "Start Run": "Start Run[GM]"
+  },
+  "GamemodeIntroTexts": {
+    "LEARN": "LEARN[GM]",
+    "TRAIN": "TRAIN[GM]",
+    "ESCAPE": "ESCAPE[GM]",
+    "ASCEND": "ASCEND[GM]",
+    "ONLY SILOS": "ONLY SILOS[GM]",
+    "ONLY PIPEWORKS": "ONLY PIPEWORKS[GM]",
+    "ONLY HABITATION": "ONLY HABITATION[GM]",
+    "ONLY ABYSS": "ONLY ABYSS[GM]",
+    "ONLY NEST": "ONLY NEST[GM]",
+    "CLIMB": "CLIMB[GM]",
+    "GATHER": "GATHER[GM]",
+    "TRANSFER": "TRANSFER[GM]",
+    "RECOVER": "RECOVER[GM]",
+    "BOOST": "BOOST[GM]",
+    "HO HO HO": "HO HO HO[GM]",
+    "LADDER": "LADDER[GM]",
+    "PLAY": "PLAY[GM]",
+    "...": "...[GM]"
+  },
+  "GamemodeTextPrefixes": {
+    "Mode:": "Mode:[GM]",
+    "Challenge:": "Challenge:[GM]",
+    "<color=grey>Challenge:</color> ": "<color=grey>Challenge:</color> [GM]"
+  },
+  "ModifierTitles": {
+    "Competitive": "Competitive[GM]",
+    "Hard Mode": "Hard Mode[GM]",
+    "Iron Knuckle": "Iron Knuckle[GM]",
+    "Unlimited": "Unlimited[GM]"
+  },
+  "ModifierDescriptions": {
+    "Standardized Gamemode for Speedrunning": "Standardized Gamemode for Speedrunning[GM]",
+    "Good Luck": "Good Luck[GM]",
+    "No Saves, Perks, Shortcuts, or Starting Roaches": "No Saves, Perks, Shortcuts, or Starting Roaches[GM]",
+    "Unlimited Roaches": "Unlimited Roaches[GM]"
+  },
+  "ModifierAppends": {
+    "-Competitive": "-Competitive[GM]",
+    "-Hardmode": "-Hardmode[GM]",
+    "-Iron": "-Iron[GM]",
+    "-Unlimited": "-Unlimited[GM]"
+  },
+  "KeepWhiteSpaceInGamemodeName": true,
+  "GamemodeTextTemplate": "{prefix}{gamemodeName}{modifierAppends}[GM]",
+  "ModifierConflictedDescription": "LOCKED[GM]",
+  "ModifierLockedDescriptionTemplate": "{unlockHint}{progress}[GM]",
+  "ModifierUnlockProgressTemplate": ": {current}/{required}[GM]"
+}
+

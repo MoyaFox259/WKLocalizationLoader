@@ -1,0 +1,18 @@
+{
+  "PageTitles": {
+    "Regions": "Regions[MM]",
+    "Items": "Items[MM]",
+    "Perks": "Perks[MM]",
+    "Challenges": "Challenges[MM]",
+    "Gamemodes": "Gamemodes[MM]",
+    "Hands": "Hands[MM]",
+    "Voices": "Voices[MM]",
+    "White Knuckle": "White Knuckle[MM]",
+    "Publishing": "Publishing[MM]",
+    "Support": "Support[MM]",
+    "Licensing": "Licensing[MM]"
+  },
+  "PageCounterTemplate": "{title} ({current}/{total})[MM]",
+  "LoadingProgressTemplate": "Loading: {progress}%[MM]"
+}
+
