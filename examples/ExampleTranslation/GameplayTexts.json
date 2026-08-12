@@ -1,0 +1,18 @@
+{
+  "RoachCounterTemplates": {
+    "BANK: {runRoaches}": "BANK: {runRoaches}[GP]"
+  },
+  "BadgeTitles": {
+    "ARTIFACT OBTAINED": "ARTIFACT OBTAINED[GP]",
+    "INVENTORY UPGRADED": "INVENTORY UPGRADED[GP]"
+  },
+  "ScoreTrackerTemplate": "Score: {score}[GP]",
+  "DistanceTrackerTemplate": "Climb Distance: {distance}[GP]",
+  "SpeedTrackerTemplate": "Climb Speed: {speed}[GP]",
+  "HighScoreTrackerTemplate": "High Score: {highScore}[GP]",
+  "ForlornGatewayDoorPoweredText": "POWERED[GP]",
+  "VendorUnavailableText": "UNAVAILABLE[GP]",
+  "VendorCostTemplate": "Cost:{cost} Bank:{balance}[GP]",
+  "VendorPurchasedText": "THANK YOU FOR YOUR PURCHASE[GP]"
+}
+

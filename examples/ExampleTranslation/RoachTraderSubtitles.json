@@ -1,0 +1,17 @@
+{
+  "RoachTraderSubtitles": {
+    "bark": "{rand:Can I help you?:All Luck, Friend.:Need anything?:Good deals!:Any questions?:All clean, all fresh!:A little rust never hurt.:Only the highest quality.:See anything you like?:That’s a good one.:Low low prices, just for you.:Don’t worry, he doesn’t bite.: Don’t worry, I don’t bite.}[BS]",
+      "bark-goodsmell": "{rand:Woah, you smell great!:Doing anything later?:Can I smell you?:You know where to find me.:I've been working out.:Hey friend, lets share drinks!:Good smell..:Want to see my bauble collection?:Come here often?}[BS]",
+      "bark-pitonandbeans": "{rand:Sorry, supplier messed up.:We've got pitons, we've got beans.:You want a piton?:You want beans?:Uh, sorry about our selection}[BS]",
+      "bark-pitonandbeansgoodsmell": "{rand:Please just take em, they are free.:You smell good, wanna eat beans:Take my pitons. I insist.:Woah you smell nice ive got beans}[BS]",
+      "bark-funniest": "{rand:I'm Bug Funny:Im roachin' here.:How do climbers forget about bad climbs? They get over them!:Something funny something funny.:What a silly interaction:Peaks of you're shopping here:Something something lorn something something lure:Get over it. Bennet Foddy.}[BS]",
+      "bark-pitonandbeansgoodsmellfunniest": "{rand:This is stupid. You have stupid perks.:Did you really come in here with those perks? Leave.:Wnat something funny from me? I'm bugging out.:Bug puns. I guess.:Bottom Text.:Buy White Knuckle from my shop.:Whitelist Wish Knuckle}[BS]",
+      "close": "{rand:No business!:Go away!:Leave me alone!:No soliciting!:Closed means closed!:Try again later!:Sold out![BS]",
+      "welcome": "{rand:Salutations!:Greetings, friend!:Welcome, welcome, welcome!:Ready for business!:Hello, customer!}[BS]",
+      "threaten": "{rand:Careful!:Point that somewhere else!:Hey, hey, hey?!:Watch out!:No thank you!:Not here, monster!:Rude!:All sales final!}[BS]",
+      "deny": "{rand:Worth more than that, friend.:Empty pockets?:It's worth more than that...:Really? That’s all?:Maybe the customer is not always right…:Is this some sort of scam?:Shame, shame, shame…}[BS]",
+      "success": "{rand:Thank you, friend!:Good deal, friend!:Come back soon!:Thank you for your patronage!:Please do business here again.:Beautiful, beautiful, beautiful.:Wonderful! No refunds.:Pleasure doing business with you!}[BS]",
+      "pet": "{rand:Who's my little cutey-pie? You are!:Hey! No biting!:Stinky, stinky, stinky.:Someone needs a wash.: Looks like someone is ready to molt!:What a handsome boy.:What a big boy you are.:Almost din-din:Do you want walkies?:Good boy, good boy, good boy.}[BS]"
+  }
+}
+

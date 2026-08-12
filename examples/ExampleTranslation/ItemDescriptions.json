@@ -1,0 +1,28 @@
+{
+  "ItemDescriptions": {
+    "desc-Item_Trinket_BagUpgrade": "<color=#FF8AFF>Trinket: Larger Pack\n<color=\"grey\">Improves your bags capacity by 2.[ID]",
+    "desc-Item_Trinket_Beta": "<color=#FF8AFF>Trinket: The Beta. +15% Reach.\n<color=\"grey\">A deep maintenance instructional training video produced by the SRA. Very informative.[ID]",
+    "desc-Item_Trinket_Carabiner": "<color=#FF8AFF>Trinket:</color> A Carabiner. Placed pitons are more firmly set.\n<u>While holding onto a placed piton:</u> Reduced stamina drain, Increased jump height.[ID]",
+    "desc-Item_Trinket_Chalk": "<color=#FF8AFF>Trinket: Chalk. -20% Stamina Drain\n<color=\"grey\">It's a good thing you managed to hold onto this.[ID]",
+    "desc-Item_Trinket_EmployeeID": "<color=#FF8AFF>Trinket: An employee ID. Should keep you safe from most security systems.\n<color=\"grey\">Stained with the blood of the poor soul who held it.[ID]",
+    "desc-Item_Trinket_Headlamp": "<color=#FF8AFF>Trinket: Headlamp\n<color=\"grey\">A low quality flashlight, no crank required.[ID]",
+    "desc-Item_Trinket_MassDamper": "<color=#FF8AFF>Trinket: A carved amulet. Slows all <color=\"red\">Mass</color> forms by 15%.\n<color=\"grey\">The thing bubbling up behind you - It hungers, more than you can ever know. Don't let it devour.[ID]",
+    "desc-Item_Trinket_MoonRock": "<color=#FF8AFF>Trinket: A vial of \"Moon Rocks\". -10% Gravity\n<color=\"grey\">The ITAA wanted it all. In the name of science, but moreso in the name of profit.[ID]",
+    "desc-Item_Trinket_Nugget": "<color=#FF8AFF>Trinket: A Valuable Nugget.\n<color=\"grey\">Worth a pretty penny when recycled.[ID]",
+    "desc-Item_Trinket_PhotoOfHome": "<color=#FF8AFF>Trinket: Yearning Photo. +15% climb speed. +20% walking speed when grounded.\n<color=\"grey\">A place you'd like to be. It's worth getting there, at all costs.[ID]",
+    "desc-Item_Trinket_Pouch": "<color=#FF8AFF>Inventory Upgrade: Pouch\n<color=\"grey\"> Adds a pouch into your inventory, where you can stack up to five of the same item type for the weight of one.[ID]",
+    "desc-Item_Trinket_CalmingBuddy": "<color=#FF8AFF>Trinket: Calming Buddy. Slows time while looking in your bag. \n<color=\"grey\">Relax, breathe in, breathe out. Take it all in.[ID]",
+    "desc-Item_Trinket_Helmet": "<color=#FF8AFF>Trinket: Helmet. Reduced grip loss, increased damage and knockback resist. \n<color=\"grey\">Worker tested, OSHA approved.[ID]",
+    "desc-Item_Trinket_ClimbingShoes": "<color=#FF8AFF>Trinket: Climbing Shoes. Reduces stamina drain while resting during a hang, and from climb-jumps. \n<color=\"grey\">Made to ease any climb.[ID]",
+    "desc-Item_Cleaver": "<color=#72e0be>Minor Artifact: Cleaver\n<color=\"grey\">A hungry tool to help you devour your enemies. It wouldn't lie to you about what you are eating, would it?[ID]",
+    "desc-Item_Beans_Periphery": "<color=#72e0be>Minor Artifact: Delta 0052\n<color=\"grey\">All the things you want, for a limited time.[ID]",
+    "desc-Item_RhoStone": "<color=#72e0be>Minor Artifact: Rho Stone\n<color=\"grey\">Has the power to hold the Mass at bay, for a little while.[ID]",
+    "desc-Item_BlinkEye": "<color=#72e0be>Minor Artifact: Blink Eye\n<color=\"grey\">Ripped from some poor soul.[ID]",
+    "desc-Item_Floppy_T3": "<color=white>Item: T3 Disk\n<color=\"grey\">Can hold 3 saves.[ID]",
+    "desc-Item_EntityScanner": "<color=white>Item: Entity Scanner\n<color=\"grey\">Scans for items and denizens.[ID]",
+    "desc-Item_Handgun": "<color=white>Item: Handgun\n<color=\"grey\">Drake Combat Solutions MD95 10mm Service Pistol.[ID]",
+    "desc-Item_Cryogun": "<color=white>Item: Cryo-Gun\n<color=\"grey\">Experimental handhold-creation tool. Can be refilled at cryo stations.[ID]",
+    "desc-Item_BarnacleHook": "<color=white>Lambda Artifact: Barnacle Hook\n<color=\"grey\">A young barnacle turned tool. Needs to be fed to regenerate stamina.[ID]"
+  }
+}
+
