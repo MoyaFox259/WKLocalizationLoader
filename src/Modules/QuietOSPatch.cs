@@ -16,7 +16,7 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> FileNames;
         [JsonProperty]
-        public static Dictionary<string, string> MessageTexts;
+        public static Dictionary<string, string> MessageTextTemplates;
         [JsonProperty]
         public static Dictionary<string, string> MessageOptions;
         [JsonProperty]
@@ -54,10 +54,10 @@ namespace WKLocalizationLoader.Modules
         public static QuietOSPatchSettings ModuleSettings;
 
         [OnDeserialized]
-        private void OnDeserializedMethod(StreamingContext context)
+        private void OnDeserialized(StreamingContext _)
         {
             if (!IsEnabled) return;
-            MessageTemplates = new TemplateTranslations(MessageTexts);
+            MessageTemplates = new TemplateTranslations(MessageTextTemplates);
         }
 
         [HarmonyPrefix]

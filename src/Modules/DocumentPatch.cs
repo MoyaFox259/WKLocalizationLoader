@@ -9,7 +9,7 @@ namespace WKLocalizationLoader.Modules
     public class DocumentPatch: TextTranslator<DocumentPatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> TextTranslations;
+        public static Dictionary<string, string> DocumentTexts;
 
         [JsonIgnore]
         public static DocumentPatchSettings ModuleSettings;
@@ -32,14 +32,14 @@ namespace WKLocalizationLoader.Modules
                 var data = fileInfo.data;
                 var originalText = DarkMachineFunctions.ProcessText(data);
                 translatedText = GetTextTranslation(
-                    TextTranslations,
+                    DocumentTexts,
                     originalText
                 );
                 fileInfo.data = data.Replace(originalText, translatedText);
                 return;
             }
             translatedText = GetTextTranslation(
-                TextTranslations,
+                DocumentTexts,
                 fileInfo.textAssetData.text
             );
             fileInfo.textAssetData = CacheManager

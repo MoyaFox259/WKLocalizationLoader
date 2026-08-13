@@ -7,18 +7,14 @@ using HarmonyLib;
 namespace WKLocalizationLoader.Modules
 {
     [HarmonyPriority(Priority.Last)]
-    [HarmonyPatch(
-        typeof(CL_LocalizationManager.Localization),
-        nameof(CL_LocalizationManager.Localization.GetLine)
-    )]
+    [HarmonyPatch]
     public class RecordingSubtitleTimingPatch
         : ModuleBase<RecordingSubtitleTimingPatch>
     {
         [JsonProperty]
         public static RecordingSubtitleTimingPatchSettings ModuleSettings;
         [JsonProperty]
-        public static Dictionary<string, List<float>>
-            RecordingSubtitleTimings;
+        public static Dictionary<string, List<float>> RecordingSubtitleTimings;
 
         [JsonIgnore]
         public readonly static string[] LinebreakPattern =
@@ -31,7 +27,11 @@ namespace WKLocalizationLoader.Modules
             );
 
         [HarmonyPostfix]
-        public static string Postfix(
+        [HarmonyPatch(
+            typeof(CL_LocalizationManager.Localization),
+            nameof(CL_LocalizationManager.Localization.GetLine)
+        )]
+        public static string Postfix_Localization_GetLine(
             string __result,
             string group,
             string key

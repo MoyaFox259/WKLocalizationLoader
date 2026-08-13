@@ -10,35 +10,35 @@ namespace WKLocalizationLoader.Modules
     public class ObjectivePatch : TemplateTranslator<ObjectivePatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> ObjectiveViewerTitles;
+        public static Dictionary<string, string> ObjectiveViewerTitleTemplates;
         [JsonProperty]
-        public static Dictionary<string, string> ObjectiveTitles;
+        public static Dictionary<string, string> ObjectiveTitleTemplates;
         [JsonProperty]
-        public static Dictionary<string, string> ObjectiveDescriptions;
+        public static Dictionary<string, string> ObjectiveDescriptionTemplates;
         [JsonProperty]
-        public static Dictionary<string, string> ObjectiveProgressHeaders;
+        public static Dictionary<string, string>
+            ObjectiveProgressHeaderTemplates;
         [JsonProperty]
         public static Dictionary<string, string> ObjectiveSuccessHeaders;
 
         [JsonIgnore]
-        public static TemplateTranslations ObjectiveViewerTitleTemplates;
+        public static TemplateTranslations ViewerTitleTemplates;
         [JsonIgnore]
-        public static TemplateTranslations ObjectiveTitleTemplates;
+        public static TemplateTranslations TitleTemplates;
         [JsonIgnore]
-        public static TemplateTranslations ObjectiveDescriptionTemplates;
+        public static TemplateTranslations DescriptionTemplates;
         [JsonIgnore]
         public static ObjectivePatchSettings ModuleSettings;
 
         [OnDeserialized]
-        private void OnDeserializedMethod(StreamingContext context)
+        private void OnDeserialized(StreamingContext _)
         {
             if (!IsEnabled) return;
-            ObjectiveViewerTitleTemplates =
-                new TemplateTranslations(ObjectiveViewerTitles);
-            ObjectiveTitleTemplates =
-                new TemplateTranslations(ObjectiveTitles);
-            ObjectiveDescriptionTemplates =
-                new TemplateTranslations(ObjectiveDescriptions);
+            ViewerTitleTemplates =
+                new TemplateTranslations(ObjectiveViewerTitleTemplates);
+            TitleTemplates = new TemplateTranslations(ObjectiveTitleTemplates);
+            DescriptionTemplates =
+                new TemplateTranslations(ObjectiveDescriptionTemplates);
         }
 
         [HarmonyPostfix]
@@ -52,7 +52,7 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             __instance.objectiveViewerTitle.text = GetTemplateTranslation(
-                ObjectiveViewerTitleTemplates,
+                ViewerTitleTemplates,
                 __instance.objectiveViewerTitle.text
             );
         }
@@ -65,7 +65,7 @@ namespace WKLocalizationLoader.Modules
         public static void Prefix_ObjectiveViewer_SetTitle(ref string s)
         {
             if (!IsEnabled) return;
-            s = GetTemplateTranslation(ObjectiveViewerTitleTemplates, s);
+            s = GetTemplateTranslation(ViewerTitleTemplates, s);
         }
 
         [HarmonyPrefix]
@@ -80,8 +80,8 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            title = GetTemplateTranslation(ObjectiveTitleTemplates, title);
-            desc = GetTemplateTranslation(ObjectiveDescriptionTemplates, desc);
+            title = GetTemplateTranslation(TitleTemplates, title);
+            desc = GetTemplateTranslation(DescriptionTemplates, desc);
         }
 
         [HarmonyPrefix]
@@ -97,15 +97,15 @@ namespace WKLocalizationLoader.Modules
             foreach (var objectiveCounter in __instance.objectives)
             {
                 objectiveCounter.objectiveTitle = GetTemplateTranslation(
-                    ObjectiveTitleTemplates,
+                    TitleTemplates,
                     objectiveCounter.objectiveTitle
                 );
                 objectiveCounter.objectiveDesc = GetTemplateTranslation(
-                    ObjectiveDescriptionTemplates,
+                    DescriptionTemplates,
                     objectiveCounter.objectiveDesc
                 );
                 objectiveCounter.progressHeaderDesc = GetTextTranslation(
-                    ObjectiveProgressHeaders,
+                    ObjectiveProgressHeaderTemplates,
                     objectiveCounter.progressHeaderDesc
                 );
                 objectiveCounter.finishedHeaderDesc = GetTextTranslation(

@@ -95,7 +95,7 @@
     "schematic.img": "schematic.img[OS]",
     "Solar Knight": "Solar Knight[OS]"
   },
-  "MessageTexts": {
+  "MessageTextTemplates": {
     "<color=yellow>Your Save has Been Upgraded:</color>\nVersion <color=red>{0}</color> --> <color=green>{1}</color>!": "<color=yellow>Your Save has Been Upgraded:</color>\nVersion <color=red>{0}</color> --> <color=green>{1}</color>![OS]",
     "<color=red><b>Warning!</b></color>\n<color=yellow>This will erase your current saved run.": "<color=red><b>Warning!</b></color>\n<color=yellow>This will erase your current saved run.[OS]",
     "New disk detected. Loading..": "New disk detected. Loading..[OS]",

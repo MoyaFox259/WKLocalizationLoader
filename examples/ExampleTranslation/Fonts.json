@@ -2,7 +2,7 @@
   "ModuleSettings": {
     "SaveFontCacheOnDisk": false
   },
-  "FontInfos": {
+  "CustomFonts": {
     "aline_font": {
         "FileName": "ComicNeue-Regular.ttf",
         "PointSize": 12,

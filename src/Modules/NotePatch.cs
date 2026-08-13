@@ -11,17 +11,17 @@ namespace WKLocalizationLoader.Modules
     public class NotePatch: TextTranslator<NotePatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> TextTranslations;
+        public static Dictionary<string, string> NoteTexts;
 
         [JsonIgnore]
-        public static Dictionary<string, string> TrimmedTextTranslations;
+        public static Dictionary<string, string> TrimmedNoteTexts;
         [JsonIgnore]
         public static NotePatchSettings ModuleSettings;
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext _)
         {
-            TrimmedTextTranslations = TextTranslations
+            TrimmedNoteTexts = NoteTexts
                 .ToDictionary(t => t.Key.TrimStart(), t => t.Value);
         }
 
@@ -36,7 +36,7 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             __instance.text.text = GetTextTranslation(
-                TrimmedTextTranslations,
+                TrimmedNoteTexts,
                 __instance.text.text
             );
         }

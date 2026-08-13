@@ -16,7 +16,7 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static FontPatchSettings ModuleSettings;
         [JsonProperty]
-        public static Dictionary<string, FontProperties> FontInfos;
+        public static Dictionary<string, FontProperties> CustomFonts;
         [JsonProperty]
         public static string CharactersToRender;
 
@@ -25,22 +25,17 @@ namespace WKLocalizationLoader.Modules
             new Dictionary<string, Font>();
 
         [OnDeserialized]
-        private void OnDeserializedMethod(StreamingContext context)
+        private void OnDeserialized(StreamingContext _)
         {
             if (!IsEnabled) return;
-            foreach (var fontInfo in FontInfos)
+            foreach (var item in CustomFonts)
             {
-                if (
-                    ResourceLoader.TryGetOrCreateFont(
-                        CharactersToRender,
-                        fontInfo.Value,
-                        out Font font,
-                        ModuleSettings.SaveFontCacheOnDisk
-                    )
-                )
-                {
-                    AddSubstituteFont(fontInfo.Key, font);
-                }
+                var targetFontName = item.Key;
+                var customFontProperties = item.Value;
+                CreateAndRegisterSubstituteFont(
+                    targetFontName,
+                    customFontProperties
+                );
             }
         }
 
@@ -57,31 +52,51 @@ namespace WKLocalizationLoader.Modules
 
         public static void ReplaceFont(Text __instance)
         {
-            var originalFontName = __instance.font?.name;
-            if (
-                TryGetSubstituteFont(
-                    originalFontName,
-                    out Font substituteFont
-                )
-            )
+            var targetFontName = __instance.font?.name;
+            if (TryGetSubstituteFont(targetFontName, out Font substituteFont))
             {
-                // Canvas.ForceUpdateCanvases();
                 __instance.font = substituteFont;
-                //__instance.material = null;
-                // __instance.SetAllDirty();
             }
         }
 
+        public static void CreateAndRegisterSubstituteFont(
+            string targetFontName,
+            FontProperties substituteFontProperties
+        )
+        {
+            if (
+                ResourceLoader.TryGetOrCreateFont(
+                    CharactersToRender,
+                    substituteFontProperties,
+                    out Font substituteFont,
+                    ModuleSettings.SaveFontCacheOnDisk
+                )
+            )
+            {
+                RegisterSubstituteFont(targetFontName, substituteFont);
+            }
+        }
+
+        public static void RegisterSubstituteFont(
+            string targetFontName,
+            Font substituteFont
+        )
+        {
+            SubstituteFonts ??= new Dictionary<string, Font>();
+            if (targetFontName is null || substituteFont is null) return;
+            SubstituteFonts[targetFontName] = substituteFont;
+        }
+
         public static bool TryGetSubstituteFont(
-            string originalFontName,
+            string targetFontName,
             out Font substituteFont
         )
         {
             if (
-                originalFontName is null
+                targetFontName is null
                 || SubstituteFonts is null
                 || !SubstituteFonts.TryGetValue(
-                    originalFontName,
+                    targetFontName,
                     out substituteFont
                 )
                 || substituteFont is null
@@ -91,16 +106,6 @@ namespace WKLocalizationLoader.Modules
                 return false;
             }
             return true;
-        }
-
-        public static void AddSubstituteFont(
-            string originalFontName,
-            Font substituteFont
-        )
-        {
-            SubstituteFonts ??= new Dictionary<string, Font>();
-            if (originalFontName is null || substituteFont is null) return;
-            SubstituteFonts[originalFontName] = substituteFont;
         }
     }
 }

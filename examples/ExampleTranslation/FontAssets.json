@@ -3,7 +3,7 @@
     "HighFallbackPriority": true,
     "SaveFontAssetCacheOnDisk": false
   },
-  "FontAssetInfos": {
+  "CustomFontAssets": {
     "ChicagoFLF": [
       {
         "FileName": "Rajdhani-Regular.ttf",

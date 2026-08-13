@@ -5,12 +5,8 @@ using HarmonyLib;
 
 namespace WKLocalizationLoader.Modules
 {
-    [HarmonyPatch(
-        typeof(CL_LocalizationManager.Localization),
-        nameof(CL_LocalizationManager.Localization.GetLine)
-    )]
-    public class ItemDescriptionPatch
-        : ModuleBase<ItemDescriptionPatch>
+    [HarmonyPatch]
+    public class ItemDescriptionPatch : ModuleBase<ItemDescriptionPatch>
     {
         [JsonProperty]
         public static Dictionary<string, string> ItemDescriptions;
@@ -19,7 +15,11 @@ namespace WKLocalizationLoader.Modules
         public static ItemDescriptionPatchSettings ModuleSettings;
 
         [HarmonyPostfix]
-        public static string Postfix(
+        [HarmonyPatch(
+            typeof(CL_LocalizationManager.Localization),
+            nameof(CL_LocalizationManager.Localization.GetLine)
+        )]
+        public static string Postfix_Localization_GetLine(
             string __result,
             string group,
             string key

@@ -1,9 +1,9 @@
 {
-  "ObjectiveViewerTitles": {
+  "ObjectiveViewerTitleTemplates": {
     "RACE: {0}": "RACE: {0}[OB]",
     "<size=20>OBJECTIVES:</size>": "<size=20>OBJECTIVES:</size>[OB]"
   },
-  "ObjectiveTitles": {
+  "ObjectiveTitleTemplates": {
     "Level Timer": "Level Timer[OB]",
     "<color=yellow>Level Timer:</color>": "<color=yellow>Level Timer:</color>[OB]",
     "<color=yellow>New Best Time!</color>": "<color=yellow>New Best Time!</color>[OB]",
@@ -22,7 +22,7 @@
     "Recover Fuel Cells": "Recover Fuel Cells[OB]",
     "Escape": "Escape[OB]"
   },
-  "ObjectiveDescriptions": {
+  "ObjectiveDescriptionTemplates": {
       "<color=red>{0} | Best: {1}</color>": "<color=red>{0} | Best: {1}</color>[OB]",
       "{count} / {goal} disks inserted.": "{count} / {goal} disks inserted.[OB]",
       "Return to the Server Room": "Return to the Server Room[OB]",
@@ -32,7 +32,7 @@
       "{count} / {goal} Fuel Cells Found": "{count} / {goal} Fuel Cells Found[OB]",
       "<color=grey>Find The Exit": "<color=grey>Find The Exit[OB]"
   },
-  "ObjectiveProgressHeaders": {
+  "ObjectiveProgressHeaderTemplates": {
     "<color=yellow>{remain} Disks Remain": "<color=yellow>{remain} Disks Remain[OB]",
     "<color=grey>{remain} Remain": "<color=grey>{remain} Remain[OB]"
   },

@@ -1,5 +1,5 @@
 {
-  "TextTranslations": {
+  "ScrawlTextTemplates": {
     "Try Again!": "Try Again![TS]",
     "Your hammer has been placed in your Inventory": "Your hammer has been placed in your Inventory[TS]",
     "Climb with {Hand-Left} {Hand-Right}\nOpen your inventory with {Inventory}\n": "Climb with {Hand-Left} {Hand-Right}\nOpen your inventory with {Inventory}\n[TS]",

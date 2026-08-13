@@ -10,7 +10,7 @@ namespace WKLocalizationLoader.Modules
     public class TextScrawlPatch : TemplateTranslator<TextScrawlPatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> TextTranslations;
+        public static Dictionary<string, string> ScrawlTextTemplates;
 
         [JsonIgnore]
         public static TemplateTranslations ScrawlTemplates;
@@ -18,10 +18,10 @@ namespace WKLocalizationLoader.Modules
         public static TextScrawlPatchSettings ModuleSettings;
 
         [OnDeserialized]
-        private void OnDeserializedMethod(StreamingContext context)
+        private void OnDeserialized(StreamingContext _)
         {
             if (!IsEnabled) return;
-            ScrawlTemplates = new TemplateTranslations(TextTranslations);
+            ScrawlTemplates = new TemplateTranslations(ScrawlTextTemplates);
         }
 
         [HarmonyPrefix]
