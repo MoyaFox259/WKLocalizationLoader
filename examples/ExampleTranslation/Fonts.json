@@ -1,0 +1,59 @@
+{
+  "ModuleSettings": {
+    "SaveFontCacheOnDisk": false
+  },
+  "CustomFonts": {
+    "aline_font": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "ChicagoFLF": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "goth-byte": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "LiberationSans": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "Lookout 7": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "monoclefixed": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "NotoSansKR-VariableFont_wght": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "Smart 9": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "textmachine_handwriting": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    },
+    "Ticketing": {
+        "FileName": "ComicNeue-Regular.ttf",
+        "PointSize": 12,
+        "AtlasTextureFilterMode": "Bilinear"
+    }
+  },
+  "CharactersToRender": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?! ,.'\"/\\()[]{}<>-+*%=_|@#$^&`~"
+}
+

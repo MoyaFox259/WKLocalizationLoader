@@ -1,5 +1,5 @@
 {
-  "TextTranslations": {
+  "StaticTexts": {
     "WARNING!": "WARNING![ST]",
     "<color=red>You are playing on a game save from an old version</color>\n\nWe recommend erasing your save to ensure that you are experiencing the new progression as it is meant to be experienced. Additionally, some save information may not transfer correctly.\n\nDon't worry, we'll make a backup of your old data!": "<color=red>You are playing on a game save from an old version</color>\n\nWe recommend erasing your save to ensure that you are experiencing the new progression as it is meant to be experienced. Additionally, some save information may not transfer correctly.\n\nDon't worry, we'll make a backup of your old data![ST]",
     "BACKUP AND ERASE": "BACKUP AND ERASE[ST]",
@@ -321,7 +321,6 @@
     "Current": "Current[ST]",
     "REROLL": "REROLL[ST]",
     "REFRESH": "REFRESH[ST]",
-    "<color=\"red>PURCHASED</color>": "<color=\"red>PURCHASED</color>[ST]",
     "PURCHASE SELECTED": "PURCHASE SELECTED[ST]",
     "SOLD OUT": "SOLD OUT[ST]",
     "WARNING: EXPERIMENTAL": "WARNING: EXPERIMENTAL[ST]",
@@ -329,7 +328,6 @@
     "To receive biological enhancement:\nPull the lever.\nKeep your left hand still.\nDo not flinch.": "To receive biological enhancement:\nPull the lever.\nKeep your left hand still.\nDo not flinch.[ST]",
     "CONTINUE": "CONTINUE[ST]",
     "PREPARE NEW BACKUP": "PREPARE NEW BACKUP[ST]",
-    "SAVES | <mspace=5>NO BACKUP DATA FOUND": "SAVES | <mspace=5>NO BACKUP DATA FOUND[ST]",
     "No disks detected!\nPlease load a disk to continue.": "No disks detected!\nPlease load a disk to continue.[ST]",
     "Refresh": "Refresh[ST]",
     "REFORMAT DISKS": "REFORMAT DISKS[ST]",

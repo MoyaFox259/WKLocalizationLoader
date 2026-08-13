@@ -1,0 +1,19 @@
+{
+  "ModuleSettings": {
+    "BaseDuration": 2.2,
+    "CharacterInterval": 0.1,
+    "EndDelay": 0.5,
+    "UseOriginalDelay": false
+  },
+  "RecordingSubtitleTimings": {
+    "dahl-01": [4.80, 13.40, 21.90, 43.28],
+    "dahl-radio-01": [5.80, 14.40, 25.01],
+    "dahl-radio-02": [8.90, 22.40, 30.00, 42.10, 50.34],
+    "dahl-radio-03": [11.00, 16.80, 23.70, 35.10, 41.77],
+    "dahl-radio-04": [16.30, 28.76],
+    "dahl-radio-05": [10.10, 23.60, 32.30, 40.00, 49.60, 63.80, 68.31],
+    "dahl-radio-06": [11.20, 23.20, 40.50],
+    "dahl-radio-07": [15.80, 27.40, 36.20, 55.00, 68.82]
+  }
+}
+

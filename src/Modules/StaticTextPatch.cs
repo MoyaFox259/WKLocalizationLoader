@@ -11,7 +11,7 @@ namespace WKLocalizationLoader.Modules
     public class StaticTextPatch : TextTranslator<StaticTextPatch>
     {
         [JsonProperty]
-        public static Dictionary<string, string> TextTranslations;
+        public static Dictionary<string, string> StaticTexts;
 
         [JsonIgnore]
         public static StaticTextPatchSettings ModuleSettings;
@@ -25,7 +25,7 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             __instance.text = GetTextTranslation(
-                TextTranslations,
+                StaticTexts,
                 __instance.text
             );
         }
@@ -39,7 +39,7 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             __instance.text = GetTextTranslation(
-                TextTranslations,
+                StaticTexts,
                 __instance.text
             );
         }
@@ -55,7 +55,7 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             __instance.text = GetTextTranslation(
-                TextTranslations,
+                StaticTexts,
                 __instance.text
             );
         }

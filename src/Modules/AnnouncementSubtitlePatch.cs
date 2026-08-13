@@ -5,10 +5,7 @@ using HarmonyLib;
 
 namespace WKLocalizationLoader.Modules
 {
-    [HarmonyPatch(
-        typeof(CL_LocalizationManager.Localization),
-        nameof(CL_LocalizationManager.Localization.GetLine)
-    )]
+    [HarmonyPatch]
     public class AnnouncementSubtitlePatch
         : ModuleBase<AnnouncementSubtitlePatch>
     {
@@ -19,7 +16,11 @@ namespace WKLocalizationLoader.Modules
         public static AnnouncementSubtitlePatchSettings ModuleSettings;
 
         [HarmonyPostfix]
-        public static string Postfix(
+        [HarmonyPatch(
+            typeof(CL_LocalizationManager.Localization),
+            nameof(CL_LocalizationManager.Localization.GetLine)
+        )]
+        public static string Postfix_Localization_GetLine(
             string __result,
             string group,
             string key
