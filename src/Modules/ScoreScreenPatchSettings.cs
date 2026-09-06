@@ -10,6 +10,14 @@ namespace WKLocalizationLoader.Modules
     )]
     public class ScoreScreenPatchSettings : ModuleSettingsBase
     {
+        [ConfigEntry(
+            "UseHighScoreFallbackFontAsset",
+            true,
+            "Set this field to \"false\" to use orignal font asset for\n"
+            + "high score text of end screen score window.\n"
+            + "Be careful, some characters may not be rendered properly."
+        )]
+        public bool UseHighScoreFallbackFontAsset;
     }
 }
 
