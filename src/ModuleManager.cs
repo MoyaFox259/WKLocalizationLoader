@@ -18,25 +18,40 @@ namespace WKLocalizationLoader
         private static Plugin _plugin;
         private static ManualLogSource _logger;
         private static JsonSerializerSettings _jsonSerializerSettings;
-        private static ModuleLoadResult _moduleLoadResult;
-        private static ValueCollection<Type, string> _conflictedModsInfo =
-            new ValueCollection<Type, string>();
+        private static List<ModuleInfo> _moduleInfos;
+        private static ValueCollection<Type, string> _conflictedModGUIDs;
+
+        public static List<ModuleInfo> ModuleInfos
+        {
+            get
+            {
+                if (_moduleInfos is null)
+                {
+                    _logger?.LogWarning("ModuleInfos is null.");
+                    return new List<ModuleInfo>();
+                }
+                return _moduleInfos;
+            }
+        }
 
         public static void Initialize(Plugin plugin)
         {
+            if (plugin != null)
+            {
+                _plugin = plugin;
+                var loggerName = _plugin.Info.Metadata.Name + "/ModuleManager";
+                _logger = Logger.CreateLogSource(loggerName);
+            }
             _jsonSerializerSettings = new JsonSerializerSettings()
             {
-                NullValueHandling = NullValueHandling.Ignore
+                ContractResolver = new ModuleContractResolver()
             };
-            // _conflictedModsInfo.Add(
+            _moduleInfos = new List<ModuleInfo>();
+            _conflictedModGUIDs = new ValueCollection<Type, string>();
+            // _conflictedModGUIDs.Add(
             //     typeof(AnnouncementSubtitleTimingPatch),
             //     "mimimi-turret.wk-sync-subtitles"
             // );
-            if (plugin is null) return;
-            _plugin = plugin;
-            var loggerName = _plugin.Info.Metadata.Name + "/ModuleManager";
-            _logger = Logger.CreateLogSource(loggerName);
-            _moduleLoadResult = new ModuleLoadResult(_logger);
         }
 
         public static void LoadAllModules()
@@ -82,16 +97,13 @@ namespace WKLocalizationLoader
         {
             var moduleClass = typeof(TModule);
             if (
-                DetectConflictedMods(
+                CheckConflictedMods(
                     moduleClass,
                     out List<string> conflictedModGUIDs
                 )
             )
             {
-                _moduleLoadResult.AddConflictedModule(
-                    moduleClass,
-                    conflictedModGUIDs
-                );
+                RegisterConflictedModule(moduleClass, conflictedModGUIDs);
                 return;
             }
             if (
@@ -101,7 +113,7 @@ namespace WKLocalizationLoader
                 )
             )
             {
-                _moduleLoadResult.AddFileMissingModule(moduleClass);
+                RegisterFileMissingModule(moduleClass);
                 return;
             }
             try
@@ -120,53 +132,114 @@ namespace WKLocalizationLoader
             }
             catch (Exception e)
             {
-                _moduleLoadResult.AddDeserializationFailedModule(
-                    moduleClass,
-                    fileName,
-                    e
-                );
+                RegisterDeserializationFailedModule(moduleClass, fileName, e);
                 return;
             }
-            if (ModuleBase<TModule>.IsEnabled)
+            if (!ModuleBase<TModule>.IsEnabled)
             {
-                _moduleLoadResult.AddOKModule(moduleClass);
+                RegisterDisabledModule(moduleClass);
+                return;
+            }
+            RegisterOKModule(moduleClass);
+        }
+
+        public static void RegisterOKModule(Type moduleClass)
+        {
+            var message = $"Loaded \"{moduleClass.Name}\" successfully.";
+            RegisterModule(moduleClass, ModuleStatus.OK, message);
+        }
+
+        public static void RegisterDisabledModule(Type moduleClass)
+        {
+            var message =
+                $"\"{moduleClass.Name}\" "
+                + "is loaded but manually disabled in config.";
+            RegisterModule(moduleClass, ModuleStatus.Disabled, message);
+        }
+
+        public static void RegisterFileMissingModule(Type moduleClass)
+        {
+            var message =
+                $"\"{moduleClass.Name}\" is missing its "
+                + "associated .json file and disabled by default.";
+            RegisterModule(moduleClass, ModuleStatus.Disabled, message);
+        }
+
+        public static void RegisterConflictedModule(
+            Type moduleClass,
+            List<string> conflictedModGUIDs
+        )
+        {
+            string message = null;
+            if (conflictedModGUIDs is null || conflictedModGUIDs.Count == 0)
+            {
+                message =
+                    $"\"{moduleClass.Name}\" is disabled to avoid conflicts.";
             }
             else
             {
-                _moduleLoadResult.AddDisabledModule(moduleClass);
+                message =
+                    $"\"{moduleClass.Name}\" is disabled "
+                    + "to avoid conflicts with the following mod(s):\n"
+                    + string.Join("\n", conflictedModGUIDs);
             }
+            RegisterModule(moduleClass, ModuleStatus.Conflicted, message);
         }
 
-        public static bool DetectConflictedMods(
+        public static void RegisterDeserializationFailedModule(
+            Type moduleClass,
+            string filePath,
+            Exception e
+        )
+        {
+            var message = "An error occurred while deserializing "
+                + $"\"{moduleClass.Name}\" from \"{filePath}\".\n"
+                + e.Message;
+            RegisterModule(moduleClass, ModuleStatus.Failed, message);
+        }
+
+        public static void RegisterModule(
+            Type moduleClass,
+            ModuleStatus status,
+            string message
+        )
+        {
+            _moduleInfos ??= new List<ModuleInfo>();
+            var moduleInfo = _moduleInfos
+                .FirstOrDefault(m => m.ModuleClass == moduleClass);
+            if (moduleInfo is null)
+            {
+                moduleInfo = new ModuleInfo(moduleClass, status, message);
+                _moduleInfos.Add(moduleInfo);
+                return;
+            }
+            moduleInfo.Status = status;
+            moduleInfo.Message = message;
+        }
+
+        public static bool CheckConflictedMods(
             Type moduleClass,
             out List<string> conflictedModGUIDs
         )
         {
             conflictedModGUIDs = null;
             if (
-                _conflictedModsInfo != null
-                && _conflictedModsInfo.TryGetValues(
+                _conflictedModGUIDs != null
+                && _conflictedModGUIDs.TryGetValues(
                     moduleClass,
                     out conflictedModGUIDs
                 )
             )
             {
                 return conflictedModGUIDs.Any(
-                    g => Chainloader.PluginInfos.ContainsKey(g)
+                    g => (
+                        Chainloader.PluginInfos.ContainsKey(g)
+                        || Harmony.HasAnyPatches(g)
+                    )
                 );
             }
             return false;
         }
-
-        public static List<Type> FilterModuleClassesByModuleStatus(
-            ModuleStatus status
-        )
-        => _moduleLoadResult?.FilterModuleClassesByModuleStatus(status);
-
-        public static void PrintModuleInfoMessageBySeverity(
-            ModuleStatus minSeverity
-        )
-        => _moduleLoadResult?.PrintModuleInfoMessageBySeverity(minSeverity);
     }
 }
 

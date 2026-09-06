@@ -34,13 +34,7 @@ namespace WKLocalizationLoader.Modules
             ConfigEntryAttribute configEntryAttribute
         )
         {
-            if (
-                field.GetValue(moduleSettings) != null
-                && configEntryAttribute is null
-            )
-            {
-                return;
-            }
+            if (configEntryAttribute is null) return;
             field.SetValue(moduleSettings, configEntryAttribute.DefaultValue);
             if (configSectionAttribute is null) return;
             var (

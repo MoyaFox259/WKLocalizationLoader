@@ -98,9 +98,10 @@ namespace WKLocalizationLoader
         private List<Type> LoadAllModules()
         {
             ModuleManager.LoadAllModules();
-            var modulesClasses = ModuleManager
-                .FilterModuleClassesByModuleStatus(ModuleStatus.OK);
-            ModuleManager.PrintModuleInfoMessageBySeverity(ModuleStatus.OK);
+            var modulesClasses = ModuleManager.ModuleInfos
+                .Where(m => m.Status == ModuleStatus.OK)
+                .Select(m => m.ModuleClass)
+                .ToList();
             return modulesClasses;
         }
 
