@@ -42,6 +42,7 @@ namespace WKLocalizationLoader.Modules
                 DocumentTexts,
                 fileInfo.textAssetData.text
             );
+            if (translatedText == fileInfo.textAssetData.text) return;
             fileInfo.textAssetData = CacheManager
                 .GetOrCreateTextAsset(translatedText);
         }

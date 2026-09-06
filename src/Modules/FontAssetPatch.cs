@@ -9,6 +9,7 @@ using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader.Modules
 {
+    [HarmonyPriority(Priority.HigherThanNormal)]
     [HarmonyPatch]
     public class FontAssetPatch : ModuleBase<FontAssetPatch>
     {

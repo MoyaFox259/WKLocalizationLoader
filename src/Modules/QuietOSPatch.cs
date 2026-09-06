@@ -77,11 +77,15 @@ namespace WKLocalizationLoader.Modules
                 _ => FileNames
             };
             info.name = GetTextTranslation(textTranslations, info.name);
-            var fileNameText = __instance.nameText;
-            fileNameText.characterLimit = Math.Max(
+            var nameText = __instance.nameText;
+            nameText.characterLimit = Math.Max(
                 info.name.Length,
-                fileNameText.characterLimit
+                nameText.characterLimit
             );
+            if (FontPatch.IsEnabled)
+            {
+                FontPatch.ReplaceFont(nameText.textComponent);
+            }
         }
 
         [HarmonyPostfix]

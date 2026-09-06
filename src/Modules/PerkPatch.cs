@@ -182,7 +182,7 @@ namespace WKLocalizationLoader.Modules
                         + GetTranslatedAppPerkAmount(perk, isPreview: false);
                     var description = "<color=\"grey\">"
                         + perk.GetDescription(adjusted: true, total: true)
-                        + "<color>";
+                        + "</color>";
                     var descriptionTemplate = AppPerkHoverTextTemplate
                         ?? "{title}{amount}\n{description}";
                     tooltip.tip = descriptionTemplate

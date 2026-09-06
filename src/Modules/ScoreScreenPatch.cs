@@ -18,6 +18,8 @@ namespace WKLocalizationLoader.Modules
     public class ScoreScreenPatch : TextTranslator<ScoreScreenPatch>
     {
         [JsonProperty]
+        public static ScoreScreenPatchSettings ModuleSettings;
+        [JsonProperty]
         public static Dictionary<string, string> StatDefaultTexts;
         [JsonProperty]
         public static Dictionary<string, string> StatTextTemplates;
@@ -87,9 +89,6 @@ namespace WKLocalizationLoader.Modules
         public static string PopupCreditWonTitle;
         [JsonProperty]
         public static string PopupCreditWonDescriptionTemplate;
-
-        [JsonIgnore]
-        public static ScoreScreenPatchSettings ModuleSettings;
 
         [HarmonyPostfix]
         [HarmonyPatch(
@@ -528,10 +527,18 @@ namespace WKLocalizationLoader.Modules
             var finalScoreTextAnimator = finalScoreText
                 .GetComponent<TextAnimator_TMP>();
             var highScoreText = scoreWindow.highScoreText;
+            if (ModuleSettings.UseHighScoreFallbackFontAsset)
+            {
+                var fallbackFonts = highScoreText.font.fallbackFontAssetTable;
+                if (fallbackFonts != null && fallbackFonts.Count != 0)
+                {
+                    highScoreText.font = fallbackFonts[0];
+                }
+            }
             var scoreItemAsset = scoreWindow.scoreItemAsset;
             var scoreItemRoot = scoreWindow.scoreItemRoot;
             var tickSound = scoreWindow.tickSound;
-            UI_EndScreenScoreWindow.FinishSound finishSound;
+            UI_EndScreenScoreWindow.FinishSound finishSound = null;
             var finishSounds = scoreWindow.finishSounds;
             var distanceDefaultText = EndScreenDistanceDefaultText
                 ?? "DISTANCE: .............................";

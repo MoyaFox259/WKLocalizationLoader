@@ -30,6 +30,7 @@ namespace WKLocalizationLoader
             Dictionary<string, string> textTranslations
         )
         {
+            if (textTranslations is null) return;
             foreach (var textTranslation in textTranslations)
             {
                 AddTemplateTranslation(

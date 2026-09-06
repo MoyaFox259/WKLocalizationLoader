@@ -32,6 +32,10 @@ namespace WKLocalizationLoader.FontFactory
         public float DescentLineOffset;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        [DefaultValue(0f)]
+        public float LineHeightOffset;
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         [DefaultValue(64)]
         public int PointSize;
 
@@ -80,6 +84,7 @@ namespace WKLocalizationLoader.FontFactory
             out float scale,
             out float ascentLineOffset,
             out float descentLineOffset,
+            out float lineHeightOffset,
             out int pointSize,
             out int atlasWidth,
             out int atlasHeight,
@@ -97,6 +102,7 @@ namespace WKLocalizationLoader.FontFactory
             scale = Scale;
             ascentLineOffset = AscentLineOffset;
             descentLineOffset = DescentLineOffset;
+            lineHeightOffset = LineHeightOffset;
             pointSize = PointSize;
             atlasWidth = AtlasWidth;
             atlasHeight = AtlasHeight;
