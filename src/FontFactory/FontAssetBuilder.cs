@@ -27,6 +27,7 @@ namespace WKLocalizationLoader.FontFactory
                 scale,
                 ascentLineOffset,
                 descentLineOffset,
+                lineHeightOffset,
                 pointSize,
                 atlasWidth,
                 atlasHeight,
@@ -47,6 +48,7 @@ namespace WKLocalizationLoader.FontFactory
                 scale,
                 ascentLineOffset,
                 descentLineOffset,
+                lineHeightOffset,
                 pointSize,
                 atlasWidth,
                 atlasHeight,
@@ -69,6 +71,7 @@ namespace WKLocalizationLoader.FontFactory
             float scale,
             float ascentLineOffset,
             float descentLineOffset,
+            float lineHeightOffset,
             int pointSize,
             int atlasWidth,
             int atlasHeight,
@@ -106,6 +109,7 @@ namespace WKLocalizationLoader.FontFactory
             faceInfo.ascentLine += ascentLineOffset;
             faceInfo.descentLine += descentLineOffset;
             faceInfo.lineHeight = faceInfo.ascentLine - faceInfo.descentLine;
+            faceInfo.lineHeight += lineHeightOffset;
             fontAsset.faceInfo = faceInfo;
             fontAsset.atlasWidth = atlasWidth;
             fontAsset.atlasHeight = atlasHeight;
