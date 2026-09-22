@@ -107,6 +107,7 @@ namespace WKLocalizationLoader.Modules
             IEnumerable<CodeInstruction> codeInstructions
         )
         {
+            if (!IsEnabled) return codeInstructions;
             var codeMatcher = new CodeMatcher(codeInstructions);
             codeMatcher.MatchForward(
                 false,

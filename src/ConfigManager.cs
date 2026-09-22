@@ -43,7 +43,7 @@ namespace WKLocalizationLoader
                 entryDescription = configEntry.Description.Description;
             }
             var configDescription = new ConfigDescription(entryDescription);
-            ConfigEntry<bool> isModuleEnabled = _config.Bind<bool>(
+            var isModuleEnabled = _config.Bind<bool>(
                 configDefinition,
                 true,
                 configDescription
@@ -54,14 +54,13 @@ namespace WKLocalizationLoader
         public static bool IsModuleUserOverridesEnabled(string section)
         {
             if (_config is null) return false;
-            ConfigEntry<bool> isModuleUserOverridesEnabled =
-                _config.Bind<bool>(
-                    section,
-                    "EnableUserOverrides",
-                    false,
-                    "Set this field to \"true\" to "
-                    + "apply the custom values below."
-                );
+            var isModuleUserOverridesEnabled = _config.Bind<bool>(
+                section,
+                "EnableUserOverrides",
+                false,
+                "Set this field to \"true\" to "
+                + "apply the custom values below."
+            );
             return isModuleUserOverridesEnabled.Value;
         }
 
