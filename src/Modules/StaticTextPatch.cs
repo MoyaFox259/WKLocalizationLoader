@@ -7,6 +7,8 @@ using TMPro;
 
 namespace WKLocalizationLoader.Modules
 {
+    [CrossGameVersionCompatible]
+    [HarmonyPriority(Priority.LowerThanNormal)]
     [HarmonyPatch]
     public class StaticTextPatch : TextTranslator<StaticTextPatch>
     {
@@ -54,10 +56,17 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            __instance.text = GetTextTranslation(
+            var translatedText = GetTextTranslation(
                 StaticTexts,
                 __instance.text
             );
+            if (
+                __instance.text != "CHEATS ENABLED"
+                && translatedText != __instance.text
+            )
+            {
+                __instance.text = translatedText;
+            }
         }
     }
 }
