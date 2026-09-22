@@ -9,9 +9,11 @@ using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader.Modules
 {
-    [HarmonyPriority(Priority.HigherThanNormal)]
-    [HarmonyPatch]
-    public class FontAssetPatch : ModuleBase<FontAssetPatch>
+    [CrossGameVersionCompatible]
+    // [HarmonyPriority(Priority.HigherThanNormal)]
+    // [HarmonyPatch]
+    public class FontAssetPatch
+        : ModuleBase<FontAssetPatch>, IScriptableObjectPatch
     {
         [JsonProperty]
         public static FontAssetPatchSettings ModuleSettings;
@@ -43,42 +45,75 @@ namespace WKLocalizationLoader.Modules
             }
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(
-            typeof(TMP_FontAsset),
-            nameof(TMP_FontAsset.Awake)
-        )]
-        public static void Postfix_FontAsset_Awake(TMP_FontAsset __instance)
+        public static void PatchScriptableObjects()
         {
             if (!IsEnabled) return;
-            AddFallbackFontAssets(__instance);
+            PatchFontAssets();
         }
 
-        public static void AddFallbackFontAssets(TMP_FontAsset __instance)
+        public static void PatchFontAssets()
+        {
+            var fontAssets = CacheManager
+                .EnumerateScriptableObjects<TMP_FontAsset>();
+            foreach (var fontAsset in fontAssets)
+            {
+                AddFallbackFontAssets(fontAsset);
+            }
+        }
+
+        public static void AddFallbackFontAssets(TMP_FontAsset fontAsset)
         {
             if (
                 TryGetFallbackFontAssets(
-                    __instance.name,
+                    fontAsset?.name,
                     out List<TMP_FontAsset> fallbackFontAssets
                 )
             )
             {
                 if (ModuleSettings.HighFallbackPriority)
                 {
-                    __instance.fallbackFontAssetTable = fallbackFontAssets
-                        .Union(__instance.fallbackFontAssetTable)
+                    fontAsset.fallbackFontAssetTable = fallbackFontAssets
+                        .Union(fontAsset.fallbackFontAssetTable)
                         .ToList();
                     return;
                 }
-                __instance.fallbackFontAssetTable = __instance
+                fontAsset.fallbackFontAssetTable = fontAsset
                     .fallbackFontAssetTable
                     .Union(fallbackFontAssets)
                     .ToList();
             }
         }
 
+        // [HarmonyPostfix]
+        // [HarmonyPatch(
+        //     typeof(TextMeshPro),
+        //     nameof(TextMeshPro.Awake)
+        // )]
+        // public static void Postfix_TextMeshPro_Awake(TextMeshPro __instance)
+        // {
+        //     if (!IsEnabled) return;
+        //     AddFallbackFontAssets(__instance);
+        // }
+        //
+        // [HarmonyPostfix]
+        // [HarmonyPatch(
+        //     typeof(TextMeshProUGUI),
+        //     nameof(TextMeshProUGUI.Awake)
+        // )]
+        // public static void Postfix_TextMeshProUGUI_Awake(
+        //     TextMeshPro __instance
+        // )
+        // {
+        //     if (!IsEnabled) return;
+        //     AddFallbackFontAssets(__instance);
+        // }
+        //
+        // public static void AddFallbackFontAssets(TMP_Text tmpText)
+        // {
+        // }
+
         public static void CreateAndRegisterFallbackFontAsset(
-            string targetFontName,
+            string targetFontAssetName,
             FontAssetProperties fallbackFontAssetProperties
         )
         {
@@ -91,25 +126,28 @@ namespace WKLocalizationLoader.Modules
                 )
             )
             {
-                RegisterFallbackFontAsset(targetFontName, fallbackFontAsset);
+                RegisterFallbackFontAsset(
+                    targetFontAssetName,
+                    fallbackFontAsset
+                );
             }
         }
 
         public static void RegisterFallbackFontAsset(
-            string targetFontName,
+            string targetFontAssetName,
             TMP_FontAsset fallbackFontAsset
         )
-        => FallbackFontAssets?.Add(targetFontName, fallbackFontAsset);
+        => FallbackFontAssets?.Add(targetFontAssetName, fallbackFontAsset);
 
         public static bool TryGetFallbackFontAssets(
-            string targetFontName,
+            string targetFontAssetName,
             out List<TMP_FontAsset> fallbackFontAssets
         )
         {
             if (
                 FallbackFontAssets != null
                 && FallbackFontAssets.TryGetValues(
-                    targetFontName,
+                    targetFontAssetName,
                     out fallbackFontAssets
                 )
             )

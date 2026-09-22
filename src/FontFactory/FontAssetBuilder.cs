@@ -425,7 +425,6 @@ namespace WKLocalizationLoader.FontFactory
             );
             atlas.filterMode = textureFilterMode;
             FontEngine.ResetAtlasTexture(atlas);
-            FontEngine.SetFaceSize(fontAsset.faceInfo.pointSize);
             var freeGlyphRects = new List<GlyphRect>()
             {
                 new GlyphRect(0, 0, atlas.width, atlas.height)

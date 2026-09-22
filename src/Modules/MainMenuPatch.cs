@@ -32,6 +32,10 @@ namespace WKLocalizationLoader.Modules
             __instance.hasSkipped = true;
             var loadPercentageText = __instance.loadPercentageText;
             loadPercentageText.transform.parent.gameObject.SetActive(true);
+            if (FontAssetPatch.IsEnabled)
+            {
+                FontAssetPatch.AddFallbackFontAssets(loadPercentageText.font);
+            }
             loadPercentageText.text = LoadingProgressTemplate
                 .Replace("{progress}", "0");
             __instance.StartCoroutine(CustomLoadingIntro(__instance));

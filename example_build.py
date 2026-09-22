@@ -14,7 +14,7 @@ if not GAME_FOLDER.exists():
 PROJECT_FOLDER = Path(__file__).parent
 PLUGIN_NAME = Path("mimimi-turret_wk-localization-loader")
 BINARY_NAME = Path("WKLocalizationLoader.dll")
-BINARY_FOLDER = PROJECT_FOLDER.joinpath("bin\\Debug\\net472")
+BINARY_FOLDER = PROJECT_FOLDER.joinpath("bin\\Debug\\netstandard2.1")
 BINARY_PATH = BINARY_FOLDER.joinpath(BINARY_NAME)
 PLUGINS_FOLDER = GAME_FOLDER.joinpath("BepInEx\\plugins")
 TARGET_FOLDER = PLUGINS_FOLDER.joinpath(PLUGIN_NAME)
