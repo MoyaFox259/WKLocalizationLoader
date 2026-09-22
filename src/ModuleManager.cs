@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -96,6 +97,11 @@ namespace WKLocalizationLoader
             where TModule : ModuleBase<TModule>
         {
             var moduleClass = typeof(TModule);
+            if (!CheckSupportedGameVersion(moduleClass))
+            {
+                RegisterGameVersionUnsupportedModule(moduleClass);
+                return;
+            }
             if (
                 CheckConflictedMods(
                     moduleClass,
@@ -103,7 +109,7 @@ namespace WKLocalizationLoader
                 )
             )
             {
-                RegisterConflictedModule(moduleClass, conflictedModGUIDs);
+                RegisterModConflictedModule(moduleClass, conflictedModGUIDs);
                 return;
             }
             if (
@@ -165,7 +171,7 @@ namespace WKLocalizationLoader
             RegisterModule(moduleClass, ModuleStatus.Disabled, message);
         }
 
-        public static void RegisterConflictedModule(
+        public static void RegisterModConflictedModule(
             Type moduleClass,
             List<string> conflictedModGUIDs
         )
@@ -198,6 +204,16 @@ namespace WKLocalizationLoader
             RegisterModule(moduleClass, ModuleStatus.Failed, message);
         }
 
+        public static void RegisterGameVersionUnsupportedModule(
+            Type moduleClass
+        )
+        {
+            string message =
+                $"\"{moduleClass.Name}\" is disabled on current version of "
+                + "the game that the mod does not yet fully support.";
+            RegisterModule(moduleClass, ModuleStatus.Unsupported, message);
+        }
+
         public static void RegisterModule(
             Type moduleClass,
             ModuleStatus status,
@@ -215,6 +231,18 @@ namespace WKLocalizationLoader
             }
             moduleInfo.Status = status;
             moduleInfo.Message = message;
+        }
+
+        public static bool CheckSupportedGameVersion(Type moduleClass)
+        {
+            var crossGameVersionCompatibleAttribute = moduleClass
+                .GetCustomAttribute<CrossGameVersionCompatibleAttribute>();
+            if (crossGameVersionCompatibleAttribute != null) return true;
+            if (_plugin is null) return false;
+            return (
+                _plugin.CheckSupportedGameVersion()
+                || _plugin.AllowAllModulesOnUnsupportedGameVersion
+            );
         }
 
         public static bool CheckConflictedMods(

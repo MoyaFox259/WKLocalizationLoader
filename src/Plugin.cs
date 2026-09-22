@@ -6,6 +6,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using UnityEngine;
 
 namespace WKLocalizationLoader
 {
@@ -20,12 +21,83 @@ namespace WKLocalizationLoader
         private ConfigEntry<string> _languageFolder;
         private ConfigEntry<int> _maxScanDepth;
 
+        public static new ManualLogSource Logger;
+
+        public string SupportedGameVersion => "0.60";
+        public string LanguageFolder => _languageFolder?.Value;
+        public int MaxScanDepth => _maxScanDepth?.Value ?? 5;
+
+        public bool AllowAllModulesOnUnsupportedGameVersion
+        {
+            get
+            {
+                var configDefinition = new ConfigDefinition(
+                    "Experimental",
+                    "AllowAllModulesOnUnsupportedGameVersion"
+                );
+                if (CheckSupportedGameVersion())
+                {
+                    if (
+                        Config.TryGetEntry<bool>(
+                            configDefinition,
+                            out ConfigEntry<bool> configEntry
+                        )
+                    )
+                    {
+                        configEntry.Value = false;
+                        Config.Remove(configDefinition);
+                        Config.Save();
+                    }
+                    return false;
+                }
+                var configDescription = new ConfigDescription(
+                    "Incompatibility Warning:\n"
+                    + $"Supported game version: {SupportedGameVersion}\n"
+                    + $"Current game version: {Application.version}\n"
+                    + _allowAllModulesOnUnsupportedGameVersionDescription
+                );
+                var allowUnstableModules = Config.Bind<bool>(
+                    configDefinition,
+                    false,
+                    configDescription
+                );
+                return allowUnstableModules.Value;
+            }
+        }
+
+        private string _unsupportedGameVersionWarning =>
+            "Incompatibility Warning:\n"
+            + "You are using the mod on a version of the game "
+            + "that the mod does not yet fully support.\n"
+            + "\n"
+            + "Most modules will be disabled except the following ones:\n"
+            + "* StaticTextPatch\n"
+            + "* FontPatch\n"
+            + "* FontAssetPatch\n"
+            + "\n"
+            + "If you wish to allow for all modules to load, "
+            + "set \"AllowAllModulesOnUnsupportedGameVersion\" "
+            + "in mod config to \"true\".\n"
+            + "(VERY NOT RECOMMENDED / HIGHLY RISKY!!!)";
+
+        private string _allowAllModulesOnUnsupportedGameVersionWarning =>
+            "Incompatibility Warning:\n"
+            + "You are forcing all modules to load on a version of the game "
+            + "that the mod does not yet fully support.\n"
+            + "\n"
+            + "To disable this experimental feature, "
+            + "set \"AllowAllModulesOnUnsupportedGameVersion\" "
+            + "in mod config to \"false\" and restart your game.\n"
+            + "\n"
+            + "It is VERY RECOMMENDED to keep backups of your save.\n"
+            + "Proceed at your own risk. You have been warned!";
+
         private string _languageFolderDescription =>
             "Specifies the path to a Language Folder.\n"
             + "A relative path is resolved from \"BepInEx\\plugins\\\".\n"
             + "\n"
             + "A Language Folder may contain any of the following files:\n"
-            + "* Texts.json\n"
+            + "* StaticTexts.json\n"
             + "* FontAssets.json\n"
             + "* Fonts\\\n"
             + "* Licenses\\ (licenses of the fonts, etc.)\n"
@@ -49,12 +121,41 @@ namespace WKLocalizationLoader
             + "Scanning will start from \"BepInEx\\plugins\\\" "
             + "where the directory depth is 0.";
 
-        public string LanguageFolder => _languageFolder?.Value;
-        public int MaxScanDepth => _maxScanDepth?.Value ?? 5;
-        public static new ManualLogSource Logger;
+        private string _allowAllModulesOnUnsupportedGameVersionDescription =>
+            "This mod is not tested on current version of the game.\n"
+            + "Most modules are likely incompatible with newer or older\n"
+            + "versions of the game than the mod supports.\n"
+            + "\n"
+            + "To prevent game from being unstable "
+            + "or data from being corrupted,\n"
+            + "most modules will be disabled except the following ones:\n"
+            + "* StaticTextPatch\n"
+            + "* FontPatch\n"
+            + "* FontAssetPatch\n"
+            + "\n"
+            + "It is VERY RECOMMENDED to:\n"
+            + "* Wait for newer updates of this mod.\n"
+            + "* Keep backups of your save.\n"
+            + "* Keep away from this setting "
+            + "if you don't know what it means.\n"
+            + "\n"
+            + "This is a HIGHLY EXPERIMENTAL / RISKY feature.\n"
+            + "Keep backups of your save before proceeding.\n"
+            + "\n"
+            + "Set this field to \"true\" if you still wish to allow for\n"
+            + "all modules to load regardless the incompatibility warning.\n"
+            + "Enable this at your own risk. You have been warned!";
 
         private void Awake()
         {
+            Logger = base.Logger;
+            if (!CheckSupportedGameVersion())
+            {
+                var warning = AllowAllModulesOnUnsupportedGameVersion
+                    ? _allowAllModulesOnUnsupportedGameVersionWarning
+                    : _unsupportedGameVersionWarning;
+                Logger.LogWarning(warning);
+            }
             Initialize();
             if (string.IsNullOrWhiteSpace(LanguageFolder))
             {
@@ -71,7 +172,7 @@ namespace WKLocalizationLoader
             ApplyScriptableObjectPatches(moduleClasses);
         }
 
-        private void Initialize()
+        public void Initialize()
         {
             _languageFolder = Config.Bind<string>(
                 "General",
@@ -85,7 +186,6 @@ namespace WKLocalizationLoader
                 5,
                 _maxScanDepthDescription
             );
-            Logger = base.Logger;
             if (!string.IsNullOrWhiteSpace(LanguageFolder)) return;
             var languageFolders = LanguageScanner.Scan(MaxScanDepth, Logger);
             if (languageFolders.Count == 0) return;
@@ -95,7 +195,10 @@ namespace WKLocalizationLoader
             _languageFolder.Value = languageFolders.FirstOrDefault();
         }
 
-        private List<Type> LoadAllModules()
+        public bool CheckSupportedGameVersion()
+        => Application.version.Contains(SupportedGameVersion);
+
+        public List<Type> LoadAllModules()
         {
             ModuleManager.LoadAllModules();
             var modulesClasses = ModuleManager.ModuleInfos
@@ -105,7 +208,7 @@ namespace WKLocalizationLoader
             return modulesClasses;
         }
 
-        private void ApplyHarmonyPatches(List<Type> moduleClasses)
+        public void ApplyHarmonyPatches(List<Type> moduleClasses)
         {
             var harmony = new Harmony(Info.Metadata.GUID);
             foreach (var moduleClass in moduleClasses)
@@ -120,7 +223,7 @@ namespace WKLocalizationLoader
             }
         }
 
-        private void ApplyScriptableObjectPatches(List<Type> moduleClasses)
+        public void ApplyScriptableObjectPatches(List<Type> moduleClasses)
         {
             ScriptableObjectPatcher.Initialize(moduleClasses);
         }
