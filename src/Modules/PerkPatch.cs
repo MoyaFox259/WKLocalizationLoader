@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -229,16 +230,21 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled || AppRefreshPurchasedText is null) return;
-            var refreshUI = __instance.reloadSettingsRoot;
-            var tmpTexts = refreshUI.GetComponentsInChildren<TMP_Text>();
-            if (tmpTexts is null || tmpTexts.Length == 0) return;
-            for (var tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
+            __instance.StartCoroutine(TranslatePurchasedText());
+            IEnumerator TranslatePurchasedText()
             {
-                var tmpText = tmpTexts[tmpIndex];
-                if (tmpText.text == "<color=\"red>PURCHASED</color>")
+                yield return null;
+                var refreshUI = __instance.reloadSettingsRoot;
+                var tmpTexts = refreshUI.GetComponentsInChildren<TMP_Text>();
+                if (tmpTexts is null || tmpTexts.Length == 0) yield break;
+                for (var tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
                 {
-                    tmpText.text = AppRefreshPurchasedText;
-                    return;
+                    var tmpText = tmpTexts[tmpIndex];
+                    if (tmpText.text == "<color=\"red>PURCHASED</color>")
+                    {
+                        tmpText.text = AppRefreshPurchasedText;
+                        yield break;
+                    }
                 }
             }
         }

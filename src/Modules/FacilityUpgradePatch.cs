@@ -101,15 +101,7 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             var upgrade = __instance.upgrade;
-            if (
-                string.IsNullOrEmpty(upgrade.unlockFlag)
-                || CL_GameManager.HasActiveFlag(upgrade.unlockFlag, true)
-                || upgrade.prerequisiteUpgrade is null
-                || __instance.facility.HasUpgrade(
-                    upgrade.prerequisiteUpgrade.id
-                )
-                || UpgradeLockedHoverTextTemplate is null
-            )
+            if (!__instance.locked || UpgradeLockedHoverTextTemplate is null)
             {
                 return;
             }
