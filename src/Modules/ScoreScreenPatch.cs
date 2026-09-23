@@ -46,6 +46,8 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static string StatTimeSecondTemplate;
         [JsonProperty]
+        public static string EndScreenLoadingText;
+        [JsonProperty]
         public static string EndScreenDistanceDefaultText;
         [JsonProperty]
         public static string EndScreenDistanceTemplate;
@@ -508,7 +510,7 @@ namespace WKLocalizationLoader.Modules
         {
             var scoreTitle = scoreWindow.scoreTitle;
             var scoreTitleColor = scoreWindow.titleColor;
-            var loadingText = scoreWindow.loadingText;
+            var loadingText = EndScreenLoadingText ?? scoreWindow.loadingText;
             var loadingTextAnimator = scoreWindow.loadingTextAnimator;
             var loadingTextTypewriter = loadingTextAnimator
                 .GetComponent<TypewriterCore>();
