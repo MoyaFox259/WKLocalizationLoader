@@ -56,17 +56,10 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled) return;
-            var translatedText = GetTextTranslation(
+            __instance.text = GetTextTranslation(
                 StaticTexts,
                 __instance.text
             );
-            if (
-                __instance.text != "CHEATS ENABLED"
-                && translatedText != __instance.text
-            )
-            {
-                __instance.text = translatedText;
-            }
         }
     }
 }
