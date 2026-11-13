@@ -21,7 +21,8 @@
     "Parasite": "Parasite[GM]",
     "Playground": "Playground[GM]",
     "Ladder": "Ladder[GM]",
-    "Cheatrooms": "Cheatrooms[GM]"
+    "Cheatrooms": "Cheatrooms[GM]",
+    "Level Tester": "Level Tester[GM]"
   },
   "GamemodeUnlockHints": {
     "Finish the Tutorial": "Finish the Tutorial[GM]",
@@ -47,7 +48,7 @@
     "<b>Welcome to the Boost Course, Climber.</b>\n<color=#c0c0c0ff>Every reaction has an equal and opposite reaction.</color>\n- <color=yellow>Race to the top of the tower</color> as fast as possible.": "<b>Welcome to the Boost Course, Climber.</b>\n<color=#c0c0c0ff>Every reaction has an equal and opposite reaction.</color>\n- <color=yellow>Race to the top of the tower</color> as fast as possible.[GM]",
     "<i>You are awake. It has felt like decades.</i>\n<color=#c0c0c0ff>- Escape the SB10 Experimental Detention Facility</color>\n<color=#c0c0c0ff>- Hide from threats, stay quiet.</color>": "<i>You are awake. It has felt like decades.</i>\n<color=#c0c0c0ff>- Escape the SB10 Experimental Detention Facility</color>\n<color=#c0c0c0ff>- Hide from threats, stay quiet.</color>[GM]"
   },
-  "NewGameTexts": {
+  "GamemodeNewGameTexts": {
     "Play": "Play[GM]",
     "Escape": "Escape[GM]",
     "Start Run": "Start Run[GM]"
@@ -70,7 +71,14 @@
     "HO HO HO": "HO HO HO[GM]",
     "LADDER": "LADDER[GM]",
     "PLAY": "PLAY[GM]",
-    "...": "...[GM]"
+    "...": "...[GM]",
+    "TEST": "TEST[GM]"
+  },
+  "GamemodeMedalTitles": {
+    "Bronze Medal": "Bronze Medal[GM]",
+    "Silver Medal": "Silver Medal[GM]",
+    "Gold Medal": "Gold Medal[GM]",
+    "Platinum Medal": "Platinum Medal[GM]"
   },
   "GamemodeTextPrefixes": {
     "Mode:": "Mode:[GM]",
@@ -78,25 +86,25 @@
     "<color=grey>Challenge:</color> ": "<color=grey>Challenge:</color> [GM]"
   },
   "ModifierTitles": {
-    "Competitive": "Competitive[GM]",
     "Hard Mode": "Hard Mode[GM]",
     "Iron Knuckle": "Iron Knuckle[GM]",
+    "Competitive": "Competitive[GM]",
     "Unlimited": "Unlimited[GM]"
   },
   "ModifierDescriptions": {
-    "Standardized Gamemode for Speedrunning": "Standardized Gamemode for Speedrunning[GM]",
     "Good Luck": "Good Luck[GM]",
     "No Saves, Perks, Shortcuts, or Starting Roaches": "No Saves, Perks, Shortcuts, or Starting Roaches[GM]",
+    "Standardized Gamemode for Speedrunning": "Standardized Gamemode for Speedrunning[GM]",
     "Unlimited Roaches": "Unlimited Roaches[GM]"
   },
   "ModifierAppends": {
-    "-Competitive": "-Competitive[GM]",
     "-Hardmode": "-Hardmode[GM]",
     "-Iron": "-Iron[GM]",
+    "-Competitive": "-Competitive[GM]",
     "-Unlimited": "-Unlimited[GM]"
   },
-  "KeepWhiteSpaceInGamemodeName": true,
-  "GamemodeTextTemplate": "{prefix}{gamemodeName}{modifierAppends}[GM]",
+  "KeepWhiteSpaceInCapsuleName": true,
+  "GamemodeTextTemplate": "{textPrefix}{capsuleName}{modifierAppends}[GM]",
   "ModifierConflictedDescription": "LOCKED[GM]",
   "ModifierLockedDescriptionTemplate": "{unlockHint}{progress}[GM]",
   "ModifierUnlockProgressTemplate": ": {current}/{required}[GM]"

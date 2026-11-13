@@ -29,13 +29,10 @@ namespace WKLocalizationLoader.Modules
             var fileInfo = window.file.fileInfo;
             if (fileInfo.textAssetData is null)
             {
-                var data = fileInfo.data;
-                var originalText = DarkMachineFunctions.ProcessText(data);
-                translatedText = GetTextTranslation(
+                fileInfo.data = GetTextTranslation(
                     DocumentTexts,
-                    originalText
+                    fileInfo.data
                 );
-                fileInfo.data = data.Replace(originalText, translatedText);
                 return;
             }
             translatedText = GetTextTranslation(

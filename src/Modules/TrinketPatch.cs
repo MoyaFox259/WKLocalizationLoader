@@ -168,7 +168,7 @@ namespace WKLocalizationLoader.Modules
         public static string GetTranslatedProgress(ProgressionUnlock unlock)
         {
             var progress = unlock.GetProgressString();
-            if (progress == "N/A" && TrinketUnlockProgressTemplate != null)
+            if (TrinketUnlockProgressTemplate != null)
             {
                 var progressSegments = progress.Split(new char[] { '/' }, 2);
                 if (progressSegments.Length == 2)

@@ -10,7 +10,6 @@ using UnityEngine.UI;
 using Febucci.UI;
 using Febucci.UI.Core;
 using DG.Tweening;
-using Steamworks.Data;
 
 namespace WKLocalizationLoader.Modules
 {
@@ -25,8 +24,6 @@ namespace WKLocalizationLoader.Modules
         public static Dictionary<string, string> StatTextTemplates;
         [JsonProperty]
         public static Dictionary<string, string> ScoreItemTitles;
-        [JsonProperty]
-        public static Dictionary<string, string> MedalTitles;
         [JsonProperty]
         public static Dictionary<string, string> LeaderboardRangeTypes;
         [JsonProperty]
@@ -59,6 +56,10 @@ namespace WKLocalizationLoader.Modules
         public static string EndScreenFillerText;
         [JsonProperty]
         public static string EndScreenBaseScoreTemplate;
+        [JsonProperty]
+        public static string EndScreenReviveLossTemplate;
+        [JsonProperty]
+        public static string EndScreenRevivesLossTemplate;
         [JsonProperty]
         public static string EndScreenFinalScoreTemplate;
         [JsonProperty]
@@ -263,22 +264,6 @@ namespace WKLocalizationLoader.Modules
 
         [HarmonyPostfix]
         [HarmonyPatch(
-            typeof(UI_ScoreScreen),
-            nameof(UI_ScoreScreen.SetMedalInfo)
-        )]
-        public static void Postfix_ScoreScreen_SetMedalInfo(
-            UI_ScoreScreen __instance
-        )
-        {
-            if (!IsEnabled) return;
-            __instance.scoreRankText.text = GetTextTranslation(
-                MedalTitles,
-                __instance.scoreRankText.text
-            );
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(
             typeof(Leaderboard_Panel),
             nameof(Leaderboard_Panel.StartUpdateScore)
         )]
@@ -311,8 +296,8 @@ namespace WKLocalizationLoader.Modules
             if (!IsEnabled) return;
             if (LeaderboardDetailNameTemplate != null)
             {
-                var player = scoreInfo.User.Name;
-                var rank = scoreInfo.GlobalRank;
+                var player = scoreInfo.user.name;
+                var rank = scoreInfo.placement;
                 __instance.nameText.text = LeaderboardDetailNameTemplate
                     .Replace("{player}", player)
                     .Replace("{rank}", rank.ToString());
@@ -429,8 +414,8 @@ namespace WKLocalizationLoader.Modules
             if (!IsEnabled) return;
             if (LeaderboardDetailNameTemplate != null)
             {
-                var player = scoreInfo.User.Name;
-                var rank = scoreInfo.GlobalRank;
+                var player = scoreInfo.user.name;
+                var rank = scoreInfo.placement;
                 __instance.nameText.text = LeaderboardDetailNameTemplate
                     .Replace("{player}", player)
                     .Replace("{rank}", rank.ToString());
@@ -477,7 +462,7 @@ namespace WKLocalizationLoader.Modules
                 typeof(Sprite),
                 typeof(string),
                 typeof(string),
-                typeof(UnityEngine.Color),
+                typeof(Color),
                 typeof(AudioClip),
                 typeof(bool)
             }
@@ -508,6 +493,9 @@ namespace WKLocalizationLoader.Modules
             UI_EndScreenScoreWindow scoreWindow
         )
         {
+            var rectTransform = scoreWindow.GetComponent<RectTransform>();
+            rectTransform.sizeDelta =
+                new Vector2(rectTransform.sizeDelta.x, scoreWindow.heightBase);
             var scoreTitle = scoreWindow.scoreTitle;
             var scoreTitleColor = scoreWindow.titleColor;
             var loadingText = EndScreenLoadingText ?? scoreWindow.loadingText;
@@ -519,9 +507,22 @@ namespace WKLocalizationLoader.Modules
             var speed = CL_GameManager.gMan.GetPlayerTravelSpeed();
             var speedText = scoreWindow.speedScoreText;
             var modifierTitle = scoreWindow.modifierTitleText;
+            var baseScoreText = scoreWindow.baseScoreText;
             var currentScore = Mathf.Round(distance * speed);
             var currentMultiplier = 1f;
-            var baseScoreText = scoreWindow.baseScoreText;
+            var currentBonus = 0f;
+            var reviveCount = StatManager.GetStatisticInt(
+                StatManager.sessionStats,
+                "revives"
+            );
+            var reviveLoss = 1f;
+            var reviveLossText = scoreWindow.deathScoreText;
+            var reviveLossTextColor = reviveLossText.color;
+            var reviveBloodSprite = scoreWindow.deathBloodSplatterSprite;
+            var reviveBloodSpriteColor = reviveBloodSprite.color;
+            var reviveBloodSpriteScale =
+                reviveBloodSprite.transform.localScale;
+            var reviveExtraWindowHeight = scoreWindow.heightDeathHeightAdd;
             var finalScore = CL_GameManager
                 .GetCurrentGamemode()
                 .GetPlayerScore();
@@ -537,9 +538,11 @@ namespace WKLocalizationLoader.Modules
                     highScoreText.font = fallbackFonts[0];
                 }
             }
+            var isHighScore = M_Gamemode.IsCurrentlyAHighScore();
             var scoreItemAsset = scoreWindow.scoreItemAsset;
             var scoreItemRoot = scoreWindow.scoreItemRoot;
             var tickSound = scoreWindow.tickSound;
+            var scores = CL_ScoreManager.sessionScore.scores;
             UI_EndScreenScoreWindow.FinishSound finishSound = null;
             var finishSounds = scoreWindow.finishSounds;
             var distanceDefaultText = EndScreenDistanceDefaultText
@@ -553,14 +556,27 @@ namespace WKLocalizationLoader.Modules
             var fillerText = EndScreenFillerText ?? "..........";
             var baseScoreTemplate = EndScreenBaseScoreTemplate
                 ?? "SCORE: {score}";
+            var reviveLossTemplate = "";
+            if (reviveCount == 1)
+            {
+                reviveLossTemplate = EndScreenReviveLossTemplate
+                    ?? "{reviveCount} REVIVE   1/{lossFactor} BONUS";
+            }
+            else
+            {
+                reviveLossTemplate = EndScreenRevivesLossTemplate
+                    ?? "{reviveCount} REVIVES   1/{lossFactor} BONUS";
+            }
             var finalScoreTemplate = EndScreenFinalScoreTemplate
                 ?? "FINAL: {score}";
-            scoreTitle.color = UnityEngine.Color.clear;
-            loadingTextAnimator.TMProComponent.color = UnityEngine.Color.clear;
+            scoreTitle.color = Color.clear;
+            loadingTextAnimator.TMProComponent.color = Color.clear;
             distanceText.text = "";
             speedText.text = "";
             modifierTitle.gameObject.SetActive(false);
             baseScoreText.text = "";
+            reviveLossText.text = "";
+            reviveBloodSprite.color = Color.clear;
             finalScoreText.text = finalScoreTemplate.Replace("{score}", "0");
             if (!scoreWindow.skip)
             {
@@ -642,11 +658,15 @@ namespace WKLocalizationLoader.Modules
                 yield return new WaitForSecondsRealtime(0.5f);
             }
             modifierTitle.gameObject.SetActive(true);
-            var scores = CL_ScoreManager.sessionScore.scores;
             if (scores.Count > 0)
             {
                 foreach (var score in scores)
                 {
+                    if (score.id == "reviveloss")
+                    {
+                        reviveLoss = score.multiplier;
+                        continue;
+                    }
                     scoreWindow.PlayTickSound();
                     if (!scoreWindow.skip)
                     {
@@ -663,10 +683,12 @@ namespace WKLocalizationLoader.Modules
                     scoreItem.transform
                         .DOPunchScale(Vector3.one * 0.05f, 0.5f)
                         .SetUpdate(isIndependentUpdate: true);
-                    currentScore += score.bonus;
+                    currentBonus += score.bonus;
                     currentMultiplier += score.multiplier;
                     var currentFinalScore = Mathf
-                        .Round(currentScore * currentMultiplier)
+                        .Round(
+                            (currentScore + currentBonus) * currentMultiplier
+                        )
                         .ToString();
                     if (!scoreWindow.skip)
                     {
@@ -677,14 +699,65 @@ namespace WKLocalizationLoader.Modules
                     DOTween.Complete(finalScoreText.transform);
                 }
             }
+            if (!scoreWindow.skip)
+            {
+                yield return new WaitForSecondsRealtime(0.08f);
+            }
+            if (reviveLoss < 1f)
+            {
+                var lossFactor = reviveCount + 1;
+                reviveLossText.text = reviveLossTemplate
+                    .Replace("{reviveCount}", reviveCount.ToString())
+                    .Replace("{lossFactor}", lossFactor.ToString());
+                reviveLossText.color = Color.clear;
+                reviveLossText
+                    .DOColor(reviveLossTextColor, 0.25f)
+                    .SetUpdate(isIndependentUpdate: true)
+                    .SetLoops(3, LoopType.Yoyo);
+                reviveLossText.transform
+                    .DOPunchScale(Vector3.one * 0.2f, 0.8f)
+                    .SetUpdate(isIndependentUpdate: true);
+                if (scores.Count > 8)
+                {
+                    var extendedWindowSize = rectTransform.sizeDelta
+                        + new Vector2(0f, reviveExtraWindowHeight);
+                    rectTransform
+                        .DOSizeDelta(extendedWindowSize, 0.25f)
+                        .SetEase(Ease.InOutSine)
+                        .SetUpdate(isIndependentUpdate: true);
+                }
+                var revivedFinalScore = Mathf
+                    .Round(
+                        (currentScore + currentBonus * reviveLoss)
+                        * currentMultiplier
+                    )
+                    .ToString();
+                finalScoreText.text = finalScoreTemplate
+                    .Replace("{score}", revivedFinalScore);
+                if (!scoreWindow.skip)
+                {
+                    AudioManager.PlayUISound(scoreWindow.deathSound, 0.7f);
+                }
+                reviveBloodSprite
+                    .DOColor(reviveBloodSpriteColor, 0.25f)
+                    .SetUpdate(isIndependentUpdate: true);
+                reviveBloodSprite.transform.localScale =
+                    reviveBloodSpriteScale * 0.9f;
+                reviveBloodSprite.transform
+                    .DOScale(reviveBloodSpriteScale, 0.5f)
+                    .SetUpdate(isIndependentUpdate: true);
+                if (!scoreWindow.skip)
+                {
+                    yield return new WaitForSecondsRealtime(0.5f);
+                }
+            }
             finalScoreText.transform
                 .DOPunchScale(Vector3.one * 0.2f, 0.8f)
                 .SetUpdate(isIndependentUpdate: true);
             finalScoreText
-                .DOColor(UnityEngine.Color.white, 0.5f)
+                .DOColor(Color.white, 0.5f)
                 .SetLoops(2, LoopType.Yoyo)
                 .SetUpdate(isIndependentUpdate: true);
-            var isHighScore = M_Gamemode.IsCurrentlyAHighScore();
             if (isHighScore)
             {
                 finishSound = scoreWindow.personalBestFinishSound;

@@ -9,10 +9,23 @@
     "Voices": "Voices[MM]",
     "White Knuckle": "White Knuckle[MM]",
     "Publishing": "Publishing[MM]",
+    "Community": "Community[MM]",
     "Support": "Support[MM]",
     "Licensing": "Licensing[MM]"
   },
+  "ShimmerColorTitles": {
+    "Base": "Base[MM]",
+    "Saturated": "Saturated[MM]",
+    "Deuteranopia": "Deuteranopia[MM]",
+    "Tritanopia": "Tritanopia[MM]",
+    "Red And Blue": "Red And Blue[MM]",
+    "White": "White[MM]",
+    "Brown": "Brown[MM]",
+    "Green and Red": "Green and Red[MM]",
+    "Blue And Pink": "Blue And Pink[MM]"
+  },
+  "LoadingProgressTemplate": "Loading: {progress}%[MM]",
   "PageCounterTemplate": "{title} ({current}/{total})[MM]",
-  "LoadingProgressTemplate": "Loading: {progress}%[MM]"
+  "ShimmerColorCounterTemplate": "Shimmer Color\n<color=grey>{title} ({current}/{total})[MM]"
 }
 

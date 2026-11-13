@@ -26,7 +26,7 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static string DurationSecondsTemplate;
         [JsonProperty]
-        public static string AppPerkHoverTextTemplate;
+        public static string AppPerkTooltipTemplate;
         [JsonProperty]
         public static string AppPerkAmountTemplate;
         [JsonProperty]
@@ -50,27 +50,25 @@ namespace WKLocalizationLoader.Modules
         public static void PatchScriptableObjects()
         {
             if (!IsEnabled) return;
-            PatchPerks();
+            var database = CL_AssetManager.GetFullCombinedAssetDatabase();
+            database?.perkAssets?.ForEach(i => PatchPerk(i));
         }
 
-        public static void PatchPerks()
+        public static void PatchPerk(Perk perk)
         {
-            var perks = CacheManager.EnumerateScriptableObjects<Perk>();
-            foreach (var perk in perks)
-            {
-                perk.title = GetTextTranslation(
-                    PerkTitles,
-                    perk.title
-                );
-                perk.description = GetTextTranslation(
-                    PerkDescriptions,
-                    perk.description
-                );
-                perk.flavorText = GetTextTranslation(
-                    PerkFlavorTexts,
-                    perk.flavorText
-                );
-            }
+            if (perk is null) return;
+            perk.title = GetTextTranslation(
+                PerkTitles,
+                perk.title
+            );
+            perk.description = GetTextTranslation(
+                PerkDescriptions,
+                perk.description
+            );
+            perk.flavorText = GetTextTranslation(
+                PerkFlavorTexts,
+                perk.flavorText
+            );
         }
 
         [HarmonyPostfix]
@@ -184,7 +182,7 @@ namespace WKLocalizationLoader.Modules
                     var description = "<color=\"grey\">"
                         + perk.GetDescription(adjusted: true, total: true)
                         + "</color>";
-                    var descriptionTemplate = AppPerkHoverTextTemplate
+                    var descriptionTemplate = AppPerkTooltipTemplate
                         ?? "{title}{amount}\n{description}";
                     tooltip.tip = descriptionTemplate
                         .Replace("{title}", title)
@@ -212,7 +210,7 @@ namespace WKLocalizationLoader.Modules
             var description = "<color=#C7C7C7>"
                 + p.GetDescription(adjusted: true)
                 + "</color>";
-            var descriptionTemplate = AppPerkHoverTextTemplate
+            var descriptionTemplate = AppPerkTooltipTemplate
                 ?? "{title}{amount}\n{description}";
             __instance.tooltip.tip = descriptionTemplate
                 .Replace("{title}", title)

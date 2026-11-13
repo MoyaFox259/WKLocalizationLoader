@@ -24,11 +24,13 @@
     "Drainage System": "Drainage System[LN]",
     "Pipe Organ": "Pipe Organ[LN]",
     "Waste Heap": "Waste Heap[LN]",
+    "Arterial Bypass": "Arterial Bypass[LN]",
     "Ascent": "Ascent[LN]",
     "Forlorn Gateway": "Forlorn Gateway[LN]",
     "Service Shaft": "Service Shaft[LN]",
     "Haunted Pier": "Haunted Pier[LN]",
     "Delta Labs": "Delta Labs[LN]",
+    "Delta Labs?": "Delta Labs?[LN]",
     "Evacuation": "Evacuation[LN]",
     "Transit Scaffolds": "Transit Scaffolds[LN]",
     "Deadman's Handle": "Deadman's Handle[LN]",
@@ -39,6 +41,11 @@
     "Feeding Trough": "Feeding Trough[LN]",
     "Tangled Sink": "Tangled Sink[LN]",
     "Expulsion Chute": "Expulsion Chute[LN]",
+    "Body Cavity": "Body Cavity[LN]",
+    "Rotten Duct": "Rotten Duct[LN]",
+    "Analysis": "Analysis[LN]",
+    "Hadal Diver": "Hadal Diver[LN]",
+    "Intersection": "Intersection[LN]",
     "Break Room": "Break Room[LN]",
     "Shuttered Pier": "Shuttered Pier[LN]",
     "Frigid Facility": "Frigid Facility[LN]",
@@ -71,7 +78,8 @@
     "Ascent": "Ascent[LN]",
     "Habitation": "Habitation[LN]",
     "Abyss": "Abyss[LN]",
-    "Nest": "Nest[LN]"
+    "Nest": "Nest[LN]",
+    "Analysis": "Analysis[LN]"
   },
   "ContinueTextTemplate": "Continue: {saveName}[LN]"
 }

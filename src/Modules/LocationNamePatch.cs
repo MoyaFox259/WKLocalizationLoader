@@ -26,33 +26,27 @@ namespace WKLocalizationLoader.Modules
         public static void PatchScriptableObjects()
         {
             if (!IsEnabled) return;
-            PatchRegions();
-            PatchSubregions();
+            var database = CL_AssetManager.GetFullCombinedAssetDatabase();
+            database?.regionAssets?.ForEach(i => PatchRegion(i));
+            database?.subRegionAssets?.ForEach(i => PatchSubregion(i));
         }
 
-        public static void PatchRegions()
+        public static void PatchRegion(M_Region region)
         {
-            var regions = CacheManager.EnumerateScriptableObjects<M_Region>();
-            foreach (var region in regions)
-            {
-                region.introText = GetTextTranslation(
-                    RegionIntroTexts,
-                    region.introText
-                );
-            }
+            if (region is null) return;
+            region.introText = GetTextTranslation(
+                RegionIntroTexts,
+                region.introText
+            );
         }
 
-        public static void PatchSubregions()
+        public static void PatchSubregion(M_Subregion subregion)
         {
-            var subregions = CacheManager
-                .EnumerateScriptableObjects<M_Subregion>();
-            foreach (var subregion in subregions)
-            {
-                subregion.introText = GetTextTranslation(
-                    SubregionIntroTexts,
-                    subregion.introText
-                );
-            }
+            if (subregion is null) return;
+            subregion.introText = GetTextTranslation(
+                SubregionIntroTexts,
+                subregion.introText
+            );
         }
 
         [HarmonyPostfix]

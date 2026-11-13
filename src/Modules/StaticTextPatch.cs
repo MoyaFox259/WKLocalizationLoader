@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using HarmonyLib;
 using UnityEngine.UI;
 using TMPro;
+using Rewired.Glyphs.UnityUI;
 
 namespace WKLocalizationLoader.Modules
 {
@@ -53,6 +54,22 @@ namespace WKLocalizationLoader.Modules
         )]
         public static void Postfix_TextMeshProUGUI_Awake(
             TextMeshProUGUI __instance
+        )
+        {
+            if (!IsEnabled) return;
+            __instance.text = GetTextTranslation(
+                StaticTexts,
+                __instance.text
+            );
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(UnityTextMeshProGlyphHelper),
+            nameof(UnityTextMeshProGlyphHelper.Start)
+        )]
+        public static void Postfix_UnityTextMeshProGlyphHelper_Start(
+            UnityTextMeshProGlyphHelper __instance
         )
         {
             if (!IsEnabled) return;

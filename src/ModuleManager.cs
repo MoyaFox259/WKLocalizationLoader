@@ -65,6 +65,9 @@ namespace WKLocalizationLoader
             LoadModule<AnnouncementSubtitleTimingPatch>(
                 "AnnouncementSubtitleTimings.json"
             );
+            LoadModule<ClosedCaptionSubtitlePatch>(
+                "ClosedCaptionSubtitles.json"
+            );
             LoadModule<CosmeticPatch>("Cosmetics.json");
             LoadModule<DeathTextPatch>("DeathTexts.json");
             LoadModule<DocumentPatch>("Documents.json");
@@ -97,21 +100,6 @@ namespace WKLocalizationLoader
             where TModule : ModuleBase<TModule>
         {
             var moduleClass = typeof(TModule);
-            if (!CheckSupportedGameVersion(moduleClass))
-            {
-                RegisterGameVersionUnsupportedModule(moduleClass);
-                return;
-            }
-            if (
-                CheckConflictedMods(
-                    moduleClass,
-                    out List<string> conflictedModGUIDs
-                )
-            )
-            {
-                RegisterModConflictedModule(moduleClass, conflictedModGUIDs);
-                return;
-            }
             if (
                 !FileManager.TryGetModuleFilePath(
                     fileName,
@@ -138,7 +126,26 @@ namespace WKLocalizationLoader
             }
             catch (Exception e)
             {
+                ModuleBase<TModule>.IsEnabled = false;
                 RegisterDeserializationFailedModule(moduleClass, fileName, e);
+                _logger?.LogWarning(e);
+                return;
+            }
+            if (!CheckSupportedGameVersion(moduleClass))
+            {
+                ModuleBase<TModule>.IsEnabled = false;
+                RegisterGameVersionUnsupportedModule(moduleClass);
+                return;
+            }
+            if (
+                CheckConflictedMods(
+                    moduleClass,
+                    out List<string> conflictedModGUIDs
+                )
+            )
+            {
+                ModuleBase<TModule>.IsEnabled = false;
+                RegisterModConflictedModule(moduleClass, conflictedModGUIDs);
                 return;
             }
             if (!ModuleBase<TModule>.IsEnabled)

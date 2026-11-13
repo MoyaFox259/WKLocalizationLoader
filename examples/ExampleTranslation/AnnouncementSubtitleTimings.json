@@ -1,6 +1,6 @@
 {
   "ModuleSettings": {
-    "BaseDuration": 2.2,
+    "BaseDuration": 0.8,
     "CharacterInterval": 0.1,
     "EndDelay": 0.5,
     "UseOriginalDelay": false
@@ -49,6 +49,7 @@
     "ANN_Event_PHI_SealStart": [15.71, 20.94, 28.58, 36.54, 44.05],
     "ANN_Event_PHI_SecurityLocksReleased": [7.60],
     "ANN_Event_PHI_SecurityLocksStillInPlace": [18.78],
+    "ANN_Event_PHI_SecurityLocksStillInPlaceCut": [6.33],
     "ANN_AirQuality": [7.93],
     "ANN_AlphaSecurity": [9.58],
     "ANN_ArchiveSystems": [11.98],
@@ -332,6 +333,7 @@
     "ANN_T1_Generic_Reminder_EventsonSurface": [12.78],
     "ANN_T1_Generic_Reminder_Dopplegangers": [22.68],
     "ANN_T1_Generic_Reminder_December15th": [13.24, 22.69],
+    "ANN_T1_Generic_Reminder_AnswerQuestions": [19.76],
     "ANN_T1_Generic_Notice_ReviewForms": [12.95],
     "ANN_T1_Generic_Notice_Rearrange": [8.01, 26.43],
     "ANN_T1_Generic_Notice_Defecate": [12.46],
@@ -431,6 +433,8 @@
     "ANN_Event_FluidModulation": [21.08],
     "ANN_Event_HatchFailure": [19.10],
     "ANN_Event_NuclearFailsafe_V02": [15.01],
+    "ANN_Facility_Recycle_Grub": [15.12],
+    "ANN_Facility_Locker_Contraband": [3.52],
     "WRD_startup": [17.59],
     "WRD_hint_2_elevator": [11.30],
     "WRD_gen_sentencing": [10.96],
@@ -464,7 +468,34 @@
     "WRD_gen_adjustment": [11.39],
     "WRD_gameplay_zeta_throat_shock": [3.57],
     "WRD_gameplay_zeta_entrance": [5.74],
-    "WRD_gameplay_hint_1_power": [7.67]
+    "WRD_gameplay_hint_1_power": [7.67],
+    "ANN_M5_Nest_Ending_01": [13.58, 18.35, 47.31],
+    "ANN_M5_Nest_Event_Entrance": [27.03],
+    "ANN_M5_Nest_Trough_Event_Entrance": [19.74, 29.19],
+    "ANN_M5_Nest_Trough_EatingMe": [2.92],
+    "ANN_M5_Nest_Trough_Failure": [4.26],
+    "ANN_M5_Nest_Trough_HumanPlease": [3.08],
+    "ANN_M5_Nest_Trough_ItDevours": [3.26],
+    "ANN_M5_Nest_Trough_ItsInside": [2.46],
+    "ANN_M5_Nest_Trough_ItWantsYou": [6.55],
+    "ANN_M5_Nest_Trough_NoNoNo": [5.33],
+    "ANN_M5_Nest_Trough_Please": [2.69],
+    "ANN_M5_Nest_Trough_PleaseStopIt": [2.46],
+    "ANN_M5_Nest_Trough_Sorry": [8.80],
+    "ANN_M5_Nest_Trough_ThisSystemDreamt": [7.87],
+    "ANN_M5_Nest_Trough_WastedTime": [3.26],
+    "ANN_M5_Nest_Trough_Why": [4.67],
+    "ANN_M5_Nest_Lower_ItWantsYou": [2.32],
+    "ANN_M5_Nest_Lower_NoTimeLeft": [1.79],
+    "ANN_M5_Nest_Lower_RequestingShutDown": [2.09],
+    "ANN_M5_Nest_Lower_RequestingShutDown02": [2.26],
+    "ANN_M5_Nest_Lower_SoMuchLife": [6.83],
+    "ANN_M5_Nest_Lower_SorryForTheLies": [3.48],
+    "ANN_M5_Nest_Lower_SystemCannotHelpYou": [5.03],
+    "ANN_M5_Nest_Lower_SystemFailedPurpose": [6.04],
+    "ANN_M5_Nest_Lower_SystemIsDead": [4.56],
+    "ANN_M5_Nest_Lower_YouAreNotFromHere": [7.52],
+    "ANN_M5_Nest_DiverToNest_Intro_01": [15.02]
   }
 }
 

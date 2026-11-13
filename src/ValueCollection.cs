@@ -36,6 +36,8 @@ namespace WKLocalizationLoader
             }
             return true;
         }
+
+        public void Clear() => _dictionary?.Clear();
     }
 }
 

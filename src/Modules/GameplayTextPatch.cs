@@ -15,6 +15,8 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> BadgeTitles;
         [JsonProperty]
+        public static Dictionary<string, string> InteractionHints;
+        [JsonProperty]
         public static string ScoreTrackerTemplate;
         [JsonProperty]
         public static string HighScoreTrackerTemplate;
@@ -150,6 +152,24 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             title = GetTextTranslation(BadgeTitles, title);
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(
+            typeof(UT_HoverInfo),
+            nameof(UT_HoverInfo.OnHover)
+        )]
+        public static bool Prefix_HoverInfo_OnHover(
+            UT_HoverInfo __instance
+        )
+        {
+            if (!IsEnabled) return true;
+            var infoText = GetTextTranslation(
+                InteractionHints,
+                __instance.infoText
+            );
+            CL_UIManager.instance.SetDescription(infoText);
+            return false;
         }
 
         [HarmonyPrefix]

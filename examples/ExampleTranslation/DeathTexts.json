@@ -52,7 +52,11 @@
     "hunter": "CONSUMED, FUSED, THEN REDISTRIBUTED[DE]",
     "aunt": "PUNCTURED REPEATEDLY[DE]",
     "aunt-spike": "PUNCTURED REPEATEDLY[DE]",
-    "aunt-melee": "GREEDILY EATEN[DE]"
+    "aunt-melee": "GREEDILY EATEN[DE]",
+    "remains": "MANGLED AND RECONFIGURED[DE]",
+    "ratking": "CONFINED TO THE CAVITY[DE]",
+    "adenocell": "VICTIM OF PHAGOCYTOSIS[DE]",
+    "zetatrap": "NEUTRALIZED[DE]"
   },
   "DeathTips": {
     "Tip: Many tools can be used to leap large gaps.": "Tip: Many tools can be used to leap large gaps.[DE]",

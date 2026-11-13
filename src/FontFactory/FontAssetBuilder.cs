@@ -533,8 +533,14 @@ namespace WKLocalizationLoader.FontFactory
                     ShaderUtilities.ID_GradientScale,
                     (float)(fontAsset.atlasPadding + 1)
                 );
-                material.SetFloat(ShaderUtilities.ID_WeightNormal, 0f);
-                material.SetFloat(ShaderUtilities.ID_WeightBold, 0f);
+                material.SetFloat(
+                    ShaderUtilities.ID_WeightNormal,
+                    fontAsset.normalStyle
+                );
+                material.SetFloat(
+                    ShaderUtilities.ID_WeightBold,
+                    fontAsset.boldStyle
+                );
             }
             fontAsset.material = material;
             fontAsset.materialHashCode = material.GetHashCode();

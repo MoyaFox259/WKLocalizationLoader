@@ -1,7 +1,8 @@
 {
   "ObjectiveViewerTitleTemplates": {
     "RACE: {0}": "RACE: {0}[OB]",
-    "<size=20>OBJECTIVES:</size>": "<size=20>OBJECTIVES:</size>[OB]"
+    "<size=20>OBJECTIVES:</size>": "<size=20>OBJECTIVES:</size>[OB]",
+    "<size=20><color=#5bab8b>OBJECTIVES:</color></size>": "<size=20><color=#5bab8b>OBJECTIVES:</color></size>[OB]"
   },
   "ObjectiveTitleTemplates": {
     "Level Timer": "Level Timer[OB]",
@@ -23,14 +24,14 @@
     "Escape": "Escape[OB]"
   },
   "ObjectiveDescriptionTemplates": {
-      "<color=red>{0} | Best: {1}</color>": "<color=red>{0} | Best: {1}</color>[OB]",
-      "{count} / {goal} disks inserted.": "{count} / {goal} disks inserted.[OB]",
-      "Return to the Server Room": "Return to the Server Room[OB]",
-      "<color=yellow>0/1 Disks": "<color=yellow>0/1 Disks[OB]",
-      "<color=red>ESCAPE WITH THE DISK": "<color=red>ESCAPE WITH THE DISK[OB]",
-      "<color=grey>Find a Fuel Cell": "<color=grey>Find a Fuel Cell[OB]",
-      "{count} / {goal} Fuel Cells Found": "{count} / {goal} Fuel Cells Found[OB]",
-      "<color=grey>Find The Exit": "<color=grey>Find The Exit[OB]"
+    "<color=red>{0} | Best: {1}</color>": "<color=red>{0} | Best: {1}</color>[OB]",
+    "{count} / {goal} disks inserted.": "{count} / {goal} disks inserted.[OB]",
+    "Return to the Server Room": "Return to the Server Room[OB]",
+    "<color=yellow>0/1 Disks": "<color=yellow>0/1 Disks[OB]",
+    "<color=red>ESCAPE WITH THE DISK": "<color=red>ESCAPE WITH THE DISK[OB]",
+    "<color=grey>Find a Fuel Cell": "<color=grey>Find a Fuel Cell[OB]",
+    "{count} / {goal} Fuel Cells Found": "{count} / {goal} Fuel Cells Found[OB]",
+    "<color=grey>Find The Exit": "<color=grey>Find The Exit[OB]"
   },
   "ObjectiveProgressHeaderTemplates": {
     "<color=yellow>{remain} Disks Remain": "<color=yellow>{remain} Disks Remain[OB]",

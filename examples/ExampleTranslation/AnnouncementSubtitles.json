@@ -50,6 +50,7 @@
     "ANN_Event_PHI_SealStart": "<color=red>Warning: Class 7 fluid has been detected. For the safety of Habitation Yellow, airlock seal mechanisms must be engaged.<br> <color=red>Please contact your local control room specialist.<br> <color=red>Warning: Control specialist is missing. Contacting administrator.<br> <color=red>Warning: Administrator is missing. Contacting emergency worker protection crews.<br> <color=red>Error: No crews detected. Engage manual override.[AS]",
     "ANN_Event_PHI_SecurityLocksReleased": "<color=red>Alert: Elevator security locks have been released.[AS]",
     "ANN_Event_PHI_SecurityLocksStillInPlace": "<color=grey>You are on route to habitation yellow. Please enjoy yo-[CUTOFF]<color=red> Alert: Elevator security locks are still in place. Manual override will be required.[AS]",
+    "ANN_Event_PHI_SecurityLocksStillInPlaceCut": "<color=grey>You are on route to habitation yellow. Please enjoy yo-[CUTOFF][AS]",
     "ANN_AirQuality": "Air quality in Common Area 4: Within acceptable limits. Ventilation systems stable[AS]",
     "ANN_AlphaSecurity": "Security clearance Alpha no longer valid. All personnel classified under Alpha protocols are presumed missing[AS]",
     "ANN_ArchiveSystems": "Report: Archive systems show 12% file recovery since last sweep. Data integrity questionable.[AS]",
@@ -280,7 +281,7 @@
     "ANN_M2_Pipeworks_Caution_PeripheryNonAxial": "Caution: Periphery non-axial anomalies reported in Deep Substructure Drainage - Sublevel 9. Maintain a safe distance and alert your sector manager if encountered.[AS]",
     "ANN_M2_Pipeworks_Caution_RisingSteam": "Caution: Visibility in Drainage Sublevel 22 is limited due to rising steam. Use thermographic imaging where possible.[AS]",
     "ANN_M2_Pipeworks_Caution_UnmappedTravel": "Caution: Do not travel beyond marked areas unless otherwise instructed to do so. The deepest sectors of the superstructure are unmapped or otherwise offline.[AS]",
-    "ANN_M2_Pipeworks_Forecast_SB13DumpingTanks": "Local Forecast: Substructure 13 is dumping it’s tertiary reserve tanks. Automated systems are redirecting the drain flow towards your local area. <br> Estimated time until flood: Forty-One hours.[AS]",
+    "ANN_M2_Pipeworks_Forecast_SB13DumpingTanks": "Local Forecast: Substructure 13 is dumping its tertiary reserve tanks. Automated systems are redirecting the drain flow towards your local area. <br> Estimated time until flood: Forty-One hours.[AS]",
     "ANN_M2_Pipeworks_Notice_DrainageWaterContaminated": "Notice: Superstructure drainage water is heavily contaminated. Do not ingest.[AS]",
     "ANN_M2_Pipeworks_Notice_DroneInspections": "Notice: Routine drone inspections authorized for infiltration tunnels. Please vacate tunnel areas during operational hours.[AS]",
     "ANN_M2_Pipeworks_Notice_FacilityDrainage": "Notice: Facility Drainage main discharge flow is operating at 72% capacity. Expect increased water levels in lower substructures.[AS]",
@@ -411,7 +412,7 @@
     "JAK_DecideToStayTrigger": "So, you've decided to stay[AS]",
     "JAK_ending": "Well, I think it's about that time. You've certainly paid your debt to us at this point. The only thing left to do now is...make sure you leave.[AS]",
     "JAK_introduction": "...<delay=13><br>..Ah...I didn't notice you there. Hi. Well there's only a few reasons someone like you would end up in a place like this. All this unraveling space sure gets exhausting.<br> Or maybe you were just bored or frustrated with it. Maybe you're one of those unfortunate few who heard about this place and wanted to see it for yourself...<br>Doesn't really matter why... you end up here all the same.<br> Was it worth it? What did you expect to find? Is there still something you're hoping to find? Hahahaha....<br> I'm just amused is all. I can't imagine crawling all that way and then giving up at the last second. Oh I know how you got here.<br> Anyway, the sooner you get out of here, the sooner I leave too. You already know what to do.[AS]",
-    "JAK_L1_bethankful": "You should be thankfull it's not worse than this actually.[AS]",
+    "JAK_L1_bethankful": "You should be thankful it's not worse than this actually.[AS]",
     "JAK_L1_lasttime": "The last time someone was here, it was a big box full of flies.[AS]",
     "JAK_L1_nienoclimb": "Must be nice to not need to climb anymore at least. You probably didn't want to keep doing it anyway.[AS]",
     "JAK_L1_nothingelsehere": "There's nothing else here.[AS]",
@@ -447,7 +448,7 @@
     "ANN_M4_Abyss_Gardens_FoundFragments": "Networks supports linked up on Ether Omega. Connected to Nothing. Offers: Declined. Rebuilder: reconstructing memory files, found fragments: [Hello Worker] [Stay Indoors] [Initiation Protocol][AS]",
     "ANN_M4_Abyss_Gardens_Hello": "Hello Worker. Hello. Hello. [Distorted] Hello. <i>Hello<i>...      Goodbye...[AS]",
     "ANN_M4_Abyss_Gardens_Hush": "Hush.[AS]",
-    "ANN_M4_Abyss_Gardens_LastEntry": "Log Check, Last Entry: Cold Lantern Complete. Next Entry: Uknown. Time Reads: [Distorted][AS]",
+    "ANN_M4_Abyss_Gardens_LastEntry": "Log Check, Last Entry: Cold Lantern Complete. Next Entry: Unknown. Time Reads: [Distorted][AS]",
     "ANN_M4_Abyss_Gardens_MemoryScrub": "Memories Scrubbed, billions corrected. Seven uncorrected. Isolating. Missing. Proceeding anyways.[AS]",
     "ANN_M4_Abyss_Gardens_Never": "Never.[AS]",
     "ANN_M4_Abyss_Gardens_PleaseReturnVoltage": "Please return the voltage.[AS]",
@@ -463,7 +464,7 @@
     "ANN_M4_Abyss_Transit_Notice_LineStatus": "Notice: Interfacility Tramline status: inactive for 10,958 days. Next service: none scheduled.[AS]",
     "ANN_M4_Abyss_Transit_Reminder_DoNotDiscard": "Reminder: Do not discard objects from the line. Estimated drop: 1,012 meters. Ground response: unavailable.[AS]",
     "ANN_M4_Abyss_Transit_Warning_RailPowerbus": "Warning: Rail power bus shows continuity in Sections 3, 7, and <shake a=0.03>κ. Please disregard κ.</shake>[AS]",
-    "ANN_Event_EvacuationOrder": "Emergency: Deep Substructure containment systems failing. Rerouting auxiliary mainframe power to emergency seals. [Feedback] Memory core deterioration no longer under control. <br>Estimated time to total computational failure: [ERROR] Evacuate Habitation Yellow. Evacuate the Superstructure. All locks: Released.[AS]",
+    "ANN_Event_EvacuationOrder": "Emergency: Deep Substructure containment systems failing. Rerouting auxiliary mainframe power to emergency seals. [Feedback] Memory core deterioration no longer under control. <br>Estimated time to total computational failure: [ERROR] Evacuate Habitation Yellow. All locks: Released.[AS]",
     "ANN_Event_FluidModulation": "Entity is undergoing molecular reformation. Preset Board overrides engaged. Scanning for operational failsafe devices. Device Located: Rerouting primary mainframe power to SB09.[AS]",
     "ANN_Event_HatchFailure": "Emergency: Deep substructure containment has <color=red>failed</color>. Class 7 anomalous fluid detected on facility scanners, evacuation routes: [OFFLINE]. Threat level: [EXISTENTIAL][AS]",
     "ANN_Event_NuclearFailsafe": "Emergency: Vital hazard classification 7 confirmed, uncategorized 01. Closest operational Nuclear Failsafe: Habitation Lime. Armed; interlocks open. Detonation in T–minus 120… 119… 11— [countdown service lost].[AS]",
@@ -509,7 +510,7 @@
     "ANN_M5_Nest_Ending_01": "Reboot Finished. Purge of meta-computational binding fluid.. <shake a=2.5>[UNSUCCESSFUL]</shake><br><color=#db8984>It is now in full control of this system. <br><color=#db8984>UNIDENTIFIED HUMAN - WARNING: <shake a=2.5>(WE/ I/ THEY/ IT/ HE/ SHE)</shake> <shake a=3.8>STARVES..... SUBMIT.</shake>[AS]",
     "ANN_M5_Nest_Event_Entrance": "Nuclear failsafe....offline. Eraser failsafe....offline. Exotic weapons....offline. Convenientional weapons....offline. [DISTORTION][AS]",
     "ANN_M5_Nest_Trough_Event_Entrance": "Emergency: Pseudo Neurons entering a highly active state due to Class 7 Proximity. System compromised... This system is.. I am.. I am.. <br> Safety interrupt: Full Reboot. Full Reboot.[AS]",
-    "ANN_M5_Nest_Trough_EatingMe": "Its.. Eating me.[AS]",
+    "ANN_M5_Nest_Trough_EatingMe": "It's.. Eating me.[AS]",
     "ANN_M5_Nest_Trough_Failure": "Failure... Failure... Failure...[AS]",
     "ANN_M5_Nest_Trough_HumanPlease": "Human... Please...[AS]",
     "ANN_M5_Nest_Trough_ItDevours": "It Devours[AS]",
@@ -531,7 +532,8 @@
     "ANN_M5_Nest_Lower_SystemCannotHelpYou": "This system cannot help you anymore.[AS]",
     "ANN_M5_Nest_Lower_SystemFailedPurpose": "This system has failed its purpose.[AS]",
     "ANN_M5_Nest_Lower_SystemIsDead": "This system is dead.[AS]",
-    "ANN_M5_Nest_Lower_YouAreNotFromHere": "Calculation: You are not from here.[AS]"
+    "ANN_M5_Nest_Lower_YouAreNotFromHere": "Calculation: You are not from here.[AS]",
+    "ANN_M5_Nest_DiverToNest_Intro_01": "Emergency: Power System Fault. Psionic containment offline. Electrical shorts detected in conduits 1 through 6.[AS]"
   }
 }
 

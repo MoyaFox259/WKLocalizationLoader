@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using HarmonyLib;
+using UnityEngine;
 using TMPro;
 using WKLocalizationLoader.FontFactory;
 
@@ -48,17 +49,15 @@ namespace WKLocalizationLoader.Modules
         public static void PatchScriptableObjects()
         {
             if (!IsEnabled) return;
-            PatchFontAssets();
+            var fontAssets = Resources.FindObjectsOfTypeAll<TMP_FontAsset>();
+            if (fontAssets is null || fontAssets.Length == 0) return;
+            Array.ForEach(fontAssets, i => PatchFontAsset(i));
         }
 
-        public static void PatchFontAssets()
+        public static void PatchFontAsset(TMP_FontAsset fontAsset)
         {
-            var fontAssets = CacheManager
-                .EnumerateScriptableObjects<TMP_FontAsset>();
-            foreach (var fontAsset in fontAssets)
-            {
-                AddFallbackFontAssets(fontAsset);
-            }
+            if (fontAsset is null) return;
+            AddFallbackFontAssets(fontAsset);
         }
 
         public static void AddFallbackFontAssets(TMP_FontAsset fontAsset)
