@@ -15,13 +15,15 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> BadgeTitles;
         [JsonProperty]
+        public static Dictionary<string, string> InteractionHints;
+        [JsonProperty]
         public static string ScoreTrackerTemplate;
+        [JsonProperty]
+        public static string HighScoreTrackerTemplate;
         [JsonProperty]
         public static string DistanceTrackerTemplate;
         [JsonProperty]
         public static string SpeedTrackerTemplate;
-        [JsonProperty]
-        public static string HighScoreTrackerTemplate;
         [JsonProperty]
         public static string ForlornGatewayDoorPoweredText;
         [JsonProperty]
@@ -56,6 +58,16 @@ namespace WKLocalizationLoader.Modules
                 uiManager.scoreTracker.text = ScoreTrackerTemplate
                     .Replace("{score}", score);
             }
+            var highScoreText = uiManager.highScoreTracker.text;
+            if (
+                highScoreText.StartsWith("High Score: ")
+                && HighScoreTrackerTemplate != null
+            )
+            {
+                var highScore = highScoreText.Substring(12);
+                uiManager.highScoreTracker.text = HighScoreTrackerTemplate
+                    .Replace("{highScore}", highScore);
+            }
             var distanceText = uiManager.ascentTracker.text;
             if (
                 distanceText.StartsWith("Climb Distance: ")
@@ -75,16 +87,6 @@ namespace WKLocalizationLoader.Modules
                 var speed = speedText.Substring(13);
                 uiManager.ascentRateTracker.text = SpeedTrackerTemplate
                     .Replace("{speed}", speed);
-            }
-            var highScoreText = uiManager.highScoreTracker.text;
-            if (
-                highScoreText.StartsWith("High Score: ")
-                && HighScoreTrackerTemplate != null
-            )
-            {
-                var highScore = highScoreText.Substring(12);
-                uiManager.highScoreTracker.text = HighScoreTrackerTemplate
-                    .Replace("{highScore}", highScore);
             }
         }
 
@@ -150,6 +152,24 @@ namespace WKLocalizationLoader.Modules
         {
             if (!IsEnabled) return;
             title = GetTextTranslation(BadgeTitles, title);
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(
+            typeof(UT_HoverInfo),
+            nameof(UT_HoverInfo.OnHover)
+        )]
+        public static bool Prefix_HoverInfo_OnHover(
+            UT_HoverInfo __instance
+        )
+        {
+            if (!IsEnabled) return true;
+            var infoText = GetTextTranslation(
+                InteractionHints,
+                __instance.infoText
+            );
+            CL_UIManager.instance.SetDescription(infoText);
+            return false;
         }
 
         [HarmonyPrefix]

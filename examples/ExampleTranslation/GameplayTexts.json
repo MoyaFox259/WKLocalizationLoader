@@ -3,13 +3,17 @@
     "BANK: {runRoaches}": "BANK: {runRoaches}[GP]"
   },
   "BadgeTitles": {
+    "Shortcut Unlocked": "Shortcut Unlocked[GP]",
     "ARTIFACT OBTAINED": "ARTIFACT OBTAINED[GP]",
     "INVENTORY UPGRADED": "INVENTORY UPGRADED[GP]"
   },
+  "InteractionHints": {
+    "<color=grey>It's missing a handwheel.": "<color=grey>It's missing a handwheel.[GP]"
+  },
   "ScoreTrackerTemplate": "Score: {score}[GP]",
+  "HighScoreTrackerTemplate": "High Score: {highScore}[GP]",
   "DistanceTrackerTemplate": "Climb Distance: {distance}[GP]",
   "SpeedTrackerTemplate": "Climb Speed: {speed}[GP]",
-  "HighScoreTrackerTemplate": "High Score: {highScore}[GP]",
   "ForlornGatewayDoorPoweredText": "POWERED[GP]",
   "VendorUnavailableText": "UNAVAILABLE[GP]",
   "VendorCostTemplate": "Cost:{cost} Bank:{balance}[GP]",

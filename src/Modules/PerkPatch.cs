@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -25,7 +26,7 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static string DurationSecondsTemplate;
         [JsonProperty]
-        public static string AppPerkHoverTextTemplate;
+        public static string AppPerkTooltipTemplate;
         [JsonProperty]
         public static string AppPerkAmountTemplate;
         [JsonProperty]
@@ -49,27 +50,25 @@ namespace WKLocalizationLoader.Modules
         public static void PatchScriptableObjects()
         {
             if (!IsEnabled) return;
-            PatchPerks();
+            var database = CL_AssetManager.GetFullCombinedAssetDatabase();
+            database?.perkAssets?.ForEach(i => PatchPerk(i));
         }
 
-        public static void PatchPerks()
+        public static void PatchPerk(Perk perk)
         {
-            var perks = CacheManager.EnumerateScriptableObjects<Perk>();
-            foreach (var perk in perks)
-            {
-                perk.title = GetTextTranslation(
-                    PerkTitles,
-                    perk.title
-                );
-                perk.description = GetTextTranslation(
-                    PerkDescriptions,
-                    perk.description
-                );
-                perk.flavorText = GetTextTranslation(
-                    PerkFlavorTexts,
-                    perk.flavorText
-                );
-            }
+            if (perk is null) return;
+            perk.title = GetTextTranslation(
+                PerkTitles,
+                perk.title
+            );
+            perk.description = GetTextTranslation(
+                PerkDescriptions,
+                perk.description
+            );
+            perk.flavorText = GetTextTranslation(
+                PerkFlavorTexts,
+                perk.flavorText
+            );
         }
 
         [HarmonyPostfix]
@@ -183,7 +182,7 @@ namespace WKLocalizationLoader.Modules
                     var description = "<color=\"grey\">"
                         + perk.GetDescription(adjusted: true, total: true)
                         + "</color>";
-                    var descriptionTemplate = AppPerkHoverTextTemplate
+                    var descriptionTemplate = AppPerkTooltipTemplate
                         ?? "{title}{amount}\n{description}";
                     tooltip.tip = descriptionTemplate
                         .Replace("{title}", title)
@@ -211,7 +210,7 @@ namespace WKLocalizationLoader.Modules
             var description = "<color=#C7C7C7>"
                 + p.GetDescription(adjusted: true)
                 + "</color>";
-            var descriptionTemplate = AppPerkHoverTextTemplate
+            var descriptionTemplate = AppPerkTooltipTemplate
                 ?? "{title}{amount}\n{description}";
             __instance.tooltip.tip = descriptionTemplate
                 .Replace("{title}", title)
@@ -229,16 +228,21 @@ namespace WKLocalizationLoader.Modules
         )
         {
             if (!IsEnabled || AppRefreshPurchasedText is null) return;
-            var refreshUI = __instance.reloadSettingsRoot;
-            var tmpTexts = refreshUI.GetComponentsInChildren<TMP_Text>();
-            if (tmpTexts is null || tmpTexts.Length == 0) return;
-            for (var tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
+            __instance.StartCoroutine(TranslatePurchasedText());
+            IEnumerator TranslatePurchasedText()
             {
-                var tmpText = tmpTexts[tmpIndex];
-                if (tmpText.text == "<color=\"red>PURCHASED</color>")
+                yield return null;
+                var refreshUI = __instance.reloadSettingsRoot;
+                var tmpTexts = refreshUI.GetComponentsInChildren<TMP_Text>();
+                if (tmpTexts is null || tmpTexts.Length == 0) yield break;
+                for (var tmpIndex = 0; tmpIndex < tmpTexts.Length; tmpIndex++)
                 {
-                    tmpText.text = AppRefreshPurchasedText;
-                    return;
+                    var tmpText = tmpTexts[tmpIndex];
+                    if (tmpText.text == "<color=\"red>PURCHASED</color>")
+                    {
+                        tmpText.text = AppRefreshPurchasedText;
+                        yield break;
+                    }
                 }
             }
         }

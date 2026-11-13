@@ -72,11 +72,11 @@ namespace WKLocalizationLoader.Modules
             var paletteIndex = handCosmetic.currentPaletteId + 1;
             var paletteCount = palettes.Count;
             var paletteTextTemplate = PaletteTextTemplate
-                ?? "{name} ({current}/{count})";
+                ?? "{paletteName} ({current}/{total})";
             infoPanel.debugText.text = paletteTextTemplate
-                .Replace("{name}", paletteName)
+                .Replace("{paletteName}", paletteName)
                 .Replace("{current}", paletteIndex.ToString())
-                .Replace("{count}", paletteCount.ToString());
+                .Replace("{total}", paletteCount.ToString());
         }
     }
 }

@@ -17,9 +17,11 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> GamemodeDescriptions;
         [JsonProperty]
-        public static Dictionary<string, string> NewGameTexts;
+        public static Dictionary<string, string> GamemodeNewGameTexts;
         [JsonProperty]
         public static Dictionary<string, string> GamemodeIntroTexts;
+        [JsonProperty]
+        public static Dictionary<string, string> GamemodeMedalTitles;
         [JsonProperty]
         public static Dictionary<string, string> GamemodeTextPrefixes;
         [JsonProperty]
@@ -29,7 +31,7 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> ModifierAppends;
         [JsonProperty]
-        public static bool KeepWhiteSpaceInGamemodeName;
+        public static bool KeepWhiteSpaceInCapsuleName;
         [JsonProperty]
         public static string GamemodeTextTemplate;
         [JsonProperty]
@@ -50,50 +52,45 @@ namespace WKLocalizationLoader.Modules
         public static void PatchScriptableObjects()
         {
             if (!IsEnabled) return;
-            PatchGamemodes();
-            PatchGamemodeSettings();
+            var database = CL_AssetManager.GetFullCombinedAssetDatabase();
+            database?.gamemodeAssets?.ForEach(i => PatchGamemode(i));
         }
 
-        public static void PatchGamemodes()
+        public static void PatchGamemode(M_Gamemode gamemode)
         {
-            var gamemodes = CacheManager
-                .EnumerateScriptableObjects<M_Gamemode>();
-            foreach (var gamemode in gamemodes)
-            {
-                gamemode.unlockHint = GetTextTranslation(
-                    GamemodeUnlockHints,
-                    gamemode.unlockHint
-                );
-                gamemode.modeDescription = GetTextTranslation(
-                    GamemodeDescriptions,
-                    gamemode.modeDescription
-                );
-                gamemode.newGameText = GetTextTranslation(
-                    NewGameTexts,
-                    gamemode.newGameText
-                );
-                gamemode.introText = GetTextTranslation(
-                    GamemodeIntroTexts,
-                    gamemode.introText
-                );
-            }
+            if (gamemode is null) return;
+            gamemode.unlockHint = GetTextTranslation(
+                GamemodeUnlockHints,
+                gamemode.unlockHint
+            );
+            gamemode.modeDescription = GetTextTranslation(
+                GamemodeDescriptions,
+                gamemode.modeDescription
+            );
+            gamemode.newGameText = GetTextTranslation(
+                GamemodeNewGameTexts,
+                gamemode.newGameText
+            );
+            gamemode.introText = GetTextTranslation(
+                GamemodeIntroTexts,
+                gamemode.introText
+            );
+            gamemode.gamemodeSettings?.ForEach(i => PatchGamemodeSetting(i));
         }
 
-        public static void PatchGamemodeSettings()
+        public static void PatchGamemodeSetting(
+            GamemodeSetting gamemodeSetting
+        )
         {
-            var gamemodeSettings = CacheManager
-                .EnumerateScriptableObjects<GamemodeSetting>();
-            foreach (var gamemodeSetting in gamemodeSettings)
-            {
-                gamemodeSetting.title = GetTextTranslation(
-                    ModifierTitles,
-                    gamemodeSetting.title
-                );
-                gamemodeSetting.description = GetTextTranslation(
-                    ModifierDescriptions,
-                    gamemodeSetting.description
-                );
-            }
+            if (gamemodeSetting is null) return;
+            gamemodeSetting.title = GetTextTranslation(
+                ModifierTitles,
+                gamemodeSetting.title
+            );
+            gamemodeSetting.description = GetTextTranslation(
+                ModifierDescriptions,
+                gamemodeSetting.description
+            );
         }
 
         [HarmonyPostfix]
@@ -169,6 +166,22 @@ namespace WKLocalizationLoader.Modules
 
         [HarmonyPostfix]
         [HarmonyPatch(
+            typeof(UI_ScoreScreen),
+            nameof(UI_ScoreScreen.SetMedalInfo)
+        )]
+        public static void Postfix_ScoreScreen_SetMedalInfo(
+            UI_ScoreScreen __instance
+        )
+        {
+            if (!IsEnabled) return;
+            __instance.scoreRankText.text = GetTextTranslation(
+                GamemodeMedalTitles,
+                __instance.scoreRankText.text
+            );
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
             typeof(UI_GamemodeSetting),
             nameof(UI_GamemodeSetting.UpdateColor)
         )]
@@ -208,9 +221,9 @@ namespace WKLocalizationLoader.Modules
                 StringSplitOptions.None
             );
             if (gamemodeTextSegments.Length != 2) return gamemodeText;
-            var prefix = gamemodeTextSegments[0];
-            var modifiers = gamemodeTextSegments[1];
-            prefix = GetTextTranslation(GamemodeTextPrefixes, prefix);
+            var textPrefix = gamemodeTextSegments[0];
+            var modifierAppends = gamemodeTextSegments[1];
+            textPrefix = GetTextTranslation(GamemodeTextPrefixes, textPrefix);
             if (
                 CapsuleNames != null
                 && CapsuleNames.TryGetValue(
@@ -222,37 +235,32 @@ namespace WKLocalizationLoader.Modules
             {
                 gamemodeName = WhiteSpaceRegex.Replace(
                     capsuleName,
-                    KeepWhiteSpaceInGamemodeName ? " " : ""
+                    KeepWhiteSpaceInCapsuleName ? " " : ""
                 );
             }
-            if (modifiers != null && ModifierAppends != null)
+            if (ModifierAppends != null)
             {
-                foreach (var modifierAppend in ModifierAppends)
+                foreach (var translation in ModifierAppends)
                 {
-                    var originalAppend = modifierAppend.Key;
-                    var translatedAppend = modifierAppend.Value;
-                    if (originalAppend is null || translatedAppend is null)
-                    {
-                        continue;
-                    }
-                    modifiers = modifiers.Replace(
-                        originalAppend,
-                        translatedAppend
+                    if (translation.Value is null) continue;
+                    modifierAppends = modifierAppends.Replace(
+                        translation.Key,
+                        translation.Value
                     );
                 }
             }
             var gamemodeTextTemplate = GamemodeTextTemplate
-                ?? "{prefix}{gamemodeName}{modifierAppends}";
+                ?? "{textPrefix}{capsuleName}{modifierAppends}";
             return gamemodeTextTemplate
-                .Replace("{prefix}", prefix)
-                .Replace("{gamemodeName}", gamemodeName)
-                .Replace("{modifierAppends}", modifiers);
+                .Replace("{textPrefix}", textPrefix)
+                .Replace("{capsuleName}", gamemodeName)
+                .Replace("{modifierAppends}", modifierAppends);
         }
 
         public static string GetTranslatedProgress(ProgressionUnlock unlock)
         {
             var progress = unlock.GetProgressString();
-            if (progress != "N/A" && ModifierUnlockProgressTemplate != null)
+            if (ModifierUnlockProgressTemplate != null)
             {
                 var progressSegments = progress.Split(new char[] { '/' }, 2);
                 if (progressSegments.Length == 2)

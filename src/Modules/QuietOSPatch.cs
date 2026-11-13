@@ -20,13 +20,15 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> MessageOptions;
         [JsonProperty]
-        public static Dictionary<string, string> HoverTexts;
+        public static Dictionary<string, string> Tooltips;
         [JsonProperty]
         public static Dictionary<string, string> ContextMenuOptions;
         [JsonProperty]
         public static Dictionary<string, string> StationIDs;
         [JsonProperty]
         public static Dictionary<string, string> UnlockerAccessTitles;
+        [JsonProperty]
+        public static Dictionary<string, string> ScannerScanTexts;
         [JsonProperty]
         public static string FileCounterTemplate;
         [JsonProperty]
@@ -41,6 +43,10 @@ namespace WKLocalizationLoader.Modules
         public static string SaveTemplate;
         [JsonProperty]
         public static string UnlockerCostTemplate;
+        [JsonProperty]
+        public static string ScannerFrequencyTemplate;
+        [JsonProperty]
+        public static string ScannerPhaseTemplate;
         [JsonProperty]
         public static string SolarKnightScoreTemplate;
         [JsonProperty]
@@ -141,7 +147,7 @@ namespace WKLocalizationLoader.Modules
         public static void Prefix_TooltipManager_ShowTip(ref string tip)
         {
             if (!IsEnabled) return;
-            tip = GetTextTranslation(HoverTexts, tip);
+            tip = GetTextTranslation(Tooltips, tip);
         }
 
         [HarmonyPrefix]
@@ -297,6 +303,49 @@ namespace WKLocalizationLoader.Modules
                 : UnlockerCostTemplate;
             __instance.authorizationCostTextObject.text = costTemplate
                 .Replace("{cost}", cost.ToString());
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(App_FrequencyUnlocker),
+            nameof(App_FrequencyUnlocker.Update)
+        )]
+        public static void Postfix_FrequencyUnlocker_Update(
+            App_FrequencyUnlocker __instance
+        )
+        {
+            if (!IsEnabled) return;
+            var frequencyText = __instance.frequencyText.text;
+            if (
+                frequencyText.EndsWith(" kHz")
+                && ScannerFrequencyTemplate != null
+            )
+            {
+                var frequency =
+                    frequencyText.Substring(0, frequencyText.Length - 4);
+                __instance.frequencyText.text = ScannerFrequencyTemplate
+                    .Replace("{frequency}", frequency);
+            }
+            var phaseText = __instance.phaseText.text;
+            if (
+                phaseText.EndsWith("° P-Angle")
+                && ScannerPhaseTemplate != null
+            )
+            {
+                var phase = phaseText.Substring(0, phaseText.Length - 9);
+                __instance.phaseText.text = ScannerPhaseTemplate
+                    .Replace("{phase}", phase);
+            }
+            if (
+                ScannerScanTexts != null
+                && ScannerScanTexts.TryGetValue(
+                    __instance.scanText.text,
+                    out string scanText
+                )
+            )
+            {
+                __instance.scanText.text = scanText;
+            }
         }
 
         [HarmonyPostfix]

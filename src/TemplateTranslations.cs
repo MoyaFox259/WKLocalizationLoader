@@ -87,7 +87,6 @@ namespace WKLocalizationLoader
                 foreach (var templateMapping in _templateMappings)
                 {
                     var originalTemplateRegex = templateMapping.Key;
-                    if (originalTemplateRegex is null) continue;
                     var originalTemplateMatch =
                         originalTemplateRegex.Match(originalText);
                     if (originalTemplateMatch.Success)

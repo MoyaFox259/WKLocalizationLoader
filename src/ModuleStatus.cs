@@ -7,7 +7,8 @@ namespace WKLocalizationLoader
         OK,
         Disabled,
         Conflicted,
-        Failed
+        Failed,
+        Unsupported
     }
 }
 

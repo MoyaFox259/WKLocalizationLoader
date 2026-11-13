@@ -88,6 +88,7 @@ namespace WKLocalizationLoader.Modules
             var lockedDescription = unlock.unlockHint;
             if (unlock.showProgression && unlock.GetProgress() > 0f)
             {
+                Plugin.Logger.LogWarning(unlock.id);
                 lockedDescription = GetTranslatedProgressText(unlock);
             }
             popup.UpdateInformation(
@@ -107,6 +108,7 @@ namespace WKLocalizationLoader.Modules
             IEnumerable<CodeInstruction> codeInstructions
         )
         {
+            if (!IsEnabled) return codeInstructions;
             var codeMatcher = new CodeMatcher(codeInstructions);
             codeMatcher.MatchForward(
                 false,
@@ -156,25 +158,22 @@ namespace WKLocalizationLoader.Modules
         )
         {
             var progress = unlock.GetProgressString();
-            if (progress != "N/A")
-            {
-                var progressSegments = progress.Split(new char[] { '/' }, 2);
-                if (
-                    progressSegments.Length == 2
-                    && UnlockProgressTextTemplates != null
-                    && UnlockProgressTextTemplates.TryGetValue(
-                        unlock.id,
-                        out string progressTextTemplate
-                    )
-                    && progressTextTemplate != null
+            var progressSegments = progress.Split(new char[] { '/' }, 2);
+            if (
+                progressSegments.Length == 2
+                && UnlockProgressTextTemplates != null
+                && UnlockProgressTextTemplates.TryGetValue(
+                    unlock.id,
+                    out string progressTextTemplate
                 )
-                {
-                    var current = progressSegments[0];
-                    var required = progressSegments[1];
-                    return progressTextTemplate
-                        .Replace("{current}", current)
-                        .Replace("{required}", required);
-                }
+                && progressTextTemplate != null
+            )
+            {
+                var current = progressSegments[0];
+                var required = progressSegments[1];
+                return progressTextTemplate
+                    .Replace("{current}", current)
+                    .Replace("{required}", required);
             }
             return "Progress: " + progress + " " + unlock.progressionString;
         }

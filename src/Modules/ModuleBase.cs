@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using HarmonyLib;
 using WKLocalizationLoader.Config;
 
 namespace WKLocalizationLoader.Modules
@@ -10,15 +11,15 @@ namespace WKLocalizationLoader.Modules
     {
         [JsonIgnore]
         public static bool IsEnabled = false;
+        [JsonIgnore]
+        public static bool IsPatched = false;
 
         public ModuleBase()
         {
-            var moduleSettingsField = this
-                .GetType()
-                .GetField(
-                    "ModuleSettings",
-                    BindingFlags.Public | BindingFlags.Static
-                );
+            var moduleSettingsField = AccessTools.Field(
+                this.GetType(),
+                "ModuleSettings"
+            );
             if (moduleSettingsField is null) return;
             var configSectionAttribute = moduleSettingsField.FieldType
                 .GetCustomAttribute<ConfigSectionAttribute>();

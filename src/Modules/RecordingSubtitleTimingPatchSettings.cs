@@ -11,7 +11,7 @@ namespace WKLocalizationLoader.Modules
     {
         [ConfigEntry(
             "BaseDuration",
-            2.2f,
+            0.8f,
             "Base duration (in seconds) for displaying a subtitle."
         )]
         public float BaseDuration;

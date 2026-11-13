@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -64,6 +65,9 @@ namespace WKLocalizationLoader
             LoadModule<AnnouncementSubtitleTimingPatch>(
                 "AnnouncementSubtitleTimings.json"
             );
+            LoadModule<ClosedCaptionSubtitlePatch>(
+                "ClosedCaptionSubtitles.json"
+            );
             LoadModule<CosmeticPatch>("Cosmetics.json");
             LoadModule<DeathTextPatch>("DeathTexts.json");
             LoadModule<DocumentPatch>("Documents.json");
@@ -97,16 +101,6 @@ namespace WKLocalizationLoader
         {
             var moduleClass = typeof(TModule);
             if (
-                CheckConflictedMods(
-                    moduleClass,
-                    out List<string> conflictedModGUIDs
-                )
-            )
-            {
-                RegisterConflictedModule(moduleClass, conflictedModGUIDs);
-                return;
-            }
-            if (
                 !FileManager.TryGetModuleFilePath(
                     fileName,
                     out string filePath
@@ -132,7 +126,26 @@ namespace WKLocalizationLoader
             }
             catch (Exception e)
             {
+                ModuleBase<TModule>.IsEnabled = false;
                 RegisterDeserializationFailedModule(moduleClass, fileName, e);
+                _logger?.LogWarning(e);
+                return;
+            }
+            if (!CheckSupportedGameVersion(moduleClass))
+            {
+                ModuleBase<TModule>.IsEnabled = false;
+                RegisterGameVersionUnsupportedModule(moduleClass);
+                return;
+            }
+            if (
+                CheckConflictedMods(
+                    moduleClass,
+                    out List<string> conflictedModGUIDs
+                )
+            )
+            {
+                ModuleBase<TModule>.IsEnabled = false;
+                RegisterModConflictedModule(moduleClass, conflictedModGUIDs);
                 return;
             }
             if (!ModuleBase<TModule>.IsEnabled)
@@ -165,7 +178,7 @@ namespace WKLocalizationLoader
             RegisterModule(moduleClass, ModuleStatus.Disabled, message);
         }
 
-        public static void RegisterConflictedModule(
+        public static void RegisterModConflictedModule(
             Type moduleClass,
             List<string> conflictedModGUIDs
         )
@@ -198,6 +211,16 @@ namespace WKLocalizationLoader
             RegisterModule(moduleClass, ModuleStatus.Failed, message);
         }
 
+        public static void RegisterGameVersionUnsupportedModule(
+            Type moduleClass
+        )
+        {
+            string message =
+                $"\"{moduleClass.Name}\" is disabled on current version of "
+                + "the game that the mod does not yet fully support.";
+            RegisterModule(moduleClass, ModuleStatus.Unsupported, message);
+        }
+
         public static void RegisterModule(
             Type moduleClass,
             ModuleStatus status,
@@ -215,6 +238,18 @@ namespace WKLocalizationLoader
             }
             moduleInfo.Status = status;
             moduleInfo.Message = message;
+        }
+
+        public static bool CheckSupportedGameVersion(Type moduleClass)
+        {
+            var crossGameVersionCompatibleAttribute = moduleClass
+                .GetCustomAttribute<CrossGameVersionCompatibleAttribute>();
+            if (crossGameVersionCompatibleAttribute != null) return true;
+            if (_plugin is null) return false;
+            return (
+                _plugin.CheckSupportedGameVersion()
+                || _plugin.AllowAllModulesOnUnsupportedGameVersion
+            );
         }
 
         public static bool CheckConflictedMods(

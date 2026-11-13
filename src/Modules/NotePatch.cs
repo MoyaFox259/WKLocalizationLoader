@@ -12,6 +12,10 @@ namespace WKLocalizationLoader.Modules
     {
         [JsonProperty]
         public static Dictionary<string, string> NoteTexts;
+        [JsonProperty]
+        public static Dictionary<string, string> RoachTexts;
+        [JsonProperty]
+        public static string RoachTextTemplate;
 
         [JsonIgnore]
         public static Dictionary<string, string> TrimmedNoteTexts;
@@ -21,8 +25,17 @@ namespace WKLocalizationLoader.Modules
         [OnDeserialized]
         private void OnDeserialized(StreamingContext _)
         {
-            TrimmedNoteTexts = NoteTexts
-                .ToDictionary(t => t.Key.TrimStart(), t => t.Value);
+            if (NoteTexts != null && NoteTexts.Count > 0)
+            {
+                TrimmedNoteTexts = new Dictionary<string, string>();
+                foreach (var translation in NoteTexts)
+                {
+                    var translatedText = translation.Value;
+                    if (translatedText is null) continue;
+                    var originalText = translation.Key.TrimStart();
+                    TrimmedNoteTexts[originalText] = translatedText;
+                }
+            }
         }
 
         [HarmonyPostfix]
@@ -39,6 +52,50 @@ namespace WKLocalizationLoader.Modules
                 TrimmedNoteTexts,
                 __instance.text.text
             );
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(CL_LocalizationManager.Localization),
+            nameof(CL_LocalizationManager.Localization.GetLine)
+        )]
+        public static string Postfix_Localization_GetLine(
+            string __result,
+            string group,
+            string key
+        )
+        {
+            if (
+                !IsEnabled
+                || group != "roachtext"
+                || RoachTexts is null
+                || !RoachTexts.ContainsKey(key)
+            )
+            {
+                return __result;
+            }
+            return RoachTexts[key] ?? __result;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(
+            typeof(CL_UIManager),
+            nameof(CL_UIManager.SetDescription)
+        )]
+        public static void Prefix_UIManager_SetDescription(
+            ref string t
+        )
+        {
+            if (
+                IsEnabled
+                && t.StartsWith("<color=#89501A>[ROACH MODE] ")
+                && t.EndsWith("</color>")
+                && RoachTextTemplate != null
+            )
+            {
+                var roachText = t.Substring(28, t.Length - 36);
+                t = RoachTextTemplate.Replace("{text}", roachText);
+            }
         }
     }
 }

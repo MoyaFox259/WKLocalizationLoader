@@ -1,6 +1,4 @@
 {
-  "RandomCharacters": "abcdefghijklmnopqrstuvwxyz[MS]",
-  "NonRandomCharacters": ",.!?' [MS]",
   "MotherSubtitles": {
     "player-grubcrush": "{rand:monster. as the rest of your kind:monstrous.}[MS]",
     "player-kill": "die.[MS]",
@@ -53,6 +51,7 @@
     "ex:Item_Note_02_Bloody": "Stained.[MS]",
     "ex:Item_Radio": "Music, connects.[MS]",
     "ex:Item_AutoPiton": "Clever improvements.[MS]",
+    "ex:Item_GrapplePiton": "Impressive.[MS]",
     "ex:Item_Piton": "Your kind made many of these.[MS]",
     "ex:Item_BarnacleHook": "Young, hungry. Needs sustenance.[MS]",
     "ex:Item_BarnacleHook_Infinite": "Young but... strong. Interesting.[MS]",
@@ -71,8 +70,8 @@
     "ex:Item_RebarRope_Holiday": "Shiny.[MS]",
     "ex:Item_Rope": "Oh, cool. Not. You cheater.[MS]",
     "ex:Item_Rubble": "An illusion... Mockery of your architecture.[MS]",
-    "ex:Item_BanHammer": "Terrifying. From beyond any world.[MS]",
     "ex:Item_Hammer": "Crude. Effective.[MS]",
+    "ex:Item_BanHammer": "Terrifying. From beyond any world.[MS]",
     "ex:Item_10mm_Ammo": "Full of little sparks.[MS]",
     "ex:Item_Handgun": "A killing machine. Once used on my children..[MS]",
     "ex:Item_Handgun_Debug": "Say hi to samgrub for me.[MS]",
@@ -93,6 +92,10 @@
     "ex:Item_Trinket_Nugget": "Very shiny..[MS]",
     "ex:Item_Trinket_PhotoOfHome": "A lake.. a lost shore.[MS]",
     "ex:Item_Trinket_Pouch": "Versatile.[MS]",
+    "ex:Item_Artifact_CraftCube": "{rand:Your own shape, but an echo of long dead builders.:Your kind wades in trodden waters.:Part of a cycle, all builder folk. The burrowers of home will find the same.}[MS]",
+    "ex:Item_Artifact_CraftCube_Dev": "First they mined, then they crafted.[MS]",
+    "ex:Item_Component_Handwheel": "It would be more impressive if you made it spin.[MS]",
+    "ex:Item_Other_Key_01": "{rand:Older than this place, or decayed to appear so...:Reminds me of that room... Perhaps you'll meet them one day, I did once in my youth.}[MS]",
     "mother-instagib": "WHY? IDIOT CHILD.[MS]",
     "nest-hunter-intro-01": "LEAVING PROTECTION... SLIPPERY BEAST. BE ALERT[MS]",
     "nest-hunter-intro-02": "CLIMB, LITTLE ONE.. ESCAPE..[MS]",
@@ -138,6 +141,8 @@
     "i4-attemptadoptgrub": "{rand:Take care of the little ones:Keep them safe.}[MS]",
     "i4-notupthere": "{rand:The way out is in front of me Child.:Child.. the path is before me, not above.}[MS]",
     "noshops": "You are bound.. Even still, many thanks, Child.[MS]"
-  }
+  },
+  "RandomCharacters": "abcdefghijklmnopqrstuvwxyz",
+  "NonRandomCharacters": ",.!?' "
 }
 

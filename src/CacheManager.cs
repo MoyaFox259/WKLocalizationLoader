@@ -19,8 +19,6 @@ namespace WKLocalizationLoader
         private static Dictionary<string, Font> _fontCache;
         private static Dictionary<string, TMP_FontAsset> _fontAssetCache;
         private static Dictionary<(string, RegexOptions), Regex> _regexCache;
-        private static ValueCollection<Type, UnityEngine.Object>
-            _scriptableObjectCache;
         private static Dictionary<string, TextAsset> _textAssetCache;
         private static Plugin _plugin;
         private static ManualLogSource _logger;
@@ -263,49 +261,6 @@ namespace WKLocalizationLoader
             regex = new Regex(pattern, regexOptions);
             _regexCache[key] = regex;
             return regex;
-        }
-
-        public static void ScanScriptableObjects()
-        {
-            _scriptableObjectCache ??=
-                new ValueCollection<Type, UnityEngine.Object>();
-            var scriptableObjects =
-                Resources.FindObjectsOfTypeAll(typeof(ScriptableObject));
-            for (
-                var objectIndex = 0;
-                objectIndex < scriptableObjects.Length;
-                objectIndex++
-            )
-            {
-                var scriptableObject = scriptableObjects[objectIndex];
-                _scriptableObjectCache.Add(
-                    scriptableObject.GetType(),
-                    scriptableObject
-                );
-            }
-        }
-
-        public static IEnumerable<TScriptableObject>
-            EnumerateScriptableObjects<TScriptableObject>()
-            where TScriptableObject : ScriptableObject
-        {
-            if (
-                _scriptableObjectCache != null
-                && _scriptableObjectCache.TryGetValues(
-                    typeof(TScriptableObject),
-                    out List<UnityEngine.Object> scriptableObjects
-                )
-            )
-            {
-                foreach (var scriptableObject in scriptableObjects)
-                {
-                    if (scriptableObject is TScriptableObject so)
-                    {
-                        yield return so;
-                    }
-                }
-            }
-            yield break;
         }
 
         public static TextAsset GetOrCreateTextAsset(string text)

@@ -16,6 +16,7 @@
     "<size=28>Life Lost. {0} Lives Remaining.": "<size=28>Life Lost. {0} Lives Remaining.[TS]",
     "<size=40>Habitation</size>\n<color=grey>Service Shaft": "<size=40>Habitation</size>\n<color=grey>Service Shaft[TS]",
     "<size=40>Shortcut</size>\n<color=grey>Expulsion Chute": "<size=40>Shortcut</size>\n<color=grey>Expulsion Chute[TS]",
+    "Locked. You need a key.": "Locked. You need a key.[TS]",
     "<color=red>YOUR SENSE OF TIME AND SPACE DISTORTS...": "<color=red>YOUR SENSE OF TIME AND SPACE DISTORTS...[TS]",
     "<color=red>YOUR SENSE OF TIME AND SPACE DISTORTS": "<color=red>YOUR SENSE OF TIME AND SPACE DISTORTS[TS]",
     "Invalid Item!": "Invalid Item![TS]",
@@ -50,6 +51,7 @@
     "<font=\"Rho SDF Glow\"><size=40>TOWER BEYOND HOME</size></font>\n<color=grey>A WISH GRANTED</color>": "<font=\"Rho SDF Glow\"><size=40>TOWER BEYOND HOME</size></font>\n<color=grey>A WISH GRANTED</color>[TS]",
     "<font=\"Rho SDF Glow\"><size=40>OUR FLOCK, THREE CLOUDS</size></font>\n<color=grey>A WISH GRANTED</color>": "<font=\"Rho SDF Glow\"><size=40>OUR FLOCK, THREE CLOUDS</size></font>\n<color=grey>A WISH GRANTED</color>[TS]",
     "<font=\"Rho SDF Glow\"><size=40>FORGOTTEN CITY, A NEW ACHE</size></font>\n<color=grey>A WISH GRANTED</color>": "<font=\"Rho SDF Glow\"><size=40>FORGOTTEN CITY, A NEW ACHE</size></font>\n<color=grey>A WISH GRANTED</color>[TS]",
+    "<size=40>???</size>\n<color=grey>Lost Pier": "<size=40>???</size>\n<color=grey>Lost Pier[TS]",
     "BANK {0} ROACHES": "BANK {0} ROACHES[TS]",
     "{0} roaches banked. {1} remain.": "{0} roaches banked. {1} remain.[TS]",
     "<color=red>ESCAPE WITH THE DISK": "<color=red>ESCAPE WITH THE DISK[TS]",
@@ -67,7 +69,13 @@
     "Huh? looks like you cheated or something?": "Huh? looks like you cheated or something?[TS]",
     "Did you just try to get in here with cheats?": "Did you just try to get in here with cheats?[TS]",
     "<size=40>Cheatrooms</size>\n<color=grey>His Domain": "<size=40>Cheatrooms</size>\n<color=grey>His Domain[TS]",
-    "<size=40>Cheatrooms</size>\n<color=grey>Her Domain": "<size=40>Cheatrooms</size>\n<color=grey>Her Domain[TS]"
+    "<size=40>Cheatrooms</size>\n<color=grey>Her Domain": "<size=40>Cheatrooms</size>\n<color=grey>Her Domain[TS]",
+    "welcome to the sqeakeazy\n\n\n\n\n\nplay mice": "welcome to the sqeakeazy\n\n\n\n\n\nplay mice[TS]",
+    "My names 'tony. big tony. dont forget it.": "My names 'tony. big tony. dont forget it.[TS]",
+    "did you hear about habitation brown?\n\ncrazy stuff. wild.": "did you hear about habitation brown?\n\ncrazy stuff. wild.[TS]",
+    "i love my husband jimbo": "i love my husband jimbo[TS]",
+    "{lang:ui-popups:tip-campaign-intro-01}": "{lang:ui-popups:tip-campaign-intro-01}[TS]",
+    "{lang:ui-popups:tip-campaign-intro-02}": "{lang:ui-popups:tip-campaign-intro-02}[TS]"
   }
 }
 

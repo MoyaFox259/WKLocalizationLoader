@@ -93,7 +93,8 @@
     "Funniest Timeline": "Funniest Timeline[PK]",
     "Adoption Day": "Adoption Day[PK]",
     "Peripheral Binding": "Peripheral Binding[PK]",
-    "Teleporter Malfunction": "Teleporter Malfunction[PK]"
+    "Teleporter Malfunction": "Teleporter Malfunction[PK]",
+    "Haunted": "Haunted[PK]"
   },
   "PerkDescriptions": {
     "(-) Reduces player inventory capacity by 50%": "(-) Reduces player inventory capacity by 50%[[PK]]",
@@ -128,15 +129,15 @@
     "You are no longer human. You no longer belong to yourself.\n(+)You can fly, at the cost of stamina and health.\n(+)Improves your air control by {%addAirControl}%": "You are no longer human. You no longer belong to yourself.\n(+)You can fly, at the cost of stamina and health.\n(+)Improves your air control by {%addAirControl}%[[PK]]",
     "(+)Gain a temporary movement and stamina buff which grows the further you fall.": "(+)Gain a temporary movement and stamina buff which grows the further you fall.[[PK]]",
     "(+) Ammunition takes no inventory space.": "(+) Ammunition takes no inventory space.[[PK]]",
-    "(+)Reduced grip loss from most hazards\n(+)-{/%damageResist}% to incoming damage.": "(+)Reduced grip loss from most hazards\n(+)-{/%damageResist}% to incoming damage.[[PK]]",
+    "(+)Reduced grip loss from most hazards.\n(+)-{/%damageResist}% to incoming damage.\n(+)-{/%gripResist}% to incoming stamina damage.": "(+)Reduced grip loss from most hazards.\n(+)-{/%damageResist}% to incoming damage.\n(+)-{/%gripResist}% to incoming stamina damage.[[PK]]",
     "(+)Increases Encumberance Capacity by {addCapacity} Items": "(+)Increases Encumberance Capacity by {addCapacity} Items[[PK]]",
     "(+) You can pocket Rebar and other large items.\n(+) Your pockets can stack an additional {addPocketCapacity} of any regular item and {addPocketBigItemCapacity} large items.": "(+) You can pocket Rebar and other large items.\n(+) Your pockets can stack an additional {addPocketCapacity} of any regular item and {addPocketBigItemCapacity} large items.[[PK]]",
     "(+)Increases climbing speed by {%addClimb}%": "(+)Increases climbing speed by {%addClimb}%[[PK]]",
     "(+)Roaches are automatically banked when placed in your bag.\n<b><u>When you bank a roach in your bag:</u></b>\n(+)Restore some stamina.\n(+)Gain a temporary minor movement buff.": "(+)Roaches are automatically banked when placed in your bag.\n<b><u>When you bank a roach in your bag:</u></b>\n(+)Restore some stamina.\n(+)Gain a temporary minor movement buff.[[PK]]",
     "(+)Regenerate stamina {%addGroundedStaminaRegen}% faster when grounded.": "(+)Regenerate stamina {%addGroundedStaminaRegen}% faster when grounded.[[PK]]",
     "(+)Decreases stamina usage by {%addGripStrength}%": "(+)Decreases stamina usage by {%addGripStrength}%[[PK]]",
-    "(+)Increased resistance to knockback.\n(+)-{/%damageResist}% to incoming damage.": "(+)Increased resistance to knockback.\n(+)-{/%damageResist}% to incoming damage.[[PK]]",
-    "(+)Increases stamina regeneration by {%addStaminaRegen}%": "(+)Increases stamina regeneration by {%addStaminaRegen}%[[PK]]",
+    "(+)Increased resistance to knockback.\n(+)-{/%damageResist}% to incoming damage.\n(+)+{%addGroundedJump}% jump height while grounded.": "(+)Increased resistance to knockback.\n(+)-{/%damageResist}% to incoming damage.\n(+)+{%addGroundedJump}% jump height while grounded.[[PK]]",
+    "(+)Increases stamina regeneration by {%addStaminaRegen}%\n(+)Increases health regeneration by {%addHealthRegen}%": "(+)Increases stamina regeneration by {%addStaminaRegen}%\n(+)Increases health regeneration by {%addHealthRegen}%[[PK]]",
     "(+)Improves Walking/Running speed by {%addSpeed}%\n(+)Improves Climbing speed by {%addClimb}%": "(+)Improves Walking/Running speed by {%addSpeed}%\n(+)Improves Climbing speed by {%addClimb}%[[PK]]",
     "(+)Sweat sticky goop when grounded. Allows you to grab any surface. <color=yellow>\nLasts for +{^sgooptime}.": "(+)Sweat sticky goop when grounded. Allows you to grab any surface. <color=yellow>\nLasts for +{^sgooptime}.[[PK]]",
     "(+)When reviving by disk, all items are carried with you.\n(+)Improves Walking/Running speed by {%addSpeed}%\n(+)Improves Climbing speed by {%addClimb}%": "(+)When reviving by disk, all items are carried with you.\n(+)Improves Walking/Running speed by {%addSpeed}%\n(+)Improves Climbing speed by {%addClimb}%[[PK]]",
@@ -174,7 +175,7 @@
     "You got this!": "You got this![[PK]]",
     "<color=green>+ Increases the damage of your hammer.\n+ You can now hammer in Pitons with a single swing.</color>\n<color=red>Lasts for 10 Minutes": "<color=green>+ Increases the damage of your hammer.\n+ You can now hammer in Pitons with a single swing.</color>\n<color=red>Lasts for 10 Minutes[[PK]]",
     "<color=green>+30% Jump Height\n+30% Climbing Speed</color>\n<color=red>Lasts for 8 Minutes": "<color=green>+30% Jump Height\n+30% Climbing Speed</color>\n<color=red>Lasts for 8 Minutes[[PK]]",
-    "<color=green>+200% Climbing Speed\n<color=red>-60% Walking Speed": "<color=green>+200% Climbing Speed\n<color=red>-60% Walking Speed[[PK]]",
+    "<color=green>+150% Climbing Speed\n<color=red>-50% Walking Speed": "<color=green>+150% Climbing Speed\n<color=red>-50% Walking Speed[PK]]",
     "<color=green>Doubles Stamina</color>\n<color=red>Lasts for 10 Minutes": "<color=green>Doubles Stamina</color>\n<color=red>Lasts for 10 Minutes[[PK]]",
     "<color=green>+200% Stamina</color>\n<color=red>-25% Speed": "<color=green>+200% Stamina</color>\n<color=red>-25% Speed[[PK]]",
     "We're disappointed in you.": "We're disappointed in you.[[PK]]",
@@ -187,7 +188,8 @@
     "Watch your step!": "Watch your step![[PK]]",
     "Worlds Best Mother": "Worlds Best Mother[[PK]]",
     "<color=red>The less items you have</color> <color=green>the lower your gravity.</color>\n<color=red>You take 1.5x damage.</color>": "<color=red>The less items you have</color> <color=green>the lower your gravity.</color>\n<color=red>You take 1.5x damage.</color>[[PK]]",
-    "Trapped in the moment between your birth and your death.": "Trapped in the moment between your birth and your death.[[PK]]"
+    "Trapped in the moment between your birth and your death.": "Trapped in the moment between your birth and your death.[[PK]]",
+    "I AM WITH YOU": "I AM WITH YOU[[PK]]"
   },
   "PerkFlavorTexts": {
     "Also known as \"pinto beans\"": "Also known as \"pinto beans\"[PK]",
@@ -203,7 +205,7 @@
   },
   "DurationSecondTemplate": "{time} Second[PK]",
   "DurationSecondsTemplate": "{time} Seconds[PK]",
-  "AppPerkHoverTextTemplate": "{title}{amount}\n{description}[PK]",
+  "AppPerkTooltipTemplate": "{title}{amount}\n{description}[PK]",
   "AppPerkAmountTemplate": " ({amount}x)[PK]",
   "AppRefreshPurchasedText": "<color=\"red>PURCHASED</color>[PK]"
 }

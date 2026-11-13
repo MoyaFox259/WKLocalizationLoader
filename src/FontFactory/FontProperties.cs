@@ -23,11 +23,11 @@ namespace WKLocalizationLoader.FontFactory
         public float VerticalOffset;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-        [DefaultValue(4096)]
+        [DefaultValue(1024)]
         public int AtlasWidth;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-        [DefaultValue(4096)]
+        [DefaultValue(1024)]
         public int AtlasHeight;
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]

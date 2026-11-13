@@ -1,6 +1,6 @@
 {
   "ModuleSettings": {
-    "BaseDuration": 2.2,
+    "BaseDuration": 0.8,
     "CharacterInterval": 0.1,
     "EndDelay": 0.5,
     "UseOriginalDelay": false

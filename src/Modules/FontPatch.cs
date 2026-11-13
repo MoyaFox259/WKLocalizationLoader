@@ -9,6 +9,7 @@ using WKLocalizationLoader.FontFactory;
 
 namespace WKLocalizationLoader.Modules
 {
+    [CrossGameVersionCompatible]
     [HarmonyPriority(Priority.HigherThanNormal)]
     [HarmonyPatch]
     public class FontPatch : ModuleBase<FontPatch>
@@ -50,12 +51,12 @@ namespace WKLocalizationLoader.Modules
             ReplaceFont(__instance);
         }
 
-        public static void ReplaceFont(Text __instance)
+        public static void ReplaceFont(Text text)
         {
-            var targetFontName = __instance.font?.name;
+            var targetFontName = text.font?.name;
             if (TryGetSubstituteFont(targetFontName, out Font substituteFont))
             {
-                __instance.font = substituteFont;
+                text.font = substituteFont;
             }
         }
 

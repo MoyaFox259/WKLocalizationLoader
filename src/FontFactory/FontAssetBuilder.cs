@@ -425,7 +425,6 @@ namespace WKLocalizationLoader.FontFactory
             );
             atlas.filterMode = textureFilterMode;
             FontEngine.ResetAtlasTexture(atlas);
-            FontEngine.SetFaceSize(fontAsset.faceInfo.pointSize);
             var freeGlyphRects = new List<GlyphRect>()
             {
                 new GlyphRect(0, 0, atlas.width, atlas.height)
@@ -534,8 +533,14 @@ namespace WKLocalizationLoader.FontFactory
                     ShaderUtilities.ID_GradientScale,
                     (float)(fontAsset.atlasPadding + 1)
                 );
-                material.SetFloat(ShaderUtilities.ID_WeightNormal, 0f);
-                material.SetFloat(ShaderUtilities.ID_WeightBold, 0f);
+                material.SetFloat(
+                    ShaderUtilities.ID_WeightNormal,
+                    fontAsset.normalStyle
+                );
+                material.SetFloat(
+                    ShaderUtilities.ID_WeightBold,
+                    fontAsset.boldStyle
+                );
             }
             fontAsset.material = material;
             fontAsset.materialHashCode = material.GetHashCode();

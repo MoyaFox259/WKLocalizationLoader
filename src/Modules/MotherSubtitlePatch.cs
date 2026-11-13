@@ -12,11 +12,11 @@ namespace WKLocalizationLoader.Modules
     public class MotherSubtitlePatch : ModuleBase<MotherSubtitlePatch>
     {
         [JsonProperty]
+        public static Dictionary<string, string> MotherSubtitles;
+        [JsonProperty]
         public static string RandomCharacters;
         [JsonProperty]
         public static string NonRandomCharacters;
-        [JsonProperty]
-        public static Dictionary<string, string> MotherSubtitles;
 
         [JsonIgnore]
         public static MotherSubtitlePatchSettings ModuleSettings;
@@ -53,6 +53,7 @@ namespace WKLocalizationLoader.Modules
             IEnumerable<CodeInstruction> codeInstructions
         )
         {
+            if (!IsEnabled) return codeInstructions;
             var codeMatcher = new CodeMatcher(codeInstructions);
             codeMatcher.MatchForward(
                 false,

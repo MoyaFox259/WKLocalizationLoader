@@ -13,9 +13,13 @@ namespace WKLocalizationLoader.Modules
         [JsonProperty]
         public static Dictionary<string, string> PageTitles;
         [JsonProperty]
+        public static Dictionary<string, string> ShimmerColorTitles;
+        [JsonProperty]
         public static string LoadingProgressTemplate;
         [JsonProperty]
         public static string PageCounterTemplate;
+        [JsonProperty]
+        public static string ShimmerColorCounterTemplate;
 
         [JsonIgnore]
         public static MainMenuPatchSettings ModuleSettings;
@@ -32,6 +36,10 @@ namespace WKLocalizationLoader.Modules
             __instance.hasSkipped = true;
             var loadPercentageText = __instance.loadPercentageText;
             loadPercentageText.transform.parent.gameObject.SetActive(true);
+            if (FontAssetPatch.IsEnabled)
+            {
+                FontAssetPatch.AddFallbackFontAssets(loadPercentageText.font);
+            }
             loadPercentageText.text = LoadingProgressTemplate
                 .Replace("{progress}", "0");
             __instance.StartCoroutine(CustomLoadingIntro(__instance));
@@ -61,6 +69,44 @@ namespace WKLocalizationLoader.Modules
             var counterTemplate = PageCounterTemplate
                 ?? "{title} ({current}/{total})";
             pageTitle.text = counterTemplate
+                .Replace("{title}", title)
+                .Replace("{current}", current.ToString())
+                .Replace("{total}", total.ToString());
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(
+            typeof(ColorSetSettingBinder),
+            nameof(ColorSetSettingBinder.UpdateText)
+        )]
+        public static void Postfix_ColorSetSettingBinder_UpdateText(
+            ColorSetSettingBinder __instance
+        )
+        {
+            if (
+                !IsEnabled
+                || !__instance.showColorSetInfo
+                || __instance.text is null
+            )
+            {
+                return;
+            }
+            var shimmerColors =
+                SettingsManager.GetColorSettingsSet().colorSettings;
+            var currentShimmerColorID =
+                SettingsManager.GetSetting(__instance.settingName);
+            var shimmerIndex = shimmerColors
+                .FindIndex(i => i.name == currentShimmerColorID);
+            if (shimmerIndex < 0) return;
+            var title = GetTextTranslation(
+                ShimmerColorTitles,
+                shimmerColors[shimmerIndex].title
+            );
+            var current = shimmerIndex + 1;
+            var total = shimmerColors.Count;
+            var colorTemplate = ShimmerColorCounterTemplate
+                ??"Shimmer Color\n<color=grey>{title} ({current}/{total})";
+            __instance.text.text = colorTemplate
                 .Replace("{title}", title)
                 .Replace("{current}", current.ToString())
                 .Replace("{total}", total.ToString());
