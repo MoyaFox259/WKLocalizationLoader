@@ -12,7 +12,7 @@ if not GAME_FOLDER.exists():
     sys.exit(1)
 
 PROJECT_FOLDER = Path(__file__).parent
-PLUGIN_NAME = Path("mimimi-turret_wk-localization-loader")
+PLUGIN_NAME = Path("mimimi_turret-WKLocalizationLoader\\plugins")
 BINARY_NAME = Path("WKLocalizationLoader.dll")
 BINARY_FOLDER = PROJECT_FOLDER.joinpath("bin\\Debug\\netstandard2.1")
 BINARY_PATH = BINARY_FOLDER.joinpath(BINARY_NAME)

@@ -2,12 +2,13 @@
 > If you're looking for a ready-to-use White Knuckle translation mod, [WKTranslator](https://thunderstore.io/c/white-knuckle/p/galfarious/WKTranslator/) can be your best bet.
 > Go check it out! It's pretty easy to use and WK Modding Server's dedicated translation channel is a very good place to start your translation and collab with others.
 
-## About this project...
+## About
 
-> **Before continuing:**  
-> AI assistance was used to help me with background knowledge of Unity.
-> This project is still in a heavy WIP state as of writing this.
-> **Please proceed with caution.**
+This project is an alternative translation library mod for loading custom localizations for White Knuckle.  
+
+Current supported game version: **0.62**  
+
+You can obtain a copy of translation templates available at the [example translation](/examples/ExampleTranslation) page in the mod's repo.  
 
 ### Features 
 
@@ -27,13 +28,9 @@
 ❌ : Not supported as of writing this
 | Texts | Support |
 | :- | :- |
-| Main Menu UI | ✅ |
-| Score Screen UI | ✅ |
-| Gameplay UI | ✅ |
-| QuietOS UI | ✅ |
+| Vanilla Localization replacement (including Subtitles) | ✅ |
 | Gamemodes | ✅ |
-| Location Names | ✅ |
-| Subtitles | ✅ |
+| Levels | ✅ |
 | Cosmetics | ✅ |
 | Trinkets/Bindings | ✅ |
 | Perks | ✅ |
@@ -41,20 +38,28 @@
 | Progression Unlocks | ✅ |
 | Achievements | ✅ |
 | Objectives | ✅ |
-| Item Descriptions | ✅ |
-| Death Messages | ✅ |
-| Death Tips | ✅ |
 | Paper Notes | ✅ |
 | OS Documents | ✅ |
-| Scrawl Headers | ✅ |
-| In-world Texts | ✅ |
+| UI | ✅ |
+| QuietOS UI | ✅ |
 | Command Console | ❌ |
 
 **Audio replacement**  
-❌ No plans for audio replacement support as of writing this.
+❌ No plans for audio replacement support as of writing this. There're already plenty of examples of audio replacement mods.  
 
 **Texture replacement**  
-❌ No plans for texture replacement support as of writing this.
+❌ No plans for texture replacement support as of writing this. Replacing decal textures is difficult and beyond my ability.  
+
+---
+
+## How to Use
+
+This mod requires BepInEx to be installed in order to function.  
+
+To use this mod, specify the path to the folder where your translation .json files are located in the mod's config.  
+If a .json file is missing, its associated patch module will simply be disabled and ignored while patching.  
+
+A detailed documentaion of this mod is currently WIP.  
 
 ---
 
@@ -110,3 +115,10 @@ See [translation templates](/examples/ExampleTranslation) for more information.
 
 A detailed documentaion of this mod is currently WIP.  
 
+## Notes
+
+This mod is an **unofficial** translation tool. It is not affiliated with Dark Machine.  
+
+It patches the game's code heavily and is likely to break between game updates. I'll try to update it if breaks occur.  
+
+None of the code or asset of this mod is ai-generated.  

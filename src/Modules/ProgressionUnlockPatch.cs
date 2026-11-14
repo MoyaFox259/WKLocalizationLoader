@@ -88,7 +88,6 @@ namespace WKLocalizationLoader.Modules
             var lockedDescription = unlock.unlockHint;
             if (unlock.showProgression && unlock.GetProgress() > 0f)
             {
-                Plugin.Logger.LogWarning(unlock.id);
                 lockedDescription = GetTranslatedProgressText(unlock);
             }
             popup.UpdateInformation(
